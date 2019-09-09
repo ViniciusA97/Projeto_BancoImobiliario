@@ -1,9 +1,9 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
 import java.util.ArrayList;
 
-import jogadores.Jogador;
-import jogadores.SemSaldoException;
+import Util.jogadores.Jogador;
+import Util.jogadores.SemSaldoException;
 
 public class FachadaTabuleiro {
 

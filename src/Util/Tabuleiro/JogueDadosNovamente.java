@@ -1,7 +1,7 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
-import base.Comandos;
-import jogadores.Jogadores;
+import Util.base.Comandos;
+import Util.jogadores.Jogadores;
 
 public class JogueDadosNovamente implements Casa{
 	

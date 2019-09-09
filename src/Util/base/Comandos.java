@@ -1,8 +1,8 @@
-package base;
+package Util.base;
 
-import Tabuleiro.*;
-import jogadores.Jogadores;
-import observer.Mediador;
+import Util.Tabuleiro.*;
+import Util.jogadores.Jogadores;
+import Util.observer.Mediador;
 
 public class Comandos {
 

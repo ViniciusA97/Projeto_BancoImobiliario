@@ -1,9 +1,9 @@
-package base;
+package Util.base;
 
 import java.util.ArrayList;
 
-import Tabuleiro.*;
-import jogadores.Jogador;
+import Util.Tabuleiro.*;
+import Util.jogadores.Jogador;
 
 public class GeraString {
 

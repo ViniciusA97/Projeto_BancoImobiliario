@@ -1,4 +1,4 @@
-package jogadores;
+package Util.jogadores;
 
 public class JogadorJaExisteException extends Exception {
 

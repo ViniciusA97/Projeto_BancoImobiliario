@@ -1,7 +1,7 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
 import java.util.ArrayList;
-import jogadores.Jogador;
+import Util.jogadores.Jogador;
 
 public class GerenciamentoDeTerreno {
 

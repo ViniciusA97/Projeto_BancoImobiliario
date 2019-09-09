@@ -1,4 +1,4 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
 public class ParadaLivre implements Casa {
 

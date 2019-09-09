@@ -1,9 +1,9 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
-import base.FachadaComunicacao;
-import jogadores.Jogador;
-import jogadores.Jogadores;
-import jogadores.SemSaldoException;
+import Util.base.FachadaComunicacao;
+import Util.jogadores.Jogador;
+import Util.jogadores.Jogadores;
+import Util.jogadores.SemSaldoException;
 
 public class Empresas implements Casa,Comercial{
 	private String nome;

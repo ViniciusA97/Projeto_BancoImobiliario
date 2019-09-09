@@ -1,4 +1,4 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
 public class PontoDePartida implements Casa {
 	

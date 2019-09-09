@@ -1,6 +1,6 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
-import jogadores.Jogadores;
+import Util.jogadores.Jogadores;
 
 public class VaAteOInicio implements Casa{
 	public VaAteOInicio() {

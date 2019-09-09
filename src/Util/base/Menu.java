@@ -1,7 +1,7 @@
-package base;
+package Util.base;
 
-import Tabuleiro.FachadaTabuleiro;
-import jogadores.*;
+import Util.Tabuleiro.FachadaTabuleiro;
+import Util.jogadores.*;
 
 public class Menu {
 

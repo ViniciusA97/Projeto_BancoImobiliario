@@ -1,7 +1,7 @@
-package observer;
+package Util.observer;
 
-import Tabuleiro.Terreno;
-import jogadores.Jogadores;
+import Util.Tabuleiro.Terreno;
+import Util.jogadores.Jogadores;
 
 public class EventoMonopolio extends Events {
 	 

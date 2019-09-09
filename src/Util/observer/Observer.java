@@ -1,6 +1,6 @@
-package observer;
+package Util.observer;
 
-import jogadores.Jogadores;
+import Util.jogadores.Jogadores;
 
 public class Observer {
 	private static Observer instance = null;

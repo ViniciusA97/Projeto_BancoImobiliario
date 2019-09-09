@@ -1,6 +1,6 @@
-package observer;
+package Util.observer;
 
-import Tabuleiro.Terreno;
+import Util.Tabuleiro.Terreno;
 
 public class EventoPreMonopolio extends Events {
 

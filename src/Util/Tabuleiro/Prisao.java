@@ -1,8 +1,8 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
 import java.util.ArrayList;
 
-import jogadores.*;
+import Util.jogadores.*;
 
 public class Prisao implements Casa {
 

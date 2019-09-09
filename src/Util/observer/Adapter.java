@@ -1,4 +1,4 @@
-package observer;
+package Util.observer;
 
 public abstract class Adapter implements Listeners{
 	public void eventoMonopolio(Events eventoMonopilio) {

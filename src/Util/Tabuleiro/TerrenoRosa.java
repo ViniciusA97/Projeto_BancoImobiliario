@@ -1,6 +1,6 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
-import jogadores.Jogador;
+import Util.jogadores.Jogador;
 
 public class TerrenoRosa extends Terreno implements Casa,Comercial {
 	private GerenciamentoDeTerreno gerenciador = GerenciamentoDeTerreno.getInstance();

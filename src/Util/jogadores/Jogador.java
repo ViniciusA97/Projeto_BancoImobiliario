@@ -1,11 +1,11 @@
-package jogadores;
+package Util.jogadores;
 
 import java.util.ArrayList;
 
-import Tabuleiro.Empresas;
-import Tabuleiro.Terreno;
-import observer.Events;
-import observer.Listeners;
+import Util.Tabuleiro.Empresas;
+import Util.Tabuleiro.Terreno;
+import Util.observer.Events;
+import Util.observer.Listeners;
 
 public class Jogador implements Listeners{
 		

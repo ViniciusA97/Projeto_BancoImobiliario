@@ -1,8 +1,8 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
-import jogadores.Jogador;
-import jogadores.Jogadores;
-import jogadores.SemSaldoException;
+import Util.jogadores.Jogador;
+import Util.jogadores.Jogadores;
+import Util.jogadores.SemSaldoException;
 
 public class DiaDoCasamento implements Casa{
 	

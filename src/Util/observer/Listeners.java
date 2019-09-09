@@ -1,4 +1,4 @@
-package observer;
+package Util.observer;
 
 public interface Listeners {
 	public void eventoMonopolio(Events eventoMonopolio);

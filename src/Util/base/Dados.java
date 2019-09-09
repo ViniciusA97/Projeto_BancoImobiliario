@@ -1,7 +1,7 @@
-package base;
+package Util.base;
 
 import java.util.Random;
-import jogadores.Jogador;
+import Util.jogadores.Jogador;
 
 public class Dados {
 

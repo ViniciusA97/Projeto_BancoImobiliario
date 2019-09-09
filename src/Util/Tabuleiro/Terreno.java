@@ -1,10 +1,10 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
-import base.FachadaComunicacao;
-import jogadores.Jogador;
-import jogadores.Jogadores;
-import jogadores.SemSaldoException;
-import observer.Mediador;
+import Util.base.FachadaComunicacao;
+import Util.jogadores.Jogador;
+import Util.jogadores.Jogadores;
+import Util.jogadores.SemSaldoException;
+import Util.observer.Mediador;
 
 public abstract class Terreno implements Comercial, Casa{
 	private String nome;

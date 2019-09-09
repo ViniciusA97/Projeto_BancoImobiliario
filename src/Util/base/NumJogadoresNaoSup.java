@@ -1,4 +1,4 @@
-package base;
+package Util.base;
 
 public class NumJogadoresNaoSup extends Exception{
 	

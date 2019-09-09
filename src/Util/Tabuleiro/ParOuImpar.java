@@ -1,7 +1,7 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
-import jogadores.Jogadores;
-import jogadores.SemSaldoException;
+import Util.jogadores.Jogadores;
+import Util.jogadores.SemSaldoException;
 
 public class ParOuImpar implements Casa{
 	public ParOuImpar() {

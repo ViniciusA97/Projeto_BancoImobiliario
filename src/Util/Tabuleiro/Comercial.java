@@ -1,7 +1,7 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
-import jogadores.Jogador;
-import jogadores.SemSaldoException;
+import Util.jogadores.Jogador;
+import Util.jogadores.SemSaldoException;
 
 public interface Comercial {
 

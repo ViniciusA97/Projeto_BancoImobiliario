@@ -1,7 +1,7 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
-import jogadores.Jogador;
-import jogadores.Jogadores;
+import Util.jogadores.Jogador;
+import Util.jogadores.Jogadores;
 
 public class VaParaPrisaoSR implements Casa{
 	public VaParaPrisaoSR() {

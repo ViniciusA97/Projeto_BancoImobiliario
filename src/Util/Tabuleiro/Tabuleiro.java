@@ -1,4 +1,4 @@
-package Tabuleiro;
+package Util.Tabuleiro;
 
 import java.util.ArrayList;
 
