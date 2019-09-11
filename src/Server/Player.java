@@ -13,6 +13,7 @@ public class Player {
 
 	public Player(InetAddress ip) {
 		this.ip = ip;
+		this.jogador = new Jogador();
 	}
 	
 	public String getIp() {
