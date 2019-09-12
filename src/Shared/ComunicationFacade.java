@@ -1,14 +1,17 @@
 package Shared;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ComunicationFacade {
 
     private final int PORT = 4444;
-    private InetAddress last;
     
     public  ComunicationFacade(){} 
 
@@ -24,20 +27,24 @@ public class ComunicationFacade {
         }
     }
 
-    public String reciveMessage(DatagramSocket socket) throws IOException {
+    public Map<String, Object> reciveMessage(DatagramSocket socket) throws IOException {
        
+    	Map<String, Object> mapComunication = new HashMap<String, Object>();
         byte[] reciveData = new byte[1024];
         DatagramPacket packageRecive = new DatagramPacket(reciveData, reciveData.length);
         socket.receive(packageRecive);
-        this.last = packageRecive.getAddress();
 		String sentence = new String( packageRecive.getData());
-        return sentence;
+        mapComunication.put("address",packageRecive.getAddress() );
+        mapComunication.put("msg",sentence);
+        if(sentence.contains("/")) {
+        	
+        	String [] aux = sentence.split("/");
+        	mapComunication.put("usual", aux[1]);
+        	mapComunication.put("msg", aux[0]);
+        	
+        }
+        return mapComunication;
     }
-    
-    public InetAddress getLast() {
-    	return this.last;
-    }
-    
     public void sendMessage(String message , DatagramSocket socket, InetAddress  adress) throws IOException{
 
         byte[] bytes = message.getBytes();  

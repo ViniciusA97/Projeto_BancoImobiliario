@@ -30,4 +30,7 @@ public class Player {
 	
 	public void setJogador(Jogador j) {this.jogador = j;}
 	
+	public void setCor(String cor) {
+		this.jogador.setCor(cor);
+	}
 }

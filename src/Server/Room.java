@@ -2,8 +2,11 @@ package Server;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Shared.CmdServerRoom;
 import Shared.ComunicationFacade;
@@ -38,16 +41,16 @@ public class Room extends Thread {
 	public void run() {
 		
 		boolean condiction = true;
-		String msg = "";
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		while(condiction) {
 			
 			try {
-				msg = comunication.reciveMessage(this.socket);
+				map = (HashMap<String, Object>) comunication.reciveMessage(this.socket);
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
 			}
-			cmd.cases(msg);
+			cmd.cases(map);
 			
 		}
 		
@@ -69,6 +72,18 @@ public class Room extends Thread {
 	
 	public void setStatusGame(boolean bool) {
 		this.inGame = bool;
+	}
+
+	public void setPlayerColor(InetAddress player, String cor) {
+		
+		for(Player i: this.players) {
+		
+			if(i.getAddress().equals(player)) {
+				i.setCor(cor);
+			}
+		}
+		
+		
 	}
 	
 }

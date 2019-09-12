@@ -1,6 +1,10 @@
 package Shared;
 
+import java.io.Serializable;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.util.HashMap;
+import java.util.Map;
 
 import Server.Player;
 import Server.Room;
@@ -19,23 +23,26 @@ public class CmdServerRoom implements Cmd{
 		
 	}
 
-	public String cases(String opcoes) {
+	public String cases(HashMap<String, Object> map) {
+		
+		String msg = map.get("msg").toString();
 		
 		
 		
-		switch(opcoes) {
+		switch(msg) {
 			
 			case "getin":
 				
-				Player newPlayer =  new Player(this.comunication.getLast()); 
+				InetAddress usual =(InetAddress) map.get("address");
+				Player newPlayer =  new Player(usual); 
 				this.room.addPlayer(newPlayer);
 				break;
 				
-			case "setName":
-				
-				
-				
 			case "setColor":
+				
+				InetAddress client = (InetAddress) map.get("address");
+				this.room.setPlayerColor(client, map.get("usual").toString());
+				
 				
 			case "startGame":
 				
