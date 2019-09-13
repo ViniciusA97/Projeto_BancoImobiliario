@@ -6,7 +6,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import Shared.CmdServerRoom;
 import Shared.ComunicationFacade;
@@ -82,7 +81,17 @@ public class Room extends Thread {
 				i.setCor(cor);
 			}
 		}
+	}
+	
+	public void delPlayer(InetAddress player) {
 		
+		for(Player i: this.players) {
+			
+			if(i.getAddress().equals(player)) {
+				this.players.remove(i);
+			}
+			
+		}
 		
 	}
 	
