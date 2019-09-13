@@ -8,6 +8,7 @@ Projeto de disciplina de LP-II
              - Conectar com o servidor
              - Mandar/receber dados com o servidor
              
-   - Servidor: - Criar Pool de Threads (Cada Thread será chamada de Room e será realizado uma partida nesta Room)
-               - Criar um tipo de cmd para tratar requisições de clients
-               
+   -Servidor: - Criar Pool de Threads (Cada Thread será chamada de Room e será realizado uma partida nesta Room)
+              - Criar um tipo de cmd para tratar requisições de clients
+              - Criar observer e novos Events e Adapter
+              
