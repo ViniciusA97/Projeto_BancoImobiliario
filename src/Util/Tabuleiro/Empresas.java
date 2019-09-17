@@ -1,5 +1,6 @@
 package Util.Tabuleiro;
 
+import Util.base.Comandos;
 import Util.base.FachadaComunicacao;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
@@ -63,17 +64,17 @@ public class Empresas implements Casa,Comercial{
 		System.out.println("Saldo atual do jogador "+paga.getNome()+" é : "+paga.getDinheiro());
 	}
 	
-	public void fazAcao() {//faz ação referente a Empresas
-		Jogadores temp= Jogadores.getInstance();
+	public void fazAcao(Comandos cmd, Jogadores j) {//faz ação referente a Empresas
+	
 		FachadaComunicacao fachada= FachadaComunicacao.getInstance();
 		if(proprietario==null) {
-			if(temp.getJogadorDaVez().getDinheiro()>=preco) {
+			if(j.getJogadorDaVez().getDinheiro()>=preco) {
 				System.out.println("O titulo do terreno está disponível por: $"+preco);
-    			System.out.println(temp.getJogadorDaVez().getNome()+" você possui $"+temp.getJogadorDaVez().getDinheiro());
+    			System.out.println(j.getJogadorDaVez().getNome()+" você possui $"+j.getJogadorDaVez().getDinheiro());
     			String compra=fachada.inputString("Deseja comprar? [Sim] [Nao]");
     			if(compra.equals("sim") || compra.equals("Sim")|| compra.equals("s")) {
     				try {
-    				compra(temp.getJogadorDaVez());
+    				compra(j.getJogadorDaVez());
     				} catch (SemSaldoException e) {
     					System.out.println(e.getMessage());
     				}
@@ -82,7 +83,7 @@ public class Empresas implements Casa,Comercial{
 		}
 		else {
     		try{
-    			pagaAluguel(proprietario,temp.getJogadorDaVez());
+    			pagaAluguel(proprietario,j.getJogadorDaVez());
     		}
     		catch (SemSaldoException e) {
     			System.out.println(e.getMessage());

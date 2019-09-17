@@ -3,23 +3,24 @@ package Util.base;
 import Util.Tabuleiro.*;
 import Util.jogadores.Jogadores;
 import Util.observer.Mediador;
+import Util.observer.Observer;
 
 public class Comandos {
 
-	private static Comandos instance;
+
 	private FachadaComunicacao comunicacao= FachadaComunicacao.getInstance();
-	private Jogadores jogadores= Jogadores.getInstance();
+	private Jogadores jogadores;
 	private GeraString geraString = GeraString.getInstance();
 	private FachadaTabuleiro fachadaT= FachadaTabuleiro.getInstance();
-	private Mediador mediador = Mediador.getInstance();
+
+	private Mediador mediador ;
 	
 	
-	private Comandos() {}
-	
-	public static Comandos getInstance() {
-		if(instance==null) instance = new Comandos();
-		return instance;
+	public Comandos(Observer obs) {
+		this.mediador = new Mediador(obs);
 	}
+	
+
 	
 	public void comandoSair() {//sai do jogo
 		String comando=comunicacao.inputString("Você deseja mesmo sair?[s] [n]");
@@ -29,8 +30,7 @@ public class Comandos {
 		}
 	}
 	
-	public void comandoStatus() {//mostra status do jogador da vez
-		Jogadores temp= Jogadores.getInstance();
+	public void comandoStatus(Jogadores temp) {//mostra status do jogador da vez
 		System.out.println(temp.getJogadorDaVez().toString());
 	}
 	
@@ -42,7 +42,7 @@ public class Comandos {
 			try {
 				fachadaT.compraCasa(geraString.getTerreno(numEscolhido-1), jogadores.getJogadorDaVez());
 				if(geraString.getTerreno(numEscolhido-1).getCasas() == 4) {
-					mediador.EventoPreHotel(geraString.getTerreno(numEscolhido-1));
+					mediador.EventoPreHotel(geraString.getTerreno(numEscolhido-1),jogadores);
 				}
 			} catch (IndexNaoSuportadoEx e) {
 				System.out.println(e.getMessage());
@@ -84,13 +84,13 @@ public class Comandos {
 		int [] dadosJogados= dado.jogaDados();
 		String aux = Integer.toString(dadosJogados[0])+" "+Integer.toString(dadosJogados[1]);
 		if(dado.verificaHistoricoDeDados(jogadores.getJogadorDaVez())) {
-			fachadaT.vaiPraPrisao();
+			fachadaT.vaiPraPrisao(jogadores);
 			jogadores.getJogadorDaVez().setCasa(9);
 			jogadores.passaVez();
 			return ;
 		}
 		if(fachadaT.procuraPrisioneiro(jogadores.getJogadorDaVez())) {
-			fachadaT.tentaSairPrisao(aux);
+			fachadaT.tentaSairPrisao(aux, jogadores);
 		}
 		else if(jogadores.getJogadorDaVez().getCasa()+dadosJogados[0]+dadosJogados[1]>39) {
 			
@@ -104,7 +104,7 @@ public class Comandos {
 			}
 
 		Casa casaAtual = fachadaT.getCasaTabuleiro(jogadores.getJogadorDaVez().getCasa());
-		casaAtual.fazAcao();
+		casaAtual.fazAcao(this,jogadores);
 		jogadores.passaVez();
 	}
 		

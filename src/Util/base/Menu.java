@@ -2,6 +2,7 @@ package Util.base;
 
 import Util.Tabuleiro.FachadaTabuleiro;
 import Util.jogadores.*;
+import Util.observer.Observer;
 
 public class Menu {
 
@@ -12,11 +13,12 @@ public class Menu {
 		System.out.println("Team itaipava:  Leo Ferreira e Vinicius Andrade \n");
 		
 		
-		Jogadores jogadores = Jogadores.getInstance();
+		Jogadores jogadores = new Jogadores();
 		Jogador usual = new Jogador();
 		FachadaTabuleiro fachadaT = FachadaTabuleiro.getInstance();
 		FachadaComunicacao comunicacao= FachadaComunicacao.getInstance();
-		Comandos cmd= Comandos.getInstance();
+		Observer observer = new Observer();
+		Comandos cmd= new Comandos(observer);
 		GeraString geraString = GeraString.getInstance();
 		
 		
@@ -77,7 +79,7 @@ public class Menu {
 		    		cmd.comandoSair();
 		    		break;
 			    case("status"):
-			   		cmd.comandoStatus();
+			   		cmd.comandoStatus(jogadores);
 			   		continue;
 			   	case("construir"):
 			   		cmd.comandoConstruir();

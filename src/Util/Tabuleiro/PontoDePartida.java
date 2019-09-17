@@ -1,5 +1,8 @@
 package Util.Tabuleiro;
 
+import Util.base.Comandos;
+import Util.jogadores.Jogadores;
+
 public class PontoDePartida implements Casa {
 	
 	public PontoDePartida() {
@@ -12,7 +15,7 @@ public class PontoDePartida implements Casa {
 	}
 
 	@Override
-	public void fazAcao() {
+	public void fazAcao(Comandos cmd, Jogadores j) {
 		System.out.println(getNome());
 		
 	}

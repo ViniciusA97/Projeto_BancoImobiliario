@@ -5,17 +5,11 @@ import java.util.ArrayList;
 public class Jogadores{
 
 	private ArrayList<Jogador> jogadores;
-	private static Jogadores instance;
 	private int vez;
 	
-	private Jogadores() {
+	public Jogadores() {
 		this.jogadores=new ArrayList<Jogador>();
 		vez=0;
-	}
-	
-	public static Jogadores getInstance() {//Método p/ pegar instancia uníca do Singleton
-		if(instance==null) instance = new Jogadores();
-		return instance;
 	}
 	
 	public void cadastraJogador(Jogador j1) throws JogadorJaExisteException{//Cadastra um novo jogador

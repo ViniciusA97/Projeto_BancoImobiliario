@@ -6,18 +6,21 @@ import java.util.HashMap;
 
 import Server.Player;
 import Server.Room;
+import Util.observer.Observer;
 
 public class CmdServerRoom implements Cmd{
 
 	private ComunicationFacade comunication;
 	private Room room;
 	private DatagramSocket socket;
+	private Observer observer;
 	
-	public CmdServerRoom(Room r, DatagramSocket s) {
+	public CmdServerRoom(Room r, DatagramSocket s,Observer observer) {
 		
 		this.comunication = new ComunicationFacade();
 		this.room = r;
 		this.socket = s;
+		this.observer = observer;
 		
 	}
 
@@ -55,6 +58,9 @@ public class CmdServerRoom implements Cmd{
 				
 			case "leaveRoom":
 				
+				
+				
+			case "getOut":
 				this.room.delPlayer( (InetAddress)map.get("address") );
 				//lançar observer
 				

@@ -1,5 +1,6 @@
 package Util.Tabuleiro;
 
+import Util.base.Comandos;
 import Util.jogadores.Jogadores;
 
 public class VaAteOInicio implements Casa{
@@ -7,11 +8,11 @@ public class VaAteOInicio implements Casa{
 		
 	}
 	
-	public void fazAcao() {
-		Jogadores temp= Jogadores.getInstance();
+	public void fazAcao(Comandos cmd, Jogadores j) {
+		
 		System.out.println(toString());
-		temp.getJogadorDaVez().setCasa(39);
-		temp.getJogadorDaVez().ganhaDinheiro(200);
+		j.getJogadorDaVez().setCasa(39);
+		j.getJogadorDaVez().ganhaDinheiro(200);
 	}
 	
 	public String toString() {

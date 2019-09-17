@@ -1,5 +1,6 @@
 package Util.Tabuleiro;
 
+import Util.base.Comandos;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
@@ -9,17 +10,16 @@ public class DiaDoCasamento implements Casa{
 	public DiaDoCasamento() {
 	}
 	
-	public void fazAcao() {
+	public void fazAcao(Comandos cmd, Jogadores j) {
 		System.out.println(toString());
-		Jogadores temp= Jogadores.getInstance();
-		for(Jogador j :temp.getJogadores()) {
-			if(!j.equals(temp.getJogadorDaVez())) {
+		for(Jogador i :j.getJogadores()) {
+			if(!i.equals(j.getJogadorDaVez())) {
 				try {
-					j.perdeDinehiro(50);
+					i.perdeDinehiro(50);
 				} catch (SemSaldoException e) {
 					System.out.println(e.getMessage());
 				}
-				temp.getJogadorDaVez().ganhaDinheiro(50);
+				j.getJogadorDaVez().ganhaDinheiro(50);
 			}
 		}
 	}

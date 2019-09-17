@@ -1,5 +1,6 @@
 package Util.Tabuleiro;
 
+import Util.base.Comandos;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
 
@@ -16,12 +17,11 @@ public class VaParaPrisaoSR implements Casa{
 	}
 
 	@Override
-	public void fazAcao() {
+	public void fazAcao(Comandos cmd, Jogadores j) {
 		Prisao prisao = Prisao.getInstance();
-		Jogadores temp= Jogadores.getInstance();
-		prisao.addPrisioneiro(temp.getJogadorDaVez());
-		temp.getJogadorDaVez().setCasa(9);
-		System.out.println("O jogador "+temp.getJogadorDaVez().getNome()+" pegou a carta de Revés 'Va para a prisao' e esta detido. Na sua proxima "
+		prisao.addPrisioneiro(j.getJogadorDaVez());
+		j.getJogadorDaVez().setCasa(9);
+		System.out.println("O jogador "+j.getJogadorDaVez().getNome()+" pegou a carta de Revés 'Va para a prisao' e esta detido. Na sua proxima "
 				+ "rodada, terá mais comandos disponiveis.");
 		
 	}

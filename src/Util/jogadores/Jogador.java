@@ -1,5 +1,6 @@
 package Util.jogadores;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 import Util.Tabuleiro.Empresas;
@@ -18,6 +19,8 @@ public class Jogador implements Listeners{
 	private boolean cartaLiberdade;
 	private ArrayList<Terreno> terrenos= new ArrayList<Terreno>();
 	private ArrayList<Empresas> empresas= new ArrayList<Empresas>();
+	private InetAddress ip;
+	private int porta;
 	
 	public Jogador(String n) {
 		this.nome=n;
@@ -31,6 +34,22 @@ public class Jogador implements Listeners{
 	
 	public Jogador() {
 
+	}
+	
+	public void setIp(InetAddress address) {
+		this.ip = address;
+	}
+	
+	public void setPort(int num) {
+		this.porta = num;
+	}
+	
+	public InetAddress getAddress() {
+		return this.ip;
+	}
+	
+	public int getPort() {
+		return this.porta;
 	}
 	
 	public void addStatus(String s) {//Adiciona uma string ao status do jogador
@@ -155,12 +174,12 @@ public class Jogador implements Listeners{
 		return false;
 	}
 
-	public void eventoMonopolio(Events eventoMonopolio) {//Evento do observer 
-		System.out.println(eventoMonopolio.getStringEvento());
+	public void eventoMonopolio(Events eventoMonopolio, Jogadores j) {//Evento do observer 
+		System.out.println(eventoMonopolio.getStringEvento(j));
 	}
 
-	public void eventoPreMonopolio(Events eventoPreMonopolio) {//Evendo do observer
-		System.out.println(eventoPreMonopolio.getStringEvento());
+	public void eventoPreMonopolio(Events eventoPreMonopolio, Jogadores j) {//Evendo do observer
+		System.out.println(eventoPreMonopolio.getStringEvento(j));
 	}
 	
 	public Terreno getUltimoTerreno() {
@@ -168,7 +187,9 @@ public class Jogador implements Listeners{
 	}
 
 	@Override
-	public void eventoPreHotel(Events eventoPreHotel) {
-		System.out.println(eventoPreHotel.getStringEvento());
+	public void eventoPreHotel(Events eventoPreHotel, Jogadores j) {
+		System.out.println(eventoPreHotel.getStringEvento(j));
 	}
+
+	
 }

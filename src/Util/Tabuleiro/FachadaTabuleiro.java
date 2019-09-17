@@ -3,6 +3,7 @@ package Util.Tabuleiro;
 import java.util.ArrayList;
 
 import Util.jogadores.Jogador;
+import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
 
 public class FachadaTabuleiro {
@@ -16,15 +17,15 @@ public class FachadaTabuleiro {
 		return instance;
 	}
 
-	public void tentaSairPrisao(String aux) {
+	public void tentaSairPrisao(String aux, Jogadores j) {
 		Prisao temp= Prisao.getInstance();
-		temp.tentaSairPrisao(aux);
+		temp.tentaSairPrisao(aux, j);
 		
 	}
 	
-	public void vaiPraPrisao() {
+	public void vaiPraPrisao(Jogadores j) {
 		Prisao temp= Prisao.getInstance();
-		temp.vaiPraPrisao();
+		temp.vaiPraPrisao(j);
 	}
 	
 	public boolean procuraPrisioneiro(Jogador j) {

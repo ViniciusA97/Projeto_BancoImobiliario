@@ -1,5 +1,6 @@
 package Util.Tabuleiro;
 
+import Util.base.Comandos;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
 
@@ -8,17 +9,17 @@ public class ParOuImpar implements Casa{
 		
 	}
 	
-	public void fazAcao() {
-		Jogadores temp= Jogadores.getInstance();
+	public void fazAcao(Comandos cmd, Jogadores j) {
+		
 		System.out.println(toString());
-		String aux = temp.getJogadorDaVez().getUltimoDado();
+		String aux = j.getJogadorDaVez().getUltimoDado();
 		int soma = Integer.parseInt(aux, aux.charAt(0)) + Integer.parseInt(aux, aux.charAt(1));
 		if(soma%2 == 0) {
-			temp.getJogadorDaVez().ganhaDinheiro(100);
+			j.getJogadorDaVez().ganhaDinheiro(100);
 			System.out.println("Número par, ganhou 100");
 		}else {
 			try {
-				temp.getJogadorDaVez().perdeDinehiro(100);
+				j.getJogadorDaVez().perdeDinehiro(100);
 			} catch (SemSaldoException e) {
 				System.out.println(e.getMessage());
 			}

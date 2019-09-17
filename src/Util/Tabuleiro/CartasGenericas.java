@@ -1,5 +1,6 @@
 package Util.Tabuleiro;
 
+import Util.base.Comandos;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
 
@@ -14,20 +15,20 @@ public class CartasGenericas implements Casa{
 		this.receba = receba;
 	}
 	
-	public void fazAcao(){//Faz ação de cartas de efeito genérico de Sorte e Revés
-		Jogadores temp= Jogadores.getInstance();
+	public void fazAcao(Comandos cmd,Jogadores j){//Faz ação de cartas de efeito genérico de Sorte e Revés
+	
 		if(this.pague == 0) {
 			System.out.println(this.nome +" .Receba "+receba );
-			temp.getJogadorDaVez().ganhaDinheiro(this.receba);
-			System.out.println("Saldo atual de: "+temp.getJogadorDaVez().getDinheiro());
+			j.getJogadorDaVez().ganhaDinheiro(this.receba);
+			System.out.println("Saldo atual de: "+j.getJogadorDaVez().getDinheiro());
 		}else {
 			System.out.println(this.nome +" .Pague "+pague );
 			try {
-				temp.getJogadorDaVez().perdeDinehiro(this.pague);
+				j.getJogadorDaVez().perdeDinehiro(this.pague);
 			} catch (SemSaldoException e) {
 				System.out.println(e.getMessage());
 			}
-			System.out.println("Saldo atual de: "+temp.getJogadorDaVez().getDinheiro());
+			System.out.println("Saldo atual de: "+j.getJogadorDaVez().getDinheiro());
 		}
 	}
 	

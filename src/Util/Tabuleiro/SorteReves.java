@@ -1,5 +1,6 @@
 package Util.Tabuleiro;
 
+import Util.base.Comandos;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
@@ -55,19 +56,18 @@ public class SorteReves implements Casa{
 		
 	}
 	
-	public void geraEfeito(Jogador j) throws SemSaldoException {
+	public void geraEfeito(Jogador j,Comandos cmd, Jogadores jogadores) throws SemSaldoException {
 		Casa aux = cartas.getCarta();
-		aux.fazAcao();
+		aux.fazAcao(cmd,jogadores);
 	}
 	
 	public void poePasseLivre() {
 		cartas.addPasseLivre();
 	}
 	
-	public void fazAcao() {
-		Jogadores temp= Jogadores.getInstance();
+	public void fazAcao(Comandos cmd, Jogadores j) {
 		try {
-			geraEfeito(temp.getJogadorDaVez());
+			geraEfeito(j.getJogadorDaVez(), cmd, j);
 		} catch (SemSaldoException e) {
 			System.out.println(e.getMessage());
 		}

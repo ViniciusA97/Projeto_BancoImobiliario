@@ -1,5 +1,8 @@
 package Util.Tabuleiro;
 
+import Util.base.Comandos;
+import Util.jogadores.Jogadores;
+
 public class ParadaLivre implements Casa {
 
 	@Override
@@ -8,7 +11,7 @@ public class ParadaLivre implements Casa {
 	}
 
 	@Override
-	public void fazAcao() {
+	public void fazAcao(Comandos cmd, Jogadores j) {
 		System.out.println(getNome());
 		
 	}

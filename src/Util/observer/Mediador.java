@@ -6,40 +6,39 @@ import Util.jogadores.Jogadores;
 
 public class Mediador {
 	
-	private static Mediador instance;
-	private Jogadores jogadores = Jogadores.getInstance();
-	private Observer observer = Observer.getInstance();
+	private Observer observer;
 	
-	private Mediador() {}
+	public Mediador(Observer o) {
+		
+		this.observer=o;
+	}
 	
-	public void confereEventoMonopolio() {
-		Terreno temp = this.jogadores.getJogadorDaVez().getUltimoTerreno();
-		if(temp.verificaMonopolioPorCor(this.jogadores.getJogadorDaVez())) {
+	public void confereEventoMonopolio(Jogadores jogadores) {
+		Terreno temp = jogadores.getJogadorDaVez().getUltimoTerreno();
+		if(temp.verificaMonopolioPorCor(jogadores.getJogadorDaVez())) {
 			Events evento = new EventoMonopolio(temp);
-			this.observer.fireEventoMonopolio(evento);
+			this.observer.fireEventoMonopolio(evento,jogadores);
 		}
 	}
 	
-	public void confereEventoPreMonopolio() {
-		Terreno temp = this.jogadores.getJogadorDaVez().getUltimoTerreno();
-		if(temp.verificaPreMonopolioPorCor(this.jogadores.getJogadorDaVez())) {
+	public void confereEventoPreMonopolio(Jogadores jogadores) {
+		Terreno temp = jogadores.getJogadorDaVez().getUltimoTerreno();
+		if(temp.verificaPreMonopolioPorCor(jogadores.getJogadorDaVez())) {
 			Events evento = new EventoPreMonopolio(temp);
-			this.observer.fireEventoPreMonopolio(evento);
+			this.observer.fireEventoPreMonopolio(evento, jogadores);
 		}
 	}
 	
-	public void EventoPreHotel(Terreno t) {
+	public void EventoPreHotel(Terreno t, Jogadores j) {
 		Events evento = new EventoPreHotel(t);
-		this.observer.fireEventoPreHotel(evento);
+		this.observer.fireEventoPreHotel(evento, j);
 	}
 	
-	public static Mediador getInstance() {
-		if(instance==null) instance= new Mediador();
-		return instance;
-	}
 	
-	public void confereDoisTipoMonopolio() {
-		confereEventoMonopolio();
-		confereEventoPreMonopolio();
+	public void confereDoisTipoMonopolio(Jogadores jogadores) {
+		confereEventoMonopolio(jogadores);
+		confereEventoPreMonopolio(jogadores);
 	}
+
 }
+

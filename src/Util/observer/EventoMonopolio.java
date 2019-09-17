@@ -12,8 +12,7 @@ public class EventoMonopolio extends Events {
 	
 	}
 
-	public String getStringEvento() {
-		 Jogadores temp = Jogadores.getInstance();
+	public String getStringEvento(Jogadores temp) {
 		 return "Jogador "+ temp.getJogadorDaVez().getNome()+" acaba de comprar todos os terrenos da classe " + terreno.getCor()+". Em sua próxima \n"
 		 		+ "jogada poderá usar o comando [construir] para adiquirir casas.";
 	 }

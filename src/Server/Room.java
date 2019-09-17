@@ -9,6 +9,8 @@ import java.util.HashMap;
 
 import Shared.CmdServerRoom;
 import Shared.ComunicationFacade;
+import Util.jogadores.Jogadores;
+import Util.observer.Observer;
 
 public class Room extends Thread {
 
@@ -19,18 +21,20 @@ public class Room extends Thread {
 	private CmdServerRoom cmd;
 	private DatagramSocket socket;
 	private boolean inGame;
-	
+	private Observer observer;
+	private Jogadores jogadores;
 	
 	public Room(){
 		
+		this.jogadores = new Jogadores();
 		this.inGame = false;
 		this.players = new ArrayList<Player>(8);
 		this.comunication = new ComunicationFacade();
+		this.observer = new Observer();
 	
 		try {
 			this.socket = new DatagramSocket(4444);
-			this.cmd = new CmdServerRoom(this,this.socket);
-			
+			this.cmd = new CmdServerRoom(this,this.socket, this.observer);
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		
@@ -58,11 +62,9 @@ public class Room extends Thread {
 	public void addPlayer(Player newPlayer) {
 		
 		if(this.players.size()>=8) {
-			
 			try {
 				this.comunication.sendMessage("Total de jogadores atingidos. Procure outra Room", socket, newPlayer.getAddress());
 			} catch (IOException e) {
-			
 				System.out.println(e.getMessage());
 			}	
 		}
@@ -76,7 +78,6 @@ public class Room extends Thread {
 	public void setPlayerColor(InetAddress player, String cor) {
 		
 		for(Player i: this.players) {
-		
 			if(i.getAddress().equals(player)) {
 				i.setCor(cor);
 			}
@@ -86,13 +87,10 @@ public class Room extends Thread {
 	public void delPlayer(InetAddress player) {
 		
 		for(Player i: this.players) {
-			
 			if(i.getAddress().equals(player)) {
 				this.players.remove(i);
 			}
-			
-		}
-		
+		}	
 	}
 	
 }

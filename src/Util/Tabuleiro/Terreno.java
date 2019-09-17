@@ -1,10 +1,12 @@
 package Util.Tabuleiro;
 
+import Util.base.Comandos;
 import Util.base.FachadaComunicacao;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
 import Util.observer.Mediador;
+import Util.observer.Observer;
 
 public abstract class Terreno implements Comercial, Casa{
 	private String nome;
@@ -121,20 +123,21 @@ public abstract class Terreno implements Comercial, Casa{
 	public int getPrecoCasa() {//retorna preço de uma casa no terreno
 		return this.precoCasa;
 	}
-	public void fazAcao() {//faz a ação referente a Terreno
-		Jogadores temp= Jogadores.getInstance();
+	public void fazAcao(Comandos cmd, Jogadores j) {//faz a ação referente a Terreno
+		
 		FachadaComunicacao fachada= FachadaComunicacao.getInstance();
 		if(proprietario==null) {
-			if(temp.getJogadorDaVez().getDinheiro()>=preco) {
+			if(j.getJogadorDaVez().getDinheiro()>=preco) {
 				System.out.println("O titulo do terreno está disponível por: $"+preco +" do tipo "+ this.getCor());
-    			System.out.println(temp.getJogadorDaVez().getNome()+" você possui $"+temp.getJogadorDaVez().getDinheiro());
+    			System.out.println(j.getJogadorDaVez().getNome()+" você possui $"+j.getJogadorDaVez().getDinheiro());
     			String compra=fachada.inputString("Deseja comprar? [Sim] [Nao]");
     			if(compra.equals("sim") || compra.equals("Sim")|| compra.equals("s")) {
     				try {
-    					compra(temp.getJogadorDaVez());
-    					if(verificaMonopolioPorCor(temp.getJogadorDaVez()) || verificaPreMonopolioPorCor(temp.getJogadorDaVez())) {
-    						Mediador mediadorObserver = Mediador.getInstance();
-    						mediadorObserver.confereDoisTipoMonopolio();
+    					compra(j.getJogadorDaVez());
+    					if(verificaMonopolioPorCor(j.getJogadorDaVez()) || verificaPreMonopolioPorCor(j.getJogadorDaVez())) {
+    						Observer observer = new Observer();
+    						Mediador mediadorObserver = new Mediador(observer);
+    						mediadorObserver.confereDoisTipoMonopolio(j);
     					}
     				} catch (SemSaldoException e) {
     					System.out.println(e.getMessage());
@@ -142,9 +145,9 @@ public abstract class Terreno implements Comercial, Casa{
     			}
 			}
 		}
-		else if(!proprietario.equals(temp.getJogadorDaVez())) {
+		else if(!proprietario.equals(j.getJogadorDaVez())) {
     		try{
-    			pagaAluguel(proprietario,temp.getJogadorDaVez());
+    			pagaAluguel(proprietario,j.getJogadorDaVez());
     		}
     		catch (SemSaldoException e) {
     			System.out.println(e.getMessage());

@@ -1,6 +1,7 @@
 package Util.observer;
 
 import Util.Tabuleiro.Terreno;
+import Util.jogadores.Jogadores;
 
 public abstract class Events {
 
@@ -10,5 +11,5 @@ public abstract class Events {
 		terreno=t;
 	}
 	
-	public abstract String getStringEvento();
+	public abstract String getStringEvento(Jogadores temp);
 }

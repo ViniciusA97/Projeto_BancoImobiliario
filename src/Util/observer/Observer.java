@@ -3,28 +3,26 @@ package Util.observer;
 import Util.jogadores.Jogadores;
 
 public class Observer {
-	private static Observer instance = null;
-	private Jogadores jogadores = Jogadores.getInstance();
 	
-	private Observer() {}
 	
-	public static Observer getInstance() {
-		if(instance == null) instance = new Observer();
-		return instance;
-	}
-	
-	public void fireEventoMonopolio(Events eventoMonopolio) {
-		jogadores.getJogadorDaVez().eventoMonopolio(eventoMonopolio);
+	public Observer() {
+		
 		
 	}
 	
-	public void fireEventoPreMonopolio(Events eventoPreMonopolio) {
-		jogadores.getJogadorDaVez().eventoPreMonopolio(eventoPreMonopolio);
+	
+	public void fireEventoMonopolio(Events eventoMonopolio,  Jogadores j) {
+		j.getJogadorDaVez().eventoMonopolio(eventoMonopolio,j);
 		
 	}
 	
-	public void fireEventoPreHotel(Events eventoPreHotel) {
-		jogadores.getJogadorDaVez().eventoPreHotel(eventoPreHotel);
+	public void fireEventoPreMonopolio(Events eventoPreMonopolio, Jogadores j) {
+		j.getJogadorDaVez().eventoPreMonopolio(eventoPreMonopolio,j);
+		
+	}
+	
+	public void fireEventoPreHotel(Events eventoPreHotel, Jogadores j) {
+		j.getJogadorDaVez().eventoPreHotel(eventoPreHotel,j);
 		
 	}
 	
