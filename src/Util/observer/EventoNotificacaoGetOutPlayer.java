@@ -16,10 +16,6 @@ public class EventoNotificacaoGetOutPlayer extends EventsNotification{
 			for(Jogador i: jogadores) {
 				comunication.sendMessage("Jogador "+ i.getNome()+" saiu da partida.", socket, i.getAddress());
 			
-		}
-		
+		}	
 	}
-
-	
-
 }

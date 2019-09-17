@@ -21,6 +21,7 @@ public class Jogador implements Listeners{
 	private ArrayList<Empresas> empresas= new ArrayList<Empresas>();
 	private InetAddress ip;
 	private int porta;
+	private boolean adm;
 	
 	public Jogador(String n) {
 		this.nome=n;
@@ -30,6 +31,15 @@ public class Jogador implements Listeners{
 		this.casa=39;
 		this.dadosJogados = new Fila();
 		cartaLiberdade=false;
+		this.adm =false;
+	}
+	
+	public void setAdm() {
+		this.adm = !adm;
+	}
+	
+	public boolean getAdm() {
+		return this.adm;
 	}
 	
 	public Jogador() {

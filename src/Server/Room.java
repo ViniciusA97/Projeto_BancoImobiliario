@@ -3,8 +3,6 @@ package Server;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import Shared.CmdServerRoom;
@@ -16,9 +14,6 @@ import Util.observer.Observer;
 
 public class Room extends Thread {
 
-	
-	
-	private String status;
 	private ComunicationFacade comunication;
 	private CmdServerRoom cmd;
 	private DatagramSocket socket;
@@ -62,7 +57,9 @@ public class Room extends Thread {
 	
 	public void addPlayer(Jogador j) throws IOException {
 		
-		
+		if(this.jogadores.getJogadores().size()==0) {
+			j.setAdm();
+		}
 		try {
 			this.jogadores.cadastraJogador(j);
 		} catch (JogadorJaExisteException e) {
@@ -95,4 +92,18 @@ public class Room extends Thread {
 		return this.jogadores;
 	}
 	
+	public Jogador getPlayer(InetAddress ip) {
+		for(Jogador i: this.jogadores.getJogadores()) {
+			if(i.getAddress().equals(ip)) return i;
+		}
+		return null;
+	}
+	
+	public void setGameOn() {
+		this.inGame = true;
+	}
+	
+	public void setGameOff(){
+		this.inGame = false;
+	}
 }

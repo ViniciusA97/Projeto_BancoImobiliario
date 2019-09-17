@@ -1,5 +1,7 @@
 package Util.observer;
 
+import java.io.IOException;
+
 import Util.Tabuleiro.Terreno;
 import Util.jogadores.Jogadores;
 
@@ -17,7 +19,12 @@ public class Mediador {
 		Terreno temp = jogadores.getJogadorDaVez().getUltimoTerreno();
 		if(temp.verificaMonopolioPorCor(jogadores.getJogadorDaVez())) {
 			Events evento = new EventoMonopolio(temp);
-			this.observer.fireEventoMonopolio(evento,jogadores);
+			try {
+				this.observer.fireEventoMonopolio(evento,jogadores);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 	
@@ -25,13 +32,23 @@ public class Mediador {
 		Terreno temp = jogadores.getJogadorDaVez().getUltimoTerreno();
 		if(temp.verificaPreMonopolioPorCor(jogadores.getJogadorDaVez())) {
 			Events evento = new EventoPreMonopolio(temp);
-			this.observer.fireEventoPreMonopolio(evento, jogadores);
+			try {
+				this.observer.fireEventoPreMonopolio(evento, jogadores);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 	
 	public void EventoPreHotel(Terreno t, Jogadores j) {
 		Events evento = new EventoPreHotel(t);
-		this.observer.fireEventoPreHotel(evento, j);
+		try {
+			this.observer.fireEventoPreHotel(evento, j);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	
