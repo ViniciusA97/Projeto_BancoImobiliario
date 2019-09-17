@@ -175,6 +175,7 @@ public class Jogador implements Listeners{
 	}
 
 	public void eventoMonopolio(Events eventoMonopolio, Jogadores j) {//Evento do observer 
+		
 		System.out.println(eventoMonopolio.getStringEvento(j));
 	}
 

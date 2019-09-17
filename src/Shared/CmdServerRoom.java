@@ -1,12 +1,15 @@
 package Shared;
 
+import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.HashMap;
 
 import Server.Player;
 import Server.Room;
-import Util.observer.Observer;
+import Util.jogadores.Jogador;
+import Util.observer.EventNotificationJogada;
+import Util.observer.*;
 
 public class CmdServerRoom implements Cmd{
 
@@ -35,10 +38,20 @@ public class CmdServerRoom implements Cmd{
 			case "getin":
 				
 				InetAddress usual =(InetAddress) map.get("address");
-				Player newPlayer =  new Player(usual); 
+				Jogador newPlayer =  new Jogador();
+			try {
 				this.room.addPlayer(newPlayer);
-				
-				//lançar observer para cada player dentro da sala
+			} catch (IOException e) {
+				try {
+					this.comunication.sendMessage(e.getMessage(), socket,newPlayer.getAddress());
+				} catch (IOException e1) {
+					
+					System.out.println(e.getMessage());
+				}
+				e.printStackTrace();
+			}
+				EventoNotificationGetIn e = new EventoNotificationGetIn();
+				this.observer.fireEventGetIn(e, this.room.getJogadores());;
 				
 				break;
 				

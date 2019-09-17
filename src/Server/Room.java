@@ -9,13 +9,15 @@ import java.util.HashMap;
 
 import Shared.CmdServerRoom;
 import Shared.ComunicationFacade;
+import Util.jogadores.Jogador;
+import Util.jogadores.JogadorJaExisteException;
 import Util.jogadores.Jogadores;
 import Util.observer.Observer;
 
 public class Room extends Thread {
 
 	
-	private ArrayList<Player> players;
+	
 	private String status;
 	private ComunicationFacade comunication;
 	private CmdServerRoom cmd;
@@ -28,7 +30,6 @@ public class Room extends Thread {
 		
 		this.jogadores = new Jogadores();
 		this.inGame = false;
-		this.players = new ArrayList<Player>(8);
 		this.comunication = new ComunicationFacade();
 		this.observer = new Observer();
 	
@@ -59,26 +60,24 @@ public class Room extends Thread {
 		
 	}
 	
-	public void addPlayer(Player newPlayer) {
+	public void addPlayer(Jogador j) throws IOException {
 		
-		if(this.players.size()>=8) {
-			try {
-				this.comunication.sendMessage("Total de jogadores atingidos. Procure outra Room", socket, newPlayer.getAddress());
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-			}	
-		}
-		this.players.add(newPlayer);
+		
+		try {
+			this.jogadores.cadastraJogador(j);
+		} catch (JogadorJaExisteException e) {
+			this.comunication.sendMessage(e.getMessage(), socket, j.getAddress());
+		};
 	}
 	
 	public void setStatusGame(boolean bool) {
 		this.inGame = bool;
 	}
 
-	public void setPlayerColor(InetAddress player, String cor) {
+	public void setPlayerColor(InetAddress ip, String cor) {
 		
-		for(Player i: this.players) {
-			if(i.getAddress().equals(player)) {
+		for(Jogador i: this.jogadores.getJogadores()) {
+			if(i.getAddress().equals(ip)) {
 				i.setCor(cor);
 			}
 		}
@@ -86,11 +85,14 @@ public class Room extends Thread {
 	
 	public void delPlayer(InetAddress player) {
 		
-		for(Player i: this.players) {
+		for(Jogador i: this.jogadores.getJogadores()) {
 			if(i.getAddress().equals(player)) {
-				this.players.remove(i);
+				this.jogadores.retiraJogador(i);;
 			}
 		}	
+	}
+	public Jogadores getJogadores() {
+		return this.jogadores;
 	}
 	
 }

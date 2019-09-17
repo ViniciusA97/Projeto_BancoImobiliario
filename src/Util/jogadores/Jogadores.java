@@ -19,7 +19,7 @@ public class Jogadores{
 			for(Jogador i: this.jogadores) {
 				if(i.equals(j1)) throw new JogadorJaExisteException();
 			}
-			this.jogadores.add(j1);
+			if(jogadores.size()<=8) this.jogadores.add(j1);
 		}
 		
 	}
