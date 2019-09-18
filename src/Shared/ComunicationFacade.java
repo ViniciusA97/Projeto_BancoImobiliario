@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import Util.jogadores.Jogador;
+import Util.jogadores.Jogadores;
 
 public class ComunicationFacade {
 
@@ -13,13 +17,13 @@ public class ComunicationFacade {
     
     public  ComunicationFacade(){} 
 
-    public void sendMessage(String message , DatagramSocket socket, InetAddress [] adress) throws IOException{
+    public void sendMessage(String message , DatagramSocket socket, Jogadores j) throws IOException{
 
         byte[] bytes = message.getBytes();  
         
-        for(InetAddress i : adress) {
+        for(Jogador i :j.getJogadores()) {
         	
-        	DatagramPacket pacote = new DatagramPacket(bytes, bytes.length, i, this.PORT);
+        	DatagramPacket pacote = new DatagramPacket(bytes, bytes.length, i.getAddress(), this.PORT);
         	socket.send(pacote);        
         
         }

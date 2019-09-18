@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 import Shared.CmdServerRoom;
 import Shared.ComunicationFacade;
+import Util.base.FachadaComunicacao;
+import Util.base.GeraString;
 import Util.jogadores.Jogador;
 import Util.jogadores.JogadorJaExisteException;
 import Util.jogadores.Jogadores;
@@ -20,9 +22,12 @@ public class Room extends Thread {
 	private boolean inGame;
 	private Observer observer;
 	private Jogadores jogadores;
+	private GeraString geraString;
+	private int id;
 	
-	public Room(){
-		
+	public Room(int index){
+		this.id = index;
+		this.geraString = GeraString.getInstance(id);
 		this.jogadores = new Jogadores();
 		this.inGame = false;
 		this.comunication = new ComunicationFacade();
@@ -33,7 +38,7 @@ public class Room extends Thread {
 			this.cmd = new CmdServerRoom(this,this.socket, this.observer);
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
-		
+			
 		}
 	}
 	
@@ -50,7 +55,25 @@ public class Room extends Thread {
 				System.out.println(e.getMessage());
 			}
 			cmd.cases(map);
-			
+
+			while(this.inGame) {
+				// Inicio do jogo
+				try {
+					comunication.sendMessage(geraString.geraInicioDaJogada(this.jogadores.getJogadorDaVez()), socket, this.jogadores);
+					while(true) {
+						map = (HashMap<String, Object>) comunication.reciveMessage(this.socket);
+						this.cmd.cases(map);
+					}
+				} catch (IOException e) {
+					System.out.println(e.getMessage());
+				}
+	
+				
+				
+				
+				
+				
+			}
 		}
 		
 	}

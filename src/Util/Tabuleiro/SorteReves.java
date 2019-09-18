@@ -1,5 +1,7 @@
 package Util.Tabuleiro;
 
+import java.util.ArrayList;
+
 import Util.base.Comandos;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
@@ -9,16 +11,16 @@ public class SorteReves implements Casa{
 	
 	private FilaCartas cartas;
 	Casa cartaPrin= new PasseLivrePrisao();
-	private static SorteReves instance;
+	private static ArrayList<SorteReves> instance = new ArrayList<SorteReves>(8);
 	
-	private SorteReves() {
+	private SorteReves(int index) {
 		this.cartas = new FilaCartas();
 		cartas.enfileirar(new CartasGenericas("Sua empresa foi multada por poluir demais", 200, 0));
 		cartas.enfileirar(new DiaDoCasamento());
 		cartas.enfileirar(new CartasGenericas("Reformou sua casa", 50, 0));
 		cartas.enfileirar(new CartasGenericas("Seu livro será publicado", 0, 50));
 		cartas.enfileirar(new PasseLivrePrisao());
-		cartas.enfileirar(new VaParaPrisaoSR());
+		cartas.enfileirar(new VaParaPrisaoSR(index));
 		cartas.enfileirar(new VaAteOInicio());
 		cartas.enfileirar(new CartasGenericas("Suas ações na bolsa de valores estão em alta", 0, 100));
 		cartas.enfileirar(new CartasGenericas("Curso de MBA", 20, 0));
@@ -46,9 +48,9 @@ public class SorteReves implements Casa{
 		cartas.enfileirar(new CartasGenericas("Ficou em primeiro lugar no torneio de golf", 0, 100));
 	}
 
-	public static SorteReves getInstance() {
-		if(instance==null) instance= new SorteReves();
-		return  instance;
+	public static SorteReves getInstance(int index) {
+		if(instance.get(index)==null) instance.set(index,new SorteReves(index));
+		return  instance.get(index);
 	}
 	
 	public String getNome() {

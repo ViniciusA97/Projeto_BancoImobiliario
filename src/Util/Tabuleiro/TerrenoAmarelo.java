@@ -3,12 +3,11 @@ package Util.Tabuleiro;
 import Util.jogadores.Jogador;
 
 public class TerrenoAmarelo extends Terreno implements Casa,Comercial {
-	private GerenciamentoDeTerreno gerenciador = GerenciamentoDeTerreno.getInstance();
 
-	public TerrenoAmarelo(String nome, int preco, int aluguel, int aluguel1Casa, int aluguel2Casas, int aluguel3Casas,
+	public TerrenoAmarelo(int index,String nome, int preco, int aluguel, int aluguel1Casa, int aluguel2Casas, int aluguel3Casas,
 			int aluguel4Casas, int aluguelHotel, int hipoteca, int precoCasa) {
-		
-		super(nome, preco, aluguel, aluguel1Casa, aluguel2Casas, aluguel3Casas, aluguel4Casas, aluguelHotel, hipoteca,
+			
+		super( index,nome, preco, aluguel, aluguel1Casa, aluguel2Casas, aluguel3Casas, aluguel4Casas, aluguelHotel, hipoteca,
 				precoCasa);
 		
 	}
@@ -18,7 +17,7 @@ public class TerrenoAmarelo extends Terreno implements Casa,Comercial {
 	}
 
 	public boolean verificaMonopolioPorCor(Jogador j) {
-		return gerenciador.verificaAmarelo(j);
+		return this.gerenciador.verificaAmarelo(j);
 	}
 
 	@Override

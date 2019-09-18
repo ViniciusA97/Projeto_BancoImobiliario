@@ -11,12 +11,12 @@ import Util.jogadores.Jogadores;
 public class EventNotificationStartGame extends EventsNotification {
 
 	@Override
-	public void lancaEventNotification(Jogadores j, DatagramSocket socket, ComunicationFacade comunication)
+	public void lancaEventNotification(String msg,Jogadores j, DatagramSocket socket, ComunicationFacade comunication)
 			throws IOException {
 		
 		ArrayList<Jogador> jogadores = j.getJogadores();
 		for(Jogador i: jogadores) {
-			comunication.sendMessage("O jogo irá começar...", socket, i.getAddress());
+			comunication.sendMessage(msg, socket, i.getAddress());
 		
 		}
 		

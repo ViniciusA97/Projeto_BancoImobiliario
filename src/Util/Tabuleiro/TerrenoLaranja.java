@@ -3,11 +3,10 @@ package Util.Tabuleiro;
 import Util.jogadores.Jogador;
 
 public class TerrenoLaranja extends Terreno implements Casa,Comercial {
-	private GerenciamentoDeTerreno gerenciador = GerenciamentoDeTerreno.getInstance();
 
-	public TerrenoLaranja(String nome, int preco, int aluguel, int aluguel1Casa, int aluguel2Casas, int aluguel3Casas,
+	public TerrenoLaranja(int index,String nome, int preco, int aluguel, int aluguel1Casa, int aluguel2Casas, int aluguel3Casas,
 			int aluguel4Casas, int aluguelHotel, int hipoteca, int precoCasa) {
-		super(nome, preco, aluguel, aluguel1Casa, aluguel2Casas, aluguel3Casas, aluguel4Casas, aluguelHotel, hipoteca,
+		super(index,nome, preco, aluguel, aluguel1Casa, aluguel2Casas, aluguel3Casas, aluguel4Casas, aluguelHotel, hipoteca,
 				precoCasa);
 		// TODO Auto-generated constructor stub
 	}

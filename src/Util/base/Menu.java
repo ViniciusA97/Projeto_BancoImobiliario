@@ -15,11 +15,11 @@ public class Menu {
 		
 		Jogadores jogadores = new Jogadores();
 		Jogador usual = new Jogador();
-		FachadaTabuleiro fachadaT = FachadaTabuleiro.getInstance();
+		FachadaTabuleiro fachadaT = FachadaTabuleiro.getInstance(0);
 		FachadaComunicacao comunicacao= FachadaComunicacao.getInstance();
 		Observer observer = new Observer();
-		Comandos cmd= new Comandos(observer);
-		GeraString geraString = GeraString.getInstance();
+		Comandos cmd= new Comandos(observer,0);
+		GeraString geraString = GeraString.getInstance(0);
 		
 		
 		boolean verificaNum=true;

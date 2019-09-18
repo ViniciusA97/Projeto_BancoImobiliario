@@ -28,14 +28,13 @@ public class CmdServerRoom implements Cmd{
 	public String cases(HashMap<String, Object> map) {
 		
 		String msg = map.get("msg").toString();
-		InetAddress client;
+		InetAddress client = (InetAddress) map.get("address");
 		
 		
 		switch(msg) {
 			
 			case "getin":
-				
-				Jogador newPlayer =  new Jogador();
+				Jogador newPlayer =  new Jogador(client);
 				try {
 					this.room.addPlayer(newPlayer);
 				} catch (IOException e) {
@@ -46,22 +45,53 @@ public class CmdServerRoom implements Cmd{
 					}
 					System.out.println(e.getMessage());
 				}
-				this.observer.fireEventNotification(new EventoNotificationGetIn(), this.room.getJogadores());;
+				this.observer.fireEventNotification("Jogador "+this.room.getPlayer(client).getNome()
+						+" entrou no jogo",new EventoNotificationGetIn(), this.room.getJogadores());;
 				
 				break;
 				
 			case "setColor":
 				
-				client = (InetAddress) map.get("address");
-				this.room.setPlayerColor(client, map.get("usual").toString());
-				this.observer.fireEventNotification(new EventNotificationColorChange(), this.room.getJogadores());
+				if(confereCor(this.room.getJogadores(),(String)map.get("usual"))) {
+					this.room.setPlayerColor(client, map.get("usual").toString());
+				this.observer.fireEventNotification("Jogador "+this.room.getPlayer(client).getNome() 
+						+" mudou a cor para "+this.room.getPlayer(client).getCor(),new EventNotificationChanges(),
+						this.room.getJogadores());
+				}else {
+					
+					try {
+						this.comunication.sendMessage("Ja existe jogador usando essa cor", socket, client);
+					} catch (IOException e) {
+						System.out.println(e.getMessage());
+					}
+					
+				}
 				
+				break;
+				
+			case "setName":
+				
+				if(confereNome(this.room.getJogadores(),(String)map.get("usual"))) {
+						String nomeAntigo = this.room.getPlayer(client).getNome();
+				this.room.getPlayer(client).setName((String)map.get("usual"));
+				this.observer.fireEventNotification("Jogador "+nomeAntigo+" mudou o nome para "+this.room.getPlayer(client).getNome()
+						, new EventNotificationChanges(), this.room.getJogadores());
+			
+				}else {
+					
+					try {
+						this.comunication.sendMessage("Algum jogador ja possui esse nome.", socket, client);
+					} catch (IOException e) {
+						System.out.println(e.getMessage());
+					}
+				}
+				
+			
 			case "startGame":
 			
-				client = (InetAddress) map.get("address");
 				if(this.room.getPlayer(client).getAdm()) {
 					this.room.setStatusGame(true);
-					this.observer.fireEventNotification(new EventNotificationStartGame(), this.room.getJogadores());
+					this.observer.fireEventNotification("O jogo irá começar.",new EventNotificationStartGame(), this.room.getJogadores());
 				}else {
 					try {
 						this.comunication.sendMessage("Apenas Jogadores intitulados como adms podem iniciar o jogo. ", socket, client);
@@ -83,9 +113,9 @@ public class CmdServerRoom implements Cmd{
 			case "jogar":
 				
 				Jogadores jogadores = this.room.getJogadores();
-				client = (InetAddress) map.get("address");
+
 				if(client.equals(jogadores.getJogadorDaVez().getAddress())) {
-					//jogar
+					//jogar (lançar dados)... etc
 					//lançar observer	
 				}else {
 					
@@ -126,6 +156,23 @@ public class CmdServerRoom implements Cmd{
 		
 		
 		return "";
+	}
+	
+	public static boolean confereNome(Jogadores j, String nome) {
+		
+		for(Jogador i: j.getJogadores()) {
+			if(i.getNome().equals(nome)) return false;
+		}
+		return true;
+	}
+	
+	public static boolean confereCor(Jogadores j, String cor) {
+	
+		for(Jogador i: j.getJogadores()) {
+			if(i.getCor().equals(cor)) return false;
+		}
+		return true;
+		
 	}
 	
 }

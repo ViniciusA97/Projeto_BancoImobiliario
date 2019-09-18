@@ -10,14 +10,16 @@ public class Comandos {
 
 	private FachadaComunicacao comunicacao= FachadaComunicacao.getInstance();
 	private Jogadores jogadores;
-	private GeraString geraString = GeraString.getInstance();
-	private FachadaTabuleiro fachadaT= FachadaTabuleiro.getInstance();
+	private GeraString geraString;
+	private FachadaTabuleiro fachadaT;
 
 	private Mediador mediador ;
 	
 	
-	public Comandos(Observer obs) {
+	public Comandos(Observer obs,int index) {
 		this.mediador = new Mediador(obs);
+		this.geraString = GeraString.getInstance(index);
+		this.fachadaT = FachadaTabuleiro.getInstance(index);
 	}
 	
 

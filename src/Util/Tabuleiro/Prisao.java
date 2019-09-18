@@ -8,15 +8,15 @@ import Util.jogadores.*;
 public class Prisao implements Casa {
 
 	private ArrayList<Jogador> presos;
-	private static Prisao instance;
+	private static ArrayList<Prisao> instance;
 	
 	private Prisao() {
 		presos=new ArrayList<Jogador>();
 	}
 	
-	public static Prisao getInstance() {
-		if(instance==null) instance= new Prisao();
-		return instance;
+	public static Prisao getInstance(int index) {
+		if(instance.get(index)==null) instance.set(index, new Prisao());
+		return instance.get(index);
 	}
 
 	public void addPrisioneiro(Jogador j) {

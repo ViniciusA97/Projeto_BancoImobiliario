@@ -5,7 +5,7 @@ import Util.jogadores.Jogador;
 
 public class GerenciamentoDeTerreno {
 
-	private static GerenciamentoDeTerreno instance;
+	private static ArrayList<GerenciamentoDeTerreno> instance = new ArrayList<GerenciamentoDeTerreno>(8);
 	private ArrayList<TerrenoAmarelo> ListAmarelo = new  ArrayList<TerrenoAmarelo>();
 	private ArrayList<TerrenoAzul> ListAzul = new  ArrayList<TerrenoAzul>();
 	private ArrayList<TerrenoCiano> ListCiano = new  ArrayList<TerrenoCiano>();
@@ -18,9 +18,9 @@ public class GerenciamentoDeTerreno {
 	
 	private GerenciamentoDeTerreno(){}
 	
-	public static GerenciamentoDeTerreno getInstance() {
-		if(instance==null) instance = new GerenciamentoDeTerreno();
-		return instance;
+	public static GerenciamentoDeTerreno getInstance(int index) {
+		if(instance.get(index)==null) instance.set(index, new GerenciamentoDeTerreno());
+		return instance.get(index);
 	}
 	//verificaCor = verifica se proprietário tem todos os terrenos daquela cor
 	public boolean verificaAmarelo(Jogador j) {

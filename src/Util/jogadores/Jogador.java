@@ -34,6 +34,8 @@ public class Jogador implements Listeners{
 		this.adm =false;
 	}
 	
+	public Jogador() {}
+	
 	public void setAdm() {
 		this.adm = !adm;
 	}
@@ -42,8 +44,10 @@ public class Jogador implements Listeners{
 		return this.adm;
 	}
 	
-	public Jogador() {
-
+	public Jogador(InetAddress address) {
+		this.ip = address;
+		this.nome = this.ip.getHostName();
+		this.adm=false;
 	}
 	
 	public void setIp(InetAddress address) {
@@ -202,5 +206,8 @@ public class Jogador implements Listeners{
 		System.out.println(eventoPreHotel.getStringEvento(j));
 	}
 
+	public void setName(String nome) {
+		this.nome = nome;
+	}
 	
 }

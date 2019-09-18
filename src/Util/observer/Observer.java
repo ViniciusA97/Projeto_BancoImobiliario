@@ -41,9 +41,9 @@ public class Observer {
 		}
 	}
 	
-	public void fireEventNotification(EventsNotification event , Jogadores j) {
+	public void fireEventNotification(String msg,EventsNotification event , Jogadores j) {
 		try {
-			event.lancaEventNotification(j, this.socket, comunication);
+			event.lancaEventNotification(msg,j, this.socket, comunication);
 		} catch (IOException e) {
 			System.out.println(e.getLocalizedMessage()+" -- Event get In");
 		}

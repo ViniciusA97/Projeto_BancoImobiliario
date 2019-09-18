@@ -5,9 +5,11 @@ import Util.jogadores.Jogadores;
 
 public class VaPraPrisao implements Casa {
 
+	private Prisao prisao;
 
-
-	
+	public VaPraPrisao(int index) {
+		this.prisao = Prisao.getInstance(index);
+	}
 	
 	public String getNome() {
 		return "Vá para a Prisão";
@@ -15,7 +17,6 @@ public class VaPraPrisao implements Casa {
 
 	@Override
 	public void fazAcao(Comandos cmd, Jogadores j) {
-		Prisao prisao = Prisao.getInstance();
 		
 		prisao.addPrisioneiro(j.getJogadorDaVez());
 		j.getJogadorDaVez().setCasa(9);

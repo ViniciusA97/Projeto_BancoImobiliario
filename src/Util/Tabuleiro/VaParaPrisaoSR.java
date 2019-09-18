@@ -5,8 +5,11 @@ import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
 
 public class VaParaPrisaoSR implements Casa{
-	public VaParaPrisaoSR() {
-		
+	
+	private Prisao prisao;
+	
+	public VaParaPrisaoSR(int index) {
+		this.prisao = Prisao.getInstance(index);
 	}
 	
 	public void geraEfeito(Jogador j) {
@@ -18,7 +21,6 @@ public class VaParaPrisaoSR implements Casa{
 
 	@Override
 	public void fazAcao(Comandos cmd, Jogadores j) {
-		Prisao prisao = Prisao.getInstance();
 		prisao.addPrisioneiro(j.getJogadorDaVez());
 		j.getJogadorDaVez().setCasa(9);
 		System.out.println("O jogador "+j.getJogadorDaVez().getNome()+" pegou a carta de Revés 'Va para a prisao' e esta detido. Na sua proxima "

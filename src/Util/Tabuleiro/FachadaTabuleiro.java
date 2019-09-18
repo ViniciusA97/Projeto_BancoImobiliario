@@ -8,125 +8,111 @@ import Util.jogadores.SemSaldoException;
 
 public class FachadaTabuleiro {
 
-	private static FachadaTabuleiro instance;
+	private static ArrayList<FachadaTabuleiro> instance = new ArrayList<FachadaTabuleiro>(8);
+	private Prisao prisao;
+	private Tabuleiro tabuleiro;
+	private GerenciamentoDeTerreno gerenciamentoTerreno;
 	
-	private FachadaTabuleiro(){}
+	private FachadaTabuleiro(int index){
+		this.prisao= Prisao.getInstance(index);
+		this.tabuleiro = Tabuleiro.getInstance(index);
+		this.gerenciamentoTerreno = GerenciamentoDeTerreno.getInstance(index);
+	}
 	
-	public static FachadaTabuleiro getInstance() {
-		if(instance==null) instance = new FachadaTabuleiro();
-		return instance;
+	public static FachadaTabuleiro getInstance(int index) {
+		if(instance.get(index)==null) instance.set(index, new FachadaTabuleiro(index));
+		return instance.get(index);
 	}
 
 	public void tentaSairPrisao(String aux, Jogadores j) {
-		Prisao temp= Prisao.getInstance();
-		temp.tentaSairPrisao(aux, j);
+		this.prisao.tentaSairPrisao(aux, j);
 		
 	}
 	
 	public void vaiPraPrisao(Jogadores j) {
-		Prisao temp= Prisao.getInstance();
-		temp.vaiPraPrisao(j);
+
+		prisao.vaiPraPrisao(j);
 	}
 	
 	public boolean procuraPrisioneiro(Jogador j) {
-		Prisao temp = Prisao.getInstance();
-		return temp.procuraPrisioneiro(j);
+		return this.prisao.procuraPrisioneiro(j);
 	}
 	
 	public Casa getCasaTabuleiro(int v) {
-		Tabuleiro temp= Tabuleiro.getInstance();
-		return temp.getCasa(v);
+		return this.tabuleiro.getCasa(v);
 	}
 	
 	
 	public void retiraJogadorDaPrisao(Jogador j) {
-		Prisao temp= Prisao.getInstance();
-		temp.retiraPrisioneiro(j);
+		this.prisao.retiraPrisioneiro(j);
 	}
 	
 	public boolean verificaMonopolio(Jogador j) {
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.verificaMonopolio(j);
+		return this.gerenciamentoTerreno.verificaMonopolio(j);
 	}
 	
 	public boolean verificaAmarelo(Jogador j) {
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.verificaAmarelo(j);
+		return this.gerenciamentoTerreno.verificaAmarelo(j);
 	}
 	
 	public boolean verificaAzul(Jogador j) {
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.verificaAzul(j);
+		return this.gerenciamentoTerreno.verificaAzul(j);
 	}
 	
 	public boolean verificaCiano(Jogador j) {
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.verificaCiano(j);
+		return this.gerenciamentoTerreno.verificaCiano(j);
 	}
 	
 	public boolean verificaRoxo(Jogador j) {
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.verificaRoxo(j);
+		return this.gerenciamentoTerreno.verificaRoxo(j);
 	}
 	
 	public boolean verificaRosa(Jogador j) {
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.verificaRosa(j);
+		return this.gerenciamentoTerreno.verificaRosa(j);
 	}
 	
 	public boolean verificaLaranja(Jogador j) {
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.verificaLaranja(j);
+		return this.gerenciamentoTerreno.verificaLaranja(j);
 	}
 	
 	public boolean verificaVermelho(Jogador j) {
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.verificaVermelho(j);
+		return this.gerenciamentoTerreno.verificaVermelho(j);
 	}
 	
 	public boolean verificaVerde(Jogador j) {
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.verificaVerde(j);
+		return this.gerenciamentoTerreno.verificaVerde(j);
 	}
 	
 	public ArrayList<TerrenoAmarelo> getTerrenoAmarelo(){
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.getListAmarelo();
+		return this.gerenciamentoTerreno.getListAmarelo();
 	}
 	
 	public ArrayList<TerrenoAzul> getTerrenoAzul(){
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.getListAzul();
+		return this.gerenciamentoTerreno.getListAzul();
 	}
 	
 	public ArrayList<TerrenoRoxo> getTerrenoRoxo(){
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.getListRoxo();
+		return this.gerenciamentoTerreno.getListRoxo();
 	}
 	
 	public ArrayList<TerrenoRosa> getTerrenoRosa(){
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.getListRosa();
+		return this.gerenciamentoTerreno.getListRosa();
 	}
 	
 	public ArrayList<TerrenoVerde> getTerrenoVerde(){
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.getListVerde();
+		return this.gerenciamentoTerreno.getListVerde();
 	}
 	
 	public ArrayList<TerrenoVermelho> getTerrenoVermelho(){
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.getListVermelho();
+		return this.gerenciamentoTerreno.getListVermelho();
 	}
 	
 	public ArrayList<TerrenoLaranja> getTerrenoLaranja(){
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.getListLaranja();
+		return this.gerenciamentoTerreno.getListLaranja();
 	}
 	
 	public ArrayList<TerrenoCiano> getTerrenoCiano(){
-		GerenciamentoDeTerreno temp = GerenciamentoDeTerreno.getInstance();
-		return temp.getListCiano();
+		return this.gerenciamentoTerreno.getListCiano();
 	}
 	
 	public void compraCasa(Terreno terreno, Jogador j) {

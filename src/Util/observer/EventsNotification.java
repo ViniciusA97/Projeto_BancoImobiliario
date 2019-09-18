@@ -9,6 +9,6 @@ public abstract class EventsNotification {
 
 	
 	
-	public abstract void lancaEventNotification(Jogadores j, DatagramSocket socket, ComunicationFacade comunication) throws IOException;
+	public abstract void lancaEventNotification(String msg,Jogadores j, DatagramSocket socket, ComunicationFacade comunication) throws IOException;
 
 }
