@@ -3,6 +3,8 @@ package Util.Tabuleiro;
 import Util.base.Comandos;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
+import Util.observer.EventNotification;
+import Util.observer.Observer;
 
 public class ImpostoDeRenda implements Casa {
 
@@ -14,14 +16,14 @@ public class ImpostoDeRenda implements Casa {
 
 	@Override
 	public void fazAcao(Comandos cmd, Jogadores j) {
-
-		System.out.println("Terá que pagar 200$ para o imposto de Renda");
+		Observer o = cmd.getObserver();
+		o.fireEventNotification("Terá que pagar 200$ para o imposto de Renda", new EventNotification(), j);
 		try {
 			j.getJogadorDaVez().perdeDinehiro(200);
 		} catch (SemSaldoException e) {
-			System.out.println(e.getMessage());
+			o.fireEventNotification(e.getMessage(), new EventNotification(), j);
 		}
-		System.out.println("Saldo Atual: "+j.getJogadorDaVez().getDinheiro() );
+		o.fireEventNotification("Saldo Atual: "+j.getJogadorDaVez().getDinheiro(),new EventNotification(), j);
 		
 	}		
 

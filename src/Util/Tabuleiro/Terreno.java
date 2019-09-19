@@ -1,10 +1,16 @@
 package Util.Tabuleiro;
 
+import java.io.IOException;
+import java.net.DatagramSocket;
+import java.util.HashMap;
+
+import Shared.ComunicationFacade;
 import Util.base.Comandos;
 import Util.base.FachadaComunicacao;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
+import Util.observer.EventNotification;
 import Util.observer.Mediador;
 import Util.observer.Observer;
 
@@ -38,6 +44,7 @@ public abstract class Terreno implements Comercial, Casa{
 		this.hipoteca = hipoteca;
 		this.precoCasa = precoCasa;
 		this.proprietario=null;
+		this.gerenciador = GerenciamentoDeTerreno.getInstance(index);
 	}
 	
 	public void compraCasa(Jogador j) throws SemSaldoException {//adiciona uma casa ao terreno
@@ -69,13 +76,14 @@ public abstract class Terreno implements Comercial, Casa{
 		this.proprietario.ganhaDinheiro(this.precoCasa/2);
 	}
 	
-	public void pagaAluguel(Jogador recebe, Jogador paga) throws SemSaldoException {//paga aluguel da propriedade
+	public void pagaAluguel(Jogador recebe, Jogador paga,Observer o, Jogadores j) throws SemSaldoException {//paga aluguel da propriedade
 		paga.perdeDinehiro(this.aluguel);
 		recebe.ganhaDinheiro(this.aluguel);
-		System.out.println("Jogador "+paga.getNome()+" caiu no terreno do jogador "+recebe.getNome()+" e irá pagar o aluguel.");
-		System.out.println("Pagamento de "+ aluguel +" efetuado com Sucesso");
-		System.out.println("Saldo atual do jogador "+recebe.getNome()+" é: "+ recebe.getDinheiro());
-		System.out.println("Saldo atual do jogador "+paga.getNome()+" é : "+paga.getDinheiro());
+		o.fireEventNotification("Jogador "+paga.getNome()+" caiu no terreno do jogador "+recebe.getNome()+" e irá pagar o aluguel.", new EventNotification(), j);
+		o.fireEventNotification("Pagamento de "+ aluguel +" efetuado com Sucesso", new EventNotification(), j);
+		o.fireEventNotification("Saldo atual do jogador "+recebe.getNome()+" é: "+ recebe.getDinheiro(), new EventNotification(), j);
+		o.fireEventNotification("Saldo atual do jogador "+paga.getNome()+" é : "+paga.getDinheiro(), new EventNotification(), j);
+		
 	}
 	
 	public int getHipoteca() {//retorna hipoteca do terreno
@@ -102,13 +110,14 @@ public abstract class Terreno implements Comercial, Casa{
 	public String getNome() {//retorna nome do terreno
 		return this.nome;
 	}
-	public void compra(Jogador j) throws SemSaldoException  {//faz ação de compra do terreno
-		if(j.getDinheiro()>=this.preco) {
-			j.perdeDinehiro(preco);
-			this.proprietario = j;
-			j.addTerreno(this);
-			System.out.println("Compra feita com Sucesso!");
-			System.out.println("Saldo atual: "+j.getDinheiro());}
+	public void compra(Jogadores j,Observer o) throws SemSaldoException  {//faz ação de compra do terreno
+		if(j.getJogadorDaVez().getDinheiro()>=this.preco) {
+			j.getJogadorDaVez().perdeDinehiro(preco);
+			this.proprietario = j.getJogadorDaVez();
+			j.getJogadorDaVez().addTerreno(this);
+			o.fireEventNotification("Compra feita com Sucesso!", new EventNotification(), j);
+			o.fireEventNotification("Saldo atual: "+j.getJogadorDaVez().getDinheiro(), new EventNotification(), j);
+		}
 		else throw new SemSaldoException();
 	
 		}
@@ -125,33 +134,55 @@ public abstract class Terreno implements Comercial, Casa{
 		return this.precoCasa;
 	}
 	public void fazAcao(Comandos cmd, Jogadores j) {//faz a ação referente a Terreno
-		
+		Observer o = cmd.getObserver();
 		FachadaComunicacao fachada= FachadaComunicacao.getInstance();
 		if(proprietario==null) {
 			if(j.getJogadorDaVez().getDinheiro()>=preco) {
-				System.out.println("O titulo do terreno está disponível por: $"+preco +" do tipo "+ this.getCor());
-    			System.out.println(j.getJogadorDaVez().getNome()+" você possui $"+j.getJogadorDaVez().getDinheiro());
+				
+				o.fireEventNotification("O titulo do terreno está disponível por: $"+preco +" do tipo "+ this.getCor(), new EventNotification(), j);
+				o.fireEventNotification(j.getJogadorDaVez().getNome()+" você possui $"+j.getJogadorDaVez().getDinheiro(), new EventNotification(), j);
+				boolean cond = true;
+				HashMap<String,Object> map;
+				ComunicationFacade comunication = new ComunicationFacade();
+				
+				try {
+					DatagramSocket socket = new DatagramSocket();
+					comunication.sendMessage("Deseja comprar? [Sim] [Nao]", socket, j.getJogadorDaVez().getAddress());
+					while(cond) {
+						map =(HashMap<String, Object>) comunication.reciveMessage(socket);
+						if(map.get("address").equals(j.getJogadorDaVez().getAddress())) {
+							String aux = (String) map.get("msg");
+							if(aux.equals("sim")||aux.equals("s")||aux.equals("Sim")) {
+			    				compra(j,o);
+			    				cond=false;
+							}
+						}
+					}
+				
+				} catch (IOException | SemSaldoException e1) {
+					o.fireEventNotification(e1.getMessage(), new EventNotification(), j);
+				}
     			String compra=fachada.inputString("Deseja comprar? [Sim] [Nao]");
     			if(compra.equals("sim") || compra.equals("Sim")|| compra.equals("s")) {
     				try {
-    					compra(j.getJogadorDaVez());
+    					compra(j,o);
     					if(verificaMonopolioPorCor(j.getJogadorDaVez()) || verificaPreMonopolioPorCor(j.getJogadorDaVez())) {
     						Observer observer = new Observer();
     						Mediador mediadorObserver = new Mediador(observer);
     						mediadorObserver.confereDoisTipoMonopolio(j);
     					}
     				} catch (SemSaldoException e) {
-    					System.out.println(e.getMessage());
+    					o.fireEventNotification(e.getMessage(), new EventNotification(), j);
     				}
     			}
 			}
 		}
 		else if(!proprietario.equals(j.getJogadorDaVez())) {
     		try{
-    			pagaAluguel(proprietario,j.getJogadorDaVez());
+    			pagaAluguel(proprietario,j.getJogadorDaVez(),o , j);
     		}
     		catch (SemSaldoException e) {
-    			System.out.println(e.getMessage());
+    			o.fireEventNotification(e.getMessage(), new EventNotification(), j);
     		}
 		}
 	}

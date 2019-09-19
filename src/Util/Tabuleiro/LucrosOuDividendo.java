@@ -4,6 +4,8 @@ import Util.base.Comandos;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
+import Util.observer.EventNotification;
+import Util.observer.Observer;
 
 public class LucrosOuDividendo implements Casa{
 	@Override
@@ -14,10 +16,10 @@ public class LucrosOuDividendo implements Casa{
 
 	@Override
 	public void fazAcao(Comandos cmd, Jogadores j) {
-		
+		Observer o = cmd.getObserver();
 		j.getJogadorDaVez().ganhaDinheiro(200);
-		System.out.println("Jogador "+ j.getJogadorDaVez().getNome()+ " Ganhou 200.");
-		System.out.println("Saldo Atual: "+j.getJogadorDaVez().getDinheiro());
+		o.fireEventNotification("Jogador "+ j.getJogadorDaVez().getNome()+ " Ganhou 200.", new EventNotification(), j);
+		o.fireEventNotification("Saldo Atual: "+j.getJogadorDaVez().getDinheiro(), new EventNotification(), j);
 		
 	}
 

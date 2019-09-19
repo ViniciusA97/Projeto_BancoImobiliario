@@ -2,6 +2,8 @@ package Util.Tabuleiro;
 
 import Util.base.Comandos;
 import Util.jogadores.Jogadores;
+import Util.observer.EventNotification;
+import Util.observer.Observer;
 
 public class ParadaLivre implements Casa {
 
@@ -12,7 +14,8 @@ public class ParadaLivre implements Casa {
 
 	@Override
 	public void fazAcao(Comandos cmd, Jogadores j) {
-		System.out.println(getNome());
+		Observer o = cmd.getObserver();
+		o.fireEventNotification(getNome(), new EventNotification(), j);
 		
 	}
 

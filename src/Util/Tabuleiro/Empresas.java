@@ -2,12 +2,9 @@ package Util.Tabuleiro;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 import java.util.HashMap;
-
 import Shared.ComunicationFacade;
 import Util.base.Comandos;
-import Util.base.FachadaComunicacao;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;

@@ -3,6 +3,8 @@ package Util.Tabuleiro;
 import Util.base.Comandos;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
+import Util.observer.EventNotification;
+import Util.observer.Observer;
 
 public class ParOuImpar implements Casa{
 	public ParOuImpar() {
@@ -11,19 +13,22 @@ public class ParOuImpar implements Casa{
 	
 	public void fazAcao(Comandos cmd, Jogadores j) {
 		
-		System.out.println(toString());
+		Observer o = cmd.getObserver();
+		o.fireEventNotification(toString(), new EventNotification(), j);
 		String aux = j.getJogadorDaVez().getUltimoDado();
 		int soma = Integer.parseInt(aux, aux.charAt(0)) + Integer.parseInt(aux, aux.charAt(1));
 		if(soma%2 == 0) {
 			j.getJogadorDaVez().ganhaDinheiro(100);
-			System.out.println("Número par, ganhou 100");
+			o.fireEventNotification("Número par, ganhou 100", new EventNotification(), j);
+			
 		}else {
 			try {
 				j.getJogadorDaVez().perdeDinehiro(100);
 			} catch (SemSaldoException e) {
-				System.out.println(e.getMessage());
+				o.fireEventNotification(e.getMessage(), new EventNotification(), j);
+				
 			}
-			System.out.println("Número ímpar, paga 100");
+			o.fireEventNotification("Número ímpar, paga 100", new EventNotification(), j);
 		}
 	}
 	
