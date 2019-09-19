@@ -3,6 +3,8 @@ package Util.Tabuleiro;
 import Util.base.Comandos;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
+import Util.observer.EventNotification;
+import Util.observer.Observer;
 
 public class CartasGenericas implements Casa{
 	private String nome;
@@ -16,19 +18,22 @@ public class CartasGenericas implements Casa{
 	}
 	
 	public void fazAcao(Comandos cmd,Jogadores j){//Faz ação de cartas de efeito genérico de Sorte e Revés
-	
+		Observer observer = cmd.getObserver();
 		if(this.pague == 0) {
-			System.out.println(this.nome +" .Receba "+receba );
+			observer.fireEventNotification(this.nome +" .Receba "+receba, new EventNotification(), cmd.getJogadores());
 			j.getJogadorDaVez().ganhaDinheiro(this.receba);
-			System.out.println("Saldo atual de: "+j.getJogadorDaVez().getDinheiro());
+			observer.fireEventNotification("Saldo atual de: "+j.getJogadorDaVez().getDinheiro(), new EventNotification(), cmd.getJogadores());
+
 		}else {
-			System.out.println(this.nome +" .Pague "+pague );
+			observer.fireEventNotification(this.nome +" .Pague "+pague, new EventNotification(), cmd.getJogadores());
+
 			try {
 				j.getJogadorDaVez().perdeDinehiro(this.pague);
+				observer.fireEventNotification("Saldo atual de: "+j.getJogadorDaVez().getDinheiro(), new EventNotification(), cmd.getJogadores());
+						
 			} catch (SemSaldoException e) {
-				System.out.println(e.getMessage());
+				observer.fireEventNotification(e.getMessage(), new EventNotification(), cmd.getJogadores());
 			}
-			System.out.println("Saldo atual de: "+j.getJogadorDaVez().getDinheiro());
 		}
 	}
 	

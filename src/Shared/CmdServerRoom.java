@@ -5,6 +5,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.HashMap;
 import Server.Room;
+import Util.Tabuleiro.FachadaTabuleiro;
+import Util.base.Comandos;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
 import Util.observer.*;
@@ -15,6 +17,8 @@ public class CmdServerRoom implements Cmd{
 	private Room room;
 	private DatagramSocket socket;
 	private Observer observer;
+	private Comandos comandos;
+	private FachadaTabuleiro fachadaT;
 	
 	public CmdServerRoom(Room r, DatagramSocket s,Observer observer) {
 		
@@ -22,6 +26,8 @@ public class CmdServerRoom implements Cmd{
 		this.room = r;
 		this.socket = s;
 		this.observer = observer;
+		this.comandos = new Comandos(this.observer,this.room.getNum(),this.socket,this.room.getJogadores());
+		this.fachadaT = FachadaTabuleiro.getInstance(this.room.getNum());
 		
 	}
 
@@ -29,7 +35,7 @@ public class CmdServerRoom implements Cmd{
 		
 		String msg = map.get("msg").toString();
 		InetAddress client = (InetAddress) map.get("address");
-		
+		Jogadores jogadores;
 		
 		switch(msg) {
 			
@@ -103,47 +109,87 @@ public class CmdServerRoom implements Cmd{
 				
 			case "leaveRoom":
 				
+				jogadores = this.room.getJogadores();
 				
+				for(Jogador i: jogadores.getJogadores()) {
+					if(i.getAddress().equals(client)) {
+						this.room.delPlayer(client);
+					}
+				}
+				
+				this.observer.fireEventNotification("1", new EventNotification(), jogadores);
 				
 				
 			case "getOutGame":
-				this.room.delPlayer( (InetAddress)map.get("address") );
-				//lançar observer
+				this.comandos.comandoSair();
 				
 			case "jogar":
 				
-				Jogadores jogadores = this.room.getJogadores();
+				jogadores = this.room.getJogadores();
 
 				if(client.equals(jogadores.getJogadorDaVez().getAddress())) {
-					//jogar (lançar dados)... etc
-					//lançar observer	
+					this.comandos.comandoJogar();
+				
 				}else {
-					
-					try {
-						this.comunication.sendMessage("Não é sua vez, porfavor esperar!", socket, client);
-					} catch (IOException e) {
-						System.out.println(e.getMessage()+" -- jogar cmd Server Room");
-					}
+					this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
 				}
 				
 			case "status":
 				
-				//lançar observer
+				jogadores = this.room.getJogadores();
+				if(client.equals(jogadores.getJogadorDaVez().getAddress())) {
+					this.comandos.comandoStatus();
+				
+				}else {
+					this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
+				}
 			
 			case "vender":
 				
-				//vender e lançar observer
+				jogadores = this.room.getJogadores();
+				if(client.equals(jogadores.getJogadorDaVez().getAddress())) {
+					this.comandos.comandoVender();
+				
+				}else {
+					this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
+				}
 				
 			case "carta":
 				
-				// carta e lançar observer
+				jogadores = this.room.getJogadores();
+				
+				if(this.fachadaT.procuraPrisioneiro(jogadores.getJogadorDaVez())) {
+					if(client.equals(jogadores.getJogadorDaVez().getAddress())) {
+						this.comandos.comandoCarta();
+				
+					}else {
+						this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
+					}
+				}
 				
 			case "pagar":
 				
-				//pagar e lançar observer
+				jogadores = this.room.getJogadores();
+				
+				if(this.fachadaT.procuraPrisioneiro(jogadores.getJogadorDaVez())) {
+					if(client.equals(jogadores.getJogadorDaVez().getAddress())) {
+						this.comandos.comandoPagar();
+				
+					}else {
+						this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
+					}
+				}
+				
 				
 			case "biuld":
 				
+				jogadores = this.room.getJogadores();
+				if(client.equals(jogadores.getJogadorDaVez().getAddress())) {
+					this.comandos.comandoConstruir();
+				
+				}else {
+					this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
+				}
 				//biuld e lançar observer
 				
 			case "/h":

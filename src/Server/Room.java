@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import Shared.CmdServerRoom;
 import Shared.ComunicationFacade;
+import Util.Tabuleiro.FachadaTabuleiro;
 import Util.base.FachadaComunicacao;
 import Util.base.GeraString;
 import Util.jogadores.Jogador;
@@ -23,11 +24,14 @@ public class Room extends Thread {
 	private Observer observer;
 	private Jogadores jogadores;
 	private GeraString geraString;
-	private int id;
+	private int num;
+	private FachadaTabuleiro fachadaT;
 	
 	public Room(int index){
-		this.id = index;
-		this.geraString = GeraString.getInstance(id);
+
+		this.num = index;
+		this.fachadaT = FachadaTabuleiro.getInstance(num);
+		this.geraString = GeraString.getInstance(num);
 		this.jogadores = new Jogadores();
 		this.inGame = false;
 		this.comunication = new ComunicationFacade();
@@ -67,7 +71,7 @@ public class Room extends Thread {
 				} catch (IOException e) {
 					System.out.println(e.getMessage());
 				}
-	
+					
 				
 				
 				
@@ -128,5 +132,9 @@ public class Room extends Thread {
 	
 	public void setGameOff(){
 		this.inGame = false;
+	}
+	
+	public int getNum() {
+		return this.num;
 	}
 }
