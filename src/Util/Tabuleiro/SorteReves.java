@@ -6,6 +6,8 @@ import Util.base.Comandos;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
+import Util.observer.EventNotification;
+import Util.observer.Observer;
 
 public class SorteReves implements Casa{
 	
@@ -71,7 +73,8 @@ public class SorteReves implements Casa{
 		try {
 			geraEfeito(j.getJogadorDaVez(), cmd, j);
 		} catch (SemSaldoException e) {
-			System.out.println(e.getMessage());
+			Observer o = cmd.getObserver();
+			o.fireEventNotification(e.getMessage(), new EventNotification(), j);
 		}
 		
 	}

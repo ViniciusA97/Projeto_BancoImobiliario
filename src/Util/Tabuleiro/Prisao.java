@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import Util.base.Comandos;
 import Util.jogadores.*;
+import Util.observer.EventNotification;
+import Util.observer.Observer;
 
 public class Prisao implements Casa {
 
@@ -50,29 +52,30 @@ public class Prisao implements Casa {
 
 	@Override
 	public void fazAcao(Comandos cmd, Jogadores j) {
+		
 	}
 	
-	public void tentaSairPrisao(String aux, Jogadores j) {
+	public void tentaSairPrisao(String aux, Jogadores j, Observer o) {
 		
 		if(aux.charAt(0)==(aux.charAt(2))) {
-			System.out.println("Jogador " + j.getJogadorDaVez().getNome()+" tirou  [" + aux.charAt(0) +","+ aux.charAt(1)+"] e saiu da prisão."
-					+ "Em seu próximo turno poderá mover normalmente. Histórico de dados removidos." );
+			o.fireEventNotification("Jogador " + j.getJogadorDaVez().getNome()+" tirou  [" + aux.charAt(0) +","+ aux.charAt(1)+"] e saiu da prisão."
+					+ "Em seu próximo turno poderá mover normalmente. Histórico de dados removidos.", new EventNotification(), j);
 			j.getJogadorDaVez().apagaTudoDados();
 			this.retiraPrisioneiro(j.getJogadorDaVez());
 			
 		}else {
-			System.out.println("Jogador " + j.getJogadorDaVez().getNome()+ " tirou os dados ["+aux.charAt(0)+", "+aux.charAt(1)+", infelizmente não saiu da prisão. ");
+			o.fireEventNotification("Jogador " + j.getJogadorDaVez().getNome()+ " tirou os dados ["+aux.charAt(0)+", "+aux.charAt(1)+", infelizmente não saiu da prisão. ", new EventNotification(), j);			
 		}
 		
 	}
 	
-	public void vaiPraPrisao(Jogadores j) {
+	public void vaiPraPrisao(Jogadores j, Observer o) {
 		
 		String [] dados= j.getJogadorDaVez().getAll();
-		System.out.println("Por ter tirado 3 vezes números iguais nos dados o jogador foi jogado na prisão.");
-		System.out.println("Dados: ["+dados[0].charAt(0)+","+dados [0].charAt(1)+"] , ["+dados[1].charAt(0)+","+dados[1].charAt(1)+"] , ["+dados[2].charAt(0)+","+dados[2].charAt(1)+"]");
-		System.out.println("Em suas próximas jogadas ele poderá escolher pagar para sair, tentar acertar os dados iguais ou"
-				+ "\nse possuir a carta de liberação ela poderá ser usada.");
+		o.fireEventNotification("Por ter tirado 3 vezes números iguais nos dados o jogador foi jogado na prisão.", new EventNotification(), j);
+		o.fireEventNotification("Dados: ["+dados[0].charAt(0)+","+dados [0].charAt(1)+"] , ["+dados[1].charAt(0)+","+dados[1].charAt(1)+"] , ["+dados[2].charAt(0)+","+dados[2].charAt(1)+"]", new EventNotification(), j);
+		o.fireEventNotification("Em suas próximas jogadas ele poderá escolher pagar para sair, tentar acertar os dados iguais ou"
+				+ "\nse possuir a carta de liberação ela poderá ser usada.", new EventNotification(), j);
 		this.addPrisioneiro(j.getJogadorDaVez());
 	}
 

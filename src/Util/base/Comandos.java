@@ -139,13 +139,13 @@ public class Comandos {
 		int [] dadosJogados= dado.jogaDados();
 		String aux = Integer.toString(dadosJogados[0])+" "+Integer.toString(dadosJogados[1]);
 		if(dado.verificaHistoricoDeDados(jogadores.getJogadorDaVez())) {
-			fachadaT.vaiPraPrisao(jogadores);
+			fachadaT.vaiPraPrisao(jogadores,this.observer);
 			jogadores.getJogadorDaVez().setCasa(9);
 			jogadores.passaVez();
 			return ;
 		}
 		if(fachadaT.procuraPrisioneiro(jogadores.getJogadorDaVez())) {
-			fachadaT.tentaSairPrisao(aux, jogadores);
+			fachadaT.tentaSairPrisao(aux, jogadores,this.observer);
 		}
 		else if(jogadores.getJogadorDaVez().getCasa()+dadosJogados[0]+dadosJogados[1]>39) {
 			

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
+import Util.observer.Observer;
 
 public class FachadaTabuleiro {
 
@@ -24,14 +25,14 @@ public class FachadaTabuleiro {
 		return instance.get(index);
 	}
 
-	public void tentaSairPrisao(String aux, Jogadores j) {
-		this.prisao.tentaSairPrisao(aux, j);
+	public void tentaSairPrisao(String aux, Jogadores j,Observer o) {
+		this.prisao.tentaSairPrisao(aux, j, o);
 		
 	}
 	
-	public void vaiPraPrisao(Jogadores j) {
+	public void vaiPraPrisao(Jogadores j, Observer o) {
 
-		prisao.vaiPraPrisao(j);
+		prisao.vaiPraPrisao(j,o);
 	}
 	
 	public boolean procuraPrisioneiro(Jogador j) {
