@@ -13,9 +13,14 @@ import Util.jogadores.Jogadores;
 
 public class ComunicationFacade {
 
-    private final int PORT = 4444;
+    private final int PORT;
+    private ArrayList<ComunicationFacade> instances;
     
-    public  ComunicationFacade(){} 
+    private  ComunicationFacade(int port){
+    	
+    	this.PORT = port;
+    	
+    } 
 
     public void sendMessage(String message , DatagramSocket socket, Jogadores j) throws IOException{
 
@@ -25,7 +30,6 @@ public class ComunicationFacade {
         	
         	DatagramPacket pacote = new DatagramPacket(bytes, bytes.length, i.getAddress(), this.PORT);
         	socket.send(pacote);        
-        
         }
     }
 

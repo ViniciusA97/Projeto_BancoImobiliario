@@ -8,7 +8,7 @@ import Util.jogadores.Jogador;
 public class GeraString {
 
 	private static ArrayList<GeraString> instance = null;
-	private ArrayList<Terreno> construcoes = new ArrayList<Terreno>(8);
+	private ArrayList<Terreno> construcoes = new ArrayList<Terreno>(40);
 	private FachadaTabuleiro fachadaT;
 	private GeraString(int index) {
 		this.fachadaT= FachadaTabuleiro.getInstance(index);

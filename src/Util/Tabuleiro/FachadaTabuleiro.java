@@ -9,7 +9,7 @@ import Util.observer.Observer;
 
 public class FachadaTabuleiro {
 
-	private static ArrayList<FachadaTabuleiro> instance = new ArrayList<FachadaTabuleiro>(8);
+	private static ArrayList<FachadaTabuleiro> instance = new ArrayList<FachadaTabuleiro>(40);
 	private Prisao prisao;
 	private Tabuleiro tabuleiro;
 	private GerenciamentoDeTerreno gerenciamentoTerreno;

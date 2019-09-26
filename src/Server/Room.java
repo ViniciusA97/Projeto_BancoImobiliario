@@ -24,12 +24,13 @@ public class Room extends Thread {
 	private Observer observer;
 	private Jogadores jogadores;
 	private GeraString geraString;
-	private int num;
 	private FachadaTabuleiro fachadaT;
+	private int port;
+	private int num;
 	
-	public Room(int index){
-
-		this.num = index;
+	public Room(int port, int n){
+		this.num = n;
+		this.port = port;
 		this.fachadaT = FachadaTabuleiro.getInstance(num);
 		this.geraString = GeraString.getInstance(num);
 		this.jogadores = new Jogadores();
@@ -38,7 +39,7 @@ public class Room extends Thread {
 		this.observer = new Observer();
 	
 		try {
-			this.socket = new DatagramSocket(4444);
+			this.socket = new DatagramSocket(port);
 			this.cmd = new CmdServerRoom(this,this.socket, this.observer);
 		}catch(Exception e) {
 			System.out.println(e.getMessage());

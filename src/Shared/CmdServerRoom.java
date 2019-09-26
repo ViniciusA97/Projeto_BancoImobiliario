@@ -107,6 +107,21 @@ public class CmdServerRoom implements Cmd{
 				}
 				break;
 				
+			case "setNameRoom":
+				
+				if(this.room.getPlayer(client).getAdm()) {
+					String name = (String) map.get("usual");
+					this.room.setName(name);
+					this.observer.fireEventNotification("O nome da sala foi mudado para "+ name,new EventNotificationStartGame(), this.room.getJogadores());
+				}else {
+					try {
+						this.comunication.sendMessage("Apenas Jogadores intitulados como adms podem iniciar o jogo. ", socket, client);
+					} catch (IOException e) {
+						System.out.println(e.getMessage()+" Não trocado o nome da sala");
+					}	
+				}
+				break;
+				
 			case "leaveRoom":
 				
 				jogadores = this.room.getJogadores();
