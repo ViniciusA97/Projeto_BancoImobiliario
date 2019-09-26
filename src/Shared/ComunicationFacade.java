@@ -14,13 +14,23 @@ import Util.jogadores.Jogadores;
 public class ComunicationFacade {
 
     private final int PORT;
-    private ArrayList<ComunicationFacade> instances;
+    private static ArrayList<ComunicationFacade> instances = new ArrayList<ComunicationFacade>(40);
     
     private  ComunicationFacade(int port){
     	
     	this.PORT = port;
     	
     } 
+    
+    public static ComunicationFacade getInstance(int index , int port) {
+    	if(instances.get(index)==null) {
+    		instances.set(index, new ComunicationFacade(port));
+    		
+    	}
+    	return instances.get(index);
+    		
+    	
+    }
 
     public void sendMessage(String message , DatagramSocket socket, Jogadores j) throws IOException{
 

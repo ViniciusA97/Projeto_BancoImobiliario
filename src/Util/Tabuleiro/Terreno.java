@@ -143,7 +143,7 @@ public abstract class Terreno implements Comercial, Casa{
 				o.fireEventNotification(j.getJogadorDaVez().getNome()+" você possui $"+j.getJogadorDaVez().getDinheiro(), new EventNotification(), j);
 				boolean cond = true;
 				HashMap<String,Object> map;
-				ComunicationFacade comunication = new ComunicationFacade();
+				ComunicationFacade comunication = o.getComunication();
 				
 				try {
 					DatagramSocket socket = new DatagramSocket();
@@ -167,8 +167,7 @@ public abstract class Terreno implements Comercial, Casa{
     				try {
     					compra(j,o);
     					if(verificaMonopolioPorCor(j.getJogadorDaVez()) || verificaPreMonopolioPorCor(j.getJogadorDaVez())) {
-    						Observer observer = new Observer();
-    						Mediador mediadorObserver = new Mediador(observer);
+    						Mediador mediadorObserver = new Mediador(o);
     						mediadorObserver.confereDoisTipoMonopolio(j);
     					}
     				} catch (SemSaldoException e) {

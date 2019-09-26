@@ -24,23 +24,22 @@ public class Room extends Thread {
 	private Observer observer;
 	private Jogadores jogadores;
 	private GeraString geraString;
-	private FachadaTabuleiro fachadaT;
 	private int port;
 	private int num;
 	
 	public Room(int port, int n){
 		this.num = n;
 		this.port = port;
-		this.fachadaT = FachadaTabuleiro.getInstance(num);
 		this.geraString = GeraString.getInstance(num);
 		this.jogadores = new Jogadores();
 		this.inGame = false;
-		this.comunication = new ComunicationFacade();
-		this.observer = new Observer();
+		this.comunication =  ComunicationFacade.getInstance(this.num , port);
+		this.observer = new Observer(this.comunication);
 	
 		try {
 			this.socket = new DatagramSocket(port);
-			this.cmd = new CmdServerRoom(this,this.socket, this.observer);
+			this.cmd= new CmdServerRoom(this, this.socket , this.observer , this.comunication);
+			
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 			

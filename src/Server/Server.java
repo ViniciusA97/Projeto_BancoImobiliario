@@ -10,7 +10,7 @@ public class Server {
 		
 		Salas salas = new Salas();
 		
-		Room r1 = new Room();
+		//Room r1 = new Room();
 		
 		
 		System.out.println("Criando Pool de Threads ...");

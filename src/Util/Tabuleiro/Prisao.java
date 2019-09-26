@@ -10,7 +10,7 @@ import Util.observer.Observer;
 public class Prisao implements Casa {
 
 	private ArrayList<Jogador> presos;
-	private static ArrayList<Prisao> instance;
+	private static ArrayList<Prisao> instance = new ArrayList<Prisao>(40);
 	
 	private Prisao() {
 		presos=new ArrayList<Jogador>();

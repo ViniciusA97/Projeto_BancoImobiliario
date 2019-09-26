@@ -11,15 +11,16 @@ public class Observer {
 	
 	private ComunicationFacade comunication;
 	private DatagramSocket socket;
+	private int id;
 	
-	public Observer() {
-		this.comunication = new ComunicationFacade();
-		try {
-			this.socket = new DatagramSocket();
-		} catch (SocketException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public Observer(ComunicationFacade c, DatagramSocket s, int index) {
+		this.comunication = c;
+		this.socket = s;
+		this.id = index;
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 	
 	
@@ -47,6 +48,10 @@ public class Observer {
 		} catch (IOException e) {
 			System.out.println(e.getLocalizedMessage()+" -- Event get In");
 		}
+	}
+	
+	public ComunicationFacade getComunication() {
+		return this.comunication;
 	}
 	
 	

@@ -20,19 +20,19 @@ public class CartasGenericas implements Casa{
 	public void fazAcao(Comandos cmd,Jogadores j){//Faz ação de cartas de efeito genérico de Sorte e Revés
 		Observer observer = cmd.getObserver();
 		if(this.pague == 0) {
-			observer.fireEventNotification(this.nome +" .Receba "+receba, new EventNotification(), cmd.getJogadores());
+			observer.fireEventNotification(this.nome +" .Receba "+receba, EventNotification.getInstance(observer.getId()), cmd.getJogadores());
 			j.getJogadorDaVez().ganhaDinheiro(this.receba);
-			observer.fireEventNotification("Saldo atual de: "+j.getJogadorDaVez().getDinheiro(), new EventNotification(), cmd.getJogadores());
+			observer.fireEventNotification("Saldo atual de: "+j.getJogadorDaVez().getDinheiro(), EventNotification.getInstance(observer.getId()), cmd.getJogadores());
 
 		}else {
-			observer.fireEventNotification(this.nome +" .Pague "+pague, new EventNotification(), cmd.getJogadores());
+			observer.fireEventNotification(this.nome +" .Pague "+pague, EventNotification.getInstance(observer.getId()), cmd.getJogadores());
 
 			try {
 				j.getJogadorDaVez().perdeDinehiro(this.pague);
-				observer.fireEventNotification("Saldo atual de: "+j.getJogadorDaVez().getDinheiro(), new EventNotification(), cmd.getJogadores());
+				observer.fireEventNotification("Saldo atual de: "+j.getJogadorDaVez().getDinheiro(), EventNotification.getInstance(observer.getId()), cmd.getJogadores());
 						
 			} catch (SemSaldoException e) {
-				observer.fireEventNotification(e.getMessage(), new EventNotification(), cmd.getJogadores());
+				observer.fireEventNotification(e.getMessage(), EventNotification.getInstance(observer.getId()), cmd.getJogadores());
 			}
 		}
 	}

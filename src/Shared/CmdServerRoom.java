@@ -20,13 +20,13 @@ public class CmdServerRoom implements Cmd{
 	private Comandos comandos;
 	private FachadaTabuleiro fachadaT;
 	
-	public CmdServerRoom(Room r, DatagramSocket s,Observer observer) {
+	public CmdServerRoom(Room r, DatagramSocket s,Observer observer , ComunicationFacade c) {
 		
-		this.comunication = new ComunicationFacade();
+		this.comunication = c;
 		this.room = r;
 		this.socket = s;
 		this.observer = observer;
-		this.comandos = new Comandos(this.observer,this.room.getNum(),this.socket,this.room.getJogadores());
+		this.comandos = new Comandos(this.observer,this.room.getNum(),this.socket,this.room.getJogadores(), c);
 		this.fachadaT = FachadaTabuleiro.getInstance(this.room.getNum());
 		
 	}

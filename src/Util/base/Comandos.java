@@ -27,13 +27,13 @@ public class Comandos {
 
 	
 	
-	public Comandos(Observer obs,int index, DatagramSocket s, Jogadores j) {
+	public Comandos(Observer obs,int index, DatagramSocket s, Jogadores j, ComunicationFacade c) {
 		this.jogadores = j;
 		this.mediador = new Mediador(obs);
 		this.geraString = GeraString.getInstance(index);
 		this.fachadaT = FachadaTabuleiro.getInstance(index);
 		this.observer = obs;
-		this.out = new ComunicationFacade();
+		this.out = c;
 	}
 	
 	

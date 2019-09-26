@@ -13,7 +13,7 @@ public class SorteReves implements Casa{
 	
 	private FilaCartas cartas;
 	Casa cartaPrin= new PasseLivrePrisao();
-	private static ArrayList<SorteReves> instance = new ArrayList<SorteReves>(8);
+	private static ArrayList<SorteReves> instance = new ArrayList<SorteReves>(40);
 	
 	private SorteReves(int index) {
 		this.cartas = new FilaCartas();

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Tabuleiro {
 	
 	private ArrayList<Casa> casas = new ArrayList<Casa>();
-	private static ArrayList<Tabuleiro> instance;
+	private static ArrayList<Tabuleiro> instance = new ArrayList<Tabuleiro>(40);
 	
 	
 	private Tabuleiro(int index) {
