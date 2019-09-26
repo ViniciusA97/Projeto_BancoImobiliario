@@ -7,8 +7,6 @@ import java.util.HashMap;
 
 import Shared.CmdServerRoom;
 import Shared.ComunicationFacade;
-import Util.Tabuleiro.FachadaTabuleiro;
-import Util.base.FachadaComunicacao;
 import Util.base.GeraString;
 import Util.jogadores.Jogador;
 import Util.jogadores.JogadorJaExisteException;
@@ -27,8 +25,8 @@ public class Room extends Thread {
 	private int port;
 	private int num;
 	
-	public Room(int port, int n){
-		this.num = n;
+	public Room(int port){
+		this.num = port;
 		this.port = port;
 		this.geraString = GeraString.getInstance(num);
 		this.jogadores = new Jogadores();
@@ -37,7 +35,7 @@ public class Room extends Thread {
 	
 		try {
 			this.socket = new DatagramSocket(port);
-			this.observer = new Observer(this.comunication, this.socket,n);
+			this.observer = new Observer(this.comunication, this.socket,port);
 			this.cmd= new CmdServerRoom(this, this.socket , this.observer , this.comunication);
 			
 		}catch(Exception e) {
@@ -54,7 +52,7 @@ public class Room extends Thread {
 		while(condiction) {
 			
 			try {
-				map = (HashMap<String, Object>) comunication.reciveMessage(this.socket);
+				map = (HashMap<String, Object>) comunication.reciveMessage();
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
 			}
@@ -65,7 +63,7 @@ public class Room extends Thread {
 				try {
 					comunication.sendMessage(geraString.geraInicioDaJogada(this.jogadores.getJogadorDaVez()), socket, this.jogadores);
 					while(true) {
-						map = (HashMap<String, Object>) comunication.reciveMessage(this.socket);
+						map = (HashMap<String, Object>) comunication.reciveMessage();
 						this.cmd.cases(map);
 					}
 				} catch (IOException e) {
@@ -137,4 +135,6 @@ public class Room extends Thread {
 	public int getNum() {
 		return this.num;
 	}
+	
+	public int getPort() {return this.port;}
 }

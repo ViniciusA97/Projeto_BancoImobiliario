@@ -136,7 +136,10 @@ public class CmdServerRoom implements Cmd{
 				
 				
 			case "getOutGame":
-				this.comandos.comandoSair();
+				this.room.delPlayer(client);
+				Jogador jogador = this.room.getPlayer(client);
+				this.observer.fireEventNotification("Jogador "+jogador.getNome()+" saiu do jogo.", EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
+				
 				
 			case "jogar":
 				

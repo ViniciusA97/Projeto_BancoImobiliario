@@ -14,7 +14,6 @@ import Util.observer.Observer;
 public class Comandos {
 
 
-	private FachadaComunicacao comunicacao= FachadaComunicacao.getInstance();
 	private Jogadores jogadores;
 	private GeraString geraString;
 	private FachadaTabuleiro fachadaT;
@@ -43,14 +42,6 @@ public class Comandos {
 		return this.observer;
 	}
 	
-	public void comandoSair() {//sai do jogo
-		String comando=comunicacao.inputString("Você deseja mesmo sair?[s] [n]");
-		if(comando.equals("s")) {
-			jogadores.retiraJogador(jogadores.getJogadorDaVez());
-			jogadores.passaVez();
-		}
-	}
-	
 	public void comandoStatus() {//mostra status do jogador da vez
 		this.observer.fireEventNotification(this.jogadores.getJogadorDaVez().toString(),EventNotification.getInstance(this.observer.getId()), jogadores);
 	}
@@ -66,7 +57,7 @@ public class Comandos {
 			while(cond) {
 			
 				try {
-					map =(HashMap<String, Object>) this.out.reciveMessage(socket);
+					map =(HashMap<String, Object>) this.out.reciveMessage();
 					if(map.get("address").equals(jogadores.getJogadorDaVez().getAddress())) {
 						numEscolhido = (int) map.get("usual");
 						cond = false;
@@ -106,7 +97,7 @@ public class Comandos {
 				while(cond) {
 				
 					try {
-						map =(HashMap<String, Object>) this.out.reciveMessage(socket);
+						map =(HashMap<String, Object>) this.out.reciveMessage();
 						if(map.get("address").equals(jogadores.getJogadorDaVez().getAddress())) {
 							temp = (int) map.get("usual");
 							cond = false;

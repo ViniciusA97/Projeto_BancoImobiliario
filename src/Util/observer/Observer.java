@@ -4,7 +4,6 @@ import Util.jogadores.Jogadores;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 import Shared.ComunicationFacade;
 import Util.jogadores.*;
 public class Observer {

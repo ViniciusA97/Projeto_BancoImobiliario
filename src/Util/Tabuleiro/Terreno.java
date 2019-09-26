@@ -149,7 +149,7 @@ public abstract class Terreno implements Comercial, Casa{
 					DatagramSocket socket = new DatagramSocket();
 					comunication.sendMessage("Deseja comprar? [Sim] [Nao]", socket, j.getJogadorDaVez().getAddress());
 					while(cond) {
-						map =(HashMap<String, Object>) comunication.reciveMessage(socket);
+						map =(HashMap<String, Object>) comunication.reciveMessage();
 						if(map.get("address").equals(j.getJogadorDaVez().getAddress())) {
 							String aux = (String) map.get("msg");
 							if(aux.equals("sim")||aux.equals("s")||aux.equals("Sim")) {

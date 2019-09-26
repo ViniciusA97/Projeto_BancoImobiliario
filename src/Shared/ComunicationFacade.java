@@ -13,6 +13,7 @@ import Util.jogadores.Jogadores;
 
 public class ComunicationFacade {
 
+	private DatagramSocket socket;
     private final int PORT;
     private static ArrayList<ComunicationFacade> instances = new ArrayList<ComunicationFacade>(40);
     
@@ -43,7 +44,7 @@ public class ComunicationFacade {
         }
     }
 
-    public Map<String, Object> reciveMessage(DatagramSocket socket) throws IOException {
+    public Map<String, Object> reciveMessage() throws IOException {
        
     	Map<String, Object> mapComunication = new HashMap<String, Object>();
         byte[] reciveData = new byte[1024];
@@ -69,5 +70,10 @@ public class ComunicationFacade {
         
         
     }
+    
+    public DatagramSocket getSocket(int index) {
+    	return instances.get(index).socket;
+    }
+  
 
 }
