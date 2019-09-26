@@ -1,15 +1,29 @@
 package Cliente;
 
+import java.io.*;
+import java.net.*;
+import java.util.Scanner;
+
 public class Main {
 
-	
-	
-	
-		// perguntar qual endereço e porta do servidor
-	// criar uma classe servidor para guardar IP e Port (metodos get e set) e o essa classe deve ser um Facade (1 instancia basta)  -- instancia da propria classe static como atributo da classe , construtor private , metodo statico getInstance() que inicia o atributo instance se não estiver iniciado e retorna o mesmo
-	// tentar fazer a comunicação -- DatagramSocket = new DatagramSocket(port);
-	// tratar excessão se der merda
-	//criar thread para receber e printar na tela o  q ta sendo recebido -- olhar a classe Room 
-	//fazer uma classe de comunicação que pode se comunicar com o objeto servidor para usar o IP e a porta -- olhar o communicationFacade( metodo ReciveMessage)
-	// mandar solicitações do client -- Olhar o communicationFacade(metodos sendMessage)
+	public static void main(String[] args) throws Exception {
+
+		System.out.println("Qual o endere�o do servidor?");
+		Scanner in = new Scanner(System.in);
+		String ip = in.nextLine();
+
+		ComunicationClient comunication = new ComunicationClient(ip);
+		ThredClient a = new ThredClient(comunication);
+		a.run();
+		
+		while(true) {
+			
+			String msg = in.nextLine();
+			comunication.sendMessage(msg);
+			
+		}
+	}
+
+	// mandar solicitações do client -- Olhar o communicationFacade(metodos
+	// sendMessage)
 }
