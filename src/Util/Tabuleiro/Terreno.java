@@ -79,10 +79,10 @@ public abstract class Terreno implements Comercial, Casa{
 	public void pagaAluguel(Jogador recebe, Jogador paga,Observer o, Jogadores j) throws SemSaldoException {//paga aluguel da propriedade
 		paga.perdeDinehiro(this.aluguel);
 		recebe.ganhaDinheiro(this.aluguel);
-		o.fireEventNotification("Jogador "+paga.getNome()+" caiu no terreno do jogador "+recebe.getNome()+" e irá pagar o aluguel.", new EventNotification(), j);
-		o.fireEventNotification("Pagamento de "+ aluguel +" efetuado com Sucesso", new EventNotification(), j);
-		o.fireEventNotification("Saldo atual do jogador "+recebe.getNome()+" é: "+ recebe.getDinheiro(), new EventNotification(), j);
-		o.fireEventNotification("Saldo atual do jogador "+paga.getNome()+" é : "+paga.getDinheiro(), new EventNotification(), j);
+		o.fireEventNotification("Jogador "+paga.getNome()+" caiu no terreno do jogador "+recebe.getNome()+" e irá pagar o aluguel.",EventNotification.getInstance(o.getId()), j);
+		o.fireEventNotification("Pagamento de "+ aluguel +" efetuado com Sucesso", EventNotification.getInstance(o.getId()), j);
+		o.fireEventNotification("Saldo atual do jogador "+recebe.getNome()+" é: "+ recebe.getDinheiro(),EventNotification.getInstance(o.getId()), j);
+		o.fireEventNotification("Saldo atual do jogador "+paga.getNome()+" é : "+paga.getDinheiro(),EventNotification.getInstance(o.getId()), j);
 		
 	}
 	
@@ -115,8 +115,8 @@ public abstract class Terreno implements Comercial, Casa{
 			j.getJogadorDaVez().perdeDinehiro(preco);
 			this.proprietario = j.getJogadorDaVez();
 			j.getJogadorDaVez().addTerreno(this);
-			o.fireEventNotification("Compra feita com Sucesso!", new EventNotification(), j);
-			o.fireEventNotification("Saldo atual: "+j.getJogadorDaVez().getDinheiro(), new EventNotification(), j);
+			o.fireEventNotification("Compra feita com Sucesso!",EventNotification.getInstance(o.getId()), j);
+			o.fireEventNotification("Saldo atual: "+j.getJogadorDaVez().getDinheiro(), EventNotification.getInstance(o.getId()), j);
 		}
 		else throw new SemSaldoException();
 	
@@ -139,8 +139,8 @@ public abstract class Terreno implements Comercial, Casa{
 		if(proprietario==null) {
 			if(j.getJogadorDaVez().getDinheiro()>=preco) {
 				
-				o.fireEventNotification("O titulo do terreno está disponível por: $"+preco +" do tipo "+ this.getCor(), new EventNotification(), j);
-				o.fireEventNotification(j.getJogadorDaVez().getNome()+" você possui $"+j.getJogadorDaVez().getDinheiro(), new EventNotification(), j);
+				o.fireEventNotification("O titulo do terreno está disponível por: $"+preco +" do tipo "+ this.getCor(), EventNotification.getInstance(o.getId()), j);
+				o.fireEventNotification(j.getJogadorDaVez().getNome()+" você possui $"+j.getJogadorDaVez().getDinheiro(),EventNotification.getInstance(o.getId()), j);
 				boolean cond = true;
 				HashMap<String,Object> map;
 				ComunicationFacade comunication = o.getComunication();
@@ -160,7 +160,7 @@ public abstract class Terreno implements Comercial, Casa{
 					}
 				
 				} catch (IOException | SemSaldoException e1) {
-					o.fireEventNotification(e1.getMessage(), new EventNotification(), j);
+					o.fireEventNotification(e1.getMessage(), EventNotification.getInstance(o.getId()), j);
 				}
     			String compra=fachada.inputString("Deseja comprar? [Sim] [Nao]");
     			if(compra.equals("sim") || compra.equals("Sim")|| compra.equals("s")) {
@@ -171,7 +171,7 @@ public abstract class Terreno implements Comercial, Casa{
     						mediadorObserver.confereDoisTipoMonopolio(j);
     					}
     				} catch (SemSaldoException e) {
-    					o.fireEventNotification(e.getMessage(), new EventNotification(), j);
+    					o.fireEventNotification(e.getMessage(),EventNotification.getInstance(o.getId()), j);
     				}
     			}
 			}
@@ -181,7 +181,7 @@ public abstract class Terreno implements Comercial, Casa{
     			pagaAluguel(proprietario,j.getJogadorDaVez(),o , j);
     		}
     		catch (SemSaldoException e) {
-    			o.fireEventNotification(e.getMessage(), new EventNotification(), j);
+    			o.fireEventNotification(e.getMessage(), EventNotification.getInstance(o.getId()), j);
     		}
 		}
 	}

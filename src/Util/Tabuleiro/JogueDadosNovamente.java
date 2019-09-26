@@ -3,7 +3,6 @@ package Util.Tabuleiro;
 import Util.base.Comandos;
 import Util.jogadores.Jogadores;
 import Util.observer.*;
-import Util.observer.Observer;
 
 public class JogueDadosNovamente implements Casa{
 	
@@ -13,7 +12,7 @@ public class JogueDadosNovamente implements Casa{
 
 	public void fazAcao(Comandos cmd, Jogadores j) {
 		Observer o = cmd.getObserver();
-		o.fireEventNotification("Jogador "+ j.getJogadorDaVez().getNome()+" tirou a carta 'Jogue os dados novamente'.", new EventNotification(), j);
+		o.fireEventNotification("Jogador "+ j.getJogadorDaVez().getNome()+" tirou a carta 'Jogue os dados novamente'.", EventNotification.getInstance(o.getId()), j);
 		cmd.comandoJogar();
 	}
 	

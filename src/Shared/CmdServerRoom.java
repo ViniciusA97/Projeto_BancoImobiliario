@@ -132,7 +132,7 @@ public class CmdServerRoom implements Cmd{
 					}
 				}
 				
-				this.observer.fireEventNotification("1", new EventNotification(), jogadores);
+				this.observer.fireEventNotification("1", EventNotification.getInstance(this.observer.getId()), jogadores);
 				
 				
 			case "getOutGame":
@@ -146,7 +146,7 @@ public class CmdServerRoom implements Cmd{
 					this.comandos.comandoJogar();
 				
 				}else {
-					this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
+					this.observer.fireEventNotification("Não é sua vez",EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
 				}
 				
 			case "status":
@@ -156,7 +156,7 @@ public class CmdServerRoom implements Cmd{
 					this.comandos.comandoStatus();
 				
 				}else {
-					this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
+					this.observer.fireEventNotification("Não é sua vez",EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
 				}
 			
 			case "vender":
@@ -166,7 +166,7 @@ public class CmdServerRoom implements Cmd{
 					this.comandos.comandoVender();
 				
 				}else {
-					this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
+					this.observer.fireEventNotification("Não é sua vez", EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
 				}
 				
 			case "carta":
@@ -178,7 +178,7 @@ public class CmdServerRoom implements Cmd{
 						this.comandos.comandoCarta();
 				
 					}else {
-						this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
+						this.observer.fireEventNotification("Não é sua vez", EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
 					}
 				}
 				
@@ -191,7 +191,7 @@ public class CmdServerRoom implements Cmd{
 						this.comandos.comandoPagar();
 				
 					}else {
-						this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
+						this.observer.fireEventNotification("Não é sua vez", EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
 					}
 				}
 				
@@ -203,7 +203,7 @@ public class CmdServerRoom implements Cmd{
 					this.comandos.comandoConstruir();
 				
 				}else {
-					this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
+					this.observer.fireEventNotification("Não é sua vez",EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
 				}
 				//biuld e lançar observer
 				

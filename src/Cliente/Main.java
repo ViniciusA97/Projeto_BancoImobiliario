@@ -5,11 +5,11 @@ public class Main {
 	
 	
 	
-	// perguntar qual endere√ßo e porta do servidor
-	// criar uma classe servidor para guardar IP e Port (metodos get e set) e o essa classe deve ser um Facade (1 instancia basta)  -- instancia da propria classe static como atributo da classe , construtor private , metodo statico getInstance() que inicia o atributo instance se n√£o estiver iniciado e retorna o mesmo
-	// tentar fazer a comunica√ß√£o -- DatagramSocket = new DatagramSocket(port);
-	// tratar excess√£o se der merda
-	//criar thread para receber e printar na tela o  q ta sendo recebido -- olhar a classe Room 
-	//fazer uma classe de comunica√ß√£o que pode se comunicar com o objeto servidor para usar o IP e a porta -- olhar o communicationFacade( metodo ReciveMessage)
-	// mandar solicita√ß√µes do client -- Olhar o communicationFacade(metodos sendMessage)
+	// perguntar qual endereÁo e porta do servidor
+	// criar uma classe servidor para guardar IP e Port (metodos get e set) e o essa classe deve ser um Facade (1 instancia basta)
+	// tentar fazer a comunicaÁ„o
+	// tratar excess„o se der merda
+	//criar thread para receber e printar na tela o  q ta sendo recebido
+	//fazer uma classe de comunicaÁ„o que pode se comunicar com o objeto servidor para usar o IP e a porta
+	// mandar solicitaÁıes do client
 }

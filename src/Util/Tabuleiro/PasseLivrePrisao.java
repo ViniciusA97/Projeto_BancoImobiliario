@@ -13,7 +13,7 @@ public class PasseLivrePrisao implements Casa{
 	public void fazAcao(Comandos cmd, Jogadores j){
 		
 		Observer o = cmd.getObserver();
-		o.fireEventNotification("Você ganhou o passe Livre para sair da prisão, quando tiver na cadeia poderá usar-la", new EventNotification(), j);
+		o.fireEventNotification("Você ganhou o passe Livre para sair da prisão, quando tiver na cadeia poderá usar-la",EventNotification.getInstance(o.getId()), j);
 		j.getJogadorDaVez().adereCartaLiberdade();
 	}
 	public String getNome() {

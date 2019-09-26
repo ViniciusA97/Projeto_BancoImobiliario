@@ -34,10 +34,10 @@ public class Room extends Thread {
 		this.jogadores = new Jogadores();
 		this.inGame = false;
 		this.comunication =  ComunicationFacade.getInstance(this.num , port);
-		this.observer = new Observer(this.comunication);
 	
 		try {
 			this.socket = new DatagramSocket(port);
+			this.observer = new Observer(this.comunication, this.socket,n);
 			this.cmd= new CmdServerRoom(this, this.socket , this.observer , this.comunication);
 			
 		}catch(Exception e) {

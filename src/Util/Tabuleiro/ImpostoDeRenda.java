@@ -17,13 +17,13 @@ public class ImpostoDeRenda implements Casa {
 	@Override
 	public void fazAcao(Comandos cmd, Jogadores j) {
 		Observer o = cmd.getObserver();
-		o.fireEventNotification("Terá que pagar 200$ para o imposto de Renda", new EventNotification(), j);
+		o.fireEventNotification("Terá que pagar 200$ para o imposto de Renda",EventNotification.getInstance(o.getId()), j);
 		try {
 			j.getJogadorDaVez().perdeDinehiro(200);
 		} catch (SemSaldoException e) {
-			o.fireEventNotification(e.getMessage(), new EventNotification(), j);
+			o.fireEventNotification(e.getMessage(), EventNotification.getInstance(o.getId()), j);
 		}
-		o.fireEventNotification("Saldo Atual: "+j.getJogadorDaVez().getDinheiro(),new EventNotification(), j);
+		o.fireEventNotification("Saldo Atual: "+j.getJogadorDaVez().getDinheiro(),EventNotification.getInstance(o.getId()), j);
 		
 	}		
 

@@ -2,9 +2,7 @@ package Util.base;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 import java.util.HashMap;
-import java.util.Map;
 
 import Shared.ComunicationFacade;
 import Util.Tabuleiro.*;
@@ -54,15 +52,15 @@ public class Comandos {
 	}
 	
 	public void comandoStatus() {//mostra status do jogador da vez
-		this.observer.fireEventNotification(this.jogadores.getJogadorDaVez().toString(),new EventNotification(), jogadores);
+		this.observer.fireEventNotification(this.jogadores.getJogadorDaVez().toString(),EventNotification.getInstance(this.observer.getId()), jogadores);
 	}
 	
 	public void comandoConstruir() {//leva usuário para as opções de construção de casas em terrenos, se possível
 		int numEscolhido =0;
 		if(fachadaT.verificaMonopolio(jogadores.getJogadorDaVez())) {
 			
-			this.observer.fireEventNotification(jogadores.getJogadorDaVez()+" tem um saldo de " +jogadores.getJogadorDaVez().getDinheiro(), new EventNotification(), jogadores);
-			this.observer.fireEventNotification(geraString.getStringConstrucao(jogadores.getJogadorDaVez()), new EventNotification(), jogadores);
+			this.observer.fireEventNotification(jogadores.getJogadorDaVez()+" tem um saldo de " +jogadores.getJogadorDaVez().getDinheiro(), EventNotification.getInstance(this.observer.getId()), jogadores);
+			this.observer.fireEventNotification(geraString.getStringConstrucao(jogadores.getJogadorDaVez()), EventNotification.getInstance(this.observer.getId()), jogadores);
 			boolean cond =true;
 			HashMap<String, Object> map;			
 			while(cond) {
@@ -87,7 +85,7 @@ public class Comandos {
 			} catch (IndexNaoSuportadoEx e) {
 				System.out.println(e.getMessage());
 			}
-			this.observer.fireEventNotification("Casa construida com sucesso!", new EventNotification(), jogadores);
+			this.observer.fireEventNotification("Casa construida com sucesso!", EventNotification.getInstance(this.observer.getId()), jogadores);
 		}
 	}
 	
@@ -122,12 +120,12 @@ public class Comandos {
 					try {
 						terreno = geraString.getTerreno(temp-1);
 						fachadaT.vendeCasa(terreno);
-						this.observer.fireEventNotification("Casa vendida com sucesso", new EventNotification(), jogadores);
+						this.observer.fireEventNotification("Casa vendida com sucesso", EventNotification.getInstance(this.observer.getId()), jogadores);
 					}catch (IndexNaoSuportadoEx e) {
-						this.observer.fireEventNotification(e.getMessage(), new EventNotification(), jogadores);
+						this.observer.fireEventNotification(e.getMessage(), EventNotification.getInstance(this.observer.getId()), jogadores);
 					}
 				}else {
-					this.observer.fireEventNotification("Opção invalida!!", new EventNotification(), jogadores);
+					this.observer.fireEventNotification("Opção invalida!!", EventNotification.getInstance(this.observer.getId()), jogadores);
 				}
 			}
 		}
@@ -153,14 +151,14 @@ public class Comandos {
 			this.observer.fireEventNotification(
 					"Jogador "+ jogadores.getJogadorDaVez().getNome()+ " tirou ["+dadosJogados[0]+" "+dadosJogados[1]
 					+"] e caiu na casa: "+fachadaT.getCasaTabuleiro(jogadores.getJogadorDaVez().getCasa()).getNome(),
-					new EventNotification(), jogadores);
+					EventNotification.getInstance(this.observer.getId()), jogadores);
 			
 		}else{
 			jogadores.getJogadorDaVez().setCasa(jogadores.getJogadorDaVez().getCasa()+dadosJogados[0]+dadosJogados[1]);
 			this.observer.fireEventNotification(
 					"Jogador "+ jogadores.getJogadorDaVez().getNome()+ " tirou ["+dadosJogados[0]+" "+dadosJogados[1]+"] e caiu na casa: "+
 					fachadaT.getCasaTabuleiro(jogadores.getJogadorDaVez().getCasa()).getNome(),
-					new EventNotification(), jogadores);	
+					EventNotification.getInstance(this.observer.getId()), jogadores);	
 			}
 
 		Casa casaAtual = fachadaT.getCasaTabuleiro(jogadores.getJogadorDaVez().getCasa());
@@ -169,7 +167,7 @@ public class Comandos {
 	}
 		
 	public void comandoPagar() {//faz pagamento para usuário preso no prisão
-		this.observer.fireEventNotification("Pagamento conluído. Proxima rodada poderá se mover normalmente.", new EventNotification(), jogadores);
+		this.observer.fireEventNotification("Pagamento conluído. Proxima rodada poderá se mover normalmente.", EventNotification.getInstance(this.observer.getId()), jogadores);
 		fachadaT.retiraJogadorDaPrisao(jogadores.getJogadorDaVez());
 		jogadores.passaVez();
 	}
@@ -177,9 +175,9 @@ public class Comandos {
 	public void comandoCarta() {//utiliza carta de passe livre da prisão
 		if(jogadores.getJogadorDaVez().getValorCarta()) {
 			this.observer.fireEventNotification("O jogador "+ jogadores.getJogadorDaVez().getNome()+ " usou a carta do Passe livre. Ela voltou para o monte de Sorte Ou Revés"
-					, new EventNotification(), jogadores);
+					, EventNotification.getInstance(this.observer.getId()), jogadores);
 		}else {
-			this.observer.fireEventNotification("Você não possui a carta do Passe livre.", new EventNotification(), jogadores);
+			this.observer.fireEventNotification("Você não possui a carta do Passe livre.",EventNotification.getInstance(this.observer.getId()), jogadores);
 		}
 		jogadores.passaVez();
 	}
