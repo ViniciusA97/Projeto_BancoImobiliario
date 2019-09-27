@@ -2,7 +2,7 @@ package Cliente;
 
 import java.util.HashMap;
 
-public class ThredClient implements Runnable {
+public class ThredClient extends Thread {
 
 	private ComunicationClient comunication;
 

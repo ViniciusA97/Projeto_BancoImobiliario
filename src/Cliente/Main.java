@@ -1,5 +1,6 @@
 package Cliente;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -12,12 +13,15 @@ public class Main {
 		ComunicationClient comunication = new ComunicationClient();
 		ThredClient a = new ThredClient();
 		System.out.println("c");
-		//a.run();
+		a.start();
 		
-		
+		HashMap<String, Object> map;
 		while(true) {
+		
 			String msg = in.nextLine();
 			comunication.sendMessage(msg);
+			map = comunication.RessiveMessage();
+			System.out.println(map.get("msg"));
 		}
 	}
 
