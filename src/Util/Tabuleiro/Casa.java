@@ -2,7 +2,6 @@ package Util.Tabuleiro;
 
 import Util.base.Comandos;
 import Util.jogadores.Jogadores;
-import Util.observer.Observer;
 
 public interface Casa {
 	

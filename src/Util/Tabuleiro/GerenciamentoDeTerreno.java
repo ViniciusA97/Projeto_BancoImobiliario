@@ -5,7 +5,7 @@ import Util.jogadores.Jogador;
 
 public class GerenciamentoDeTerreno {
 
-	private static ArrayList<GerenciamentoDeTerreno> instance = new ArrayList<GerenciamentoDeTerreno>(8);
+	private static ArrayList<GerenciamentoDeTerreno> instance = new ArrayList<GerenciamentoDeTerreno>(40);
 	private ArrayList<TerrenoAmarelo> ListAmarelo = new  ArrayList<TerrenoAmarelo>();
 	private ArrayList<TerrenoAzul> ListAzul = new  ArrayList<TerrenoAzul>();
 	private ArrayList<TerrenoCiano> ListCiano = new  ArrayList<TerrenoCiano>();

@@ -20,7 +20,6 @@ public class Comandos {
 	private Observer observer;
 	private Mediador mediador ;
 	private ComunicationFacade out;
-	private DatagramSocket socket;
 
 	
 	

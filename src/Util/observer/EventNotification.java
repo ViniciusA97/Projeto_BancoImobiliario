@@ -33,4 +33,5 @@ public class EventNotification extends EventsNotification {
 		
 	}
 
+
 }

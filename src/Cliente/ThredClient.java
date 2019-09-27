@@ -17,14 +17,14 @@ public class ThredClient implements Runnable {
 		HashMap<String, Object> map;
 
 		while (true) {
-			map = this.comunication.RessiveMessage();
+			map = this.comunication.RessiveMessageEspecial();
 			System.out.println(map.get("msg"));
 			String sentence = (String) map.get("msg");
 			if (sentence.contains("/")) {
 				String usual = (String) map.get("usual");
 				int porta = Integer.parseInt(usual);
 				this.comunication.changePort(porta);
-				if (porta == 4444) {
+				if (porta == 4444 || porta == 9999) {
 					System.out.println("Conectado com o servidor inicial. //hs Para comandos. ");
 				} else {
 
