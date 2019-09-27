@@ -7,19 +7,19 @@ import java.util.HashMap;
 
 public class ComunicationFacadeServer {
 
-	private static ComunicationFacadeServer instance;
 
-	private ComunicationFacadeServer() {
+	public ComunicationFacadeServer() {
 
 	}
 
 	public void sendMessage(String message, InetAddress ip) {
-		DatagramSocket socket;
+		System.out.println(ip);
 		try {
-			socket = new DatagramSocket(4444);
+			DatagramSocket socket = new DatagramSocket(4444);
+			System.out.println("entrou");
 			byte[] bytes = message.getBytes();
 			DatagramPacket pacote = new DatagramPacket(bytes, bytes.length, ip, 4444);
-
+			System.out.println("Enviado " + message+" para " +ip.getHostAddress());
 			socket.send(pacote);
 			socket.close();
 
@@ -56,12 +56,6 @@ public class ComunicationFacadeServer {
 			System.out.println(e1.getMessage());
 		}
 		return null;
-	}
-
-	public static ComunicationFacadeServer getInstance() {
-		if (instance == null)
-			instance = new ComunicationFacadeServer();
-		return instance;
 	}
 
 }

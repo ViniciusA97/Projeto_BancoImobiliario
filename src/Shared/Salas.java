@@ -25,7 +25,7 @@ public class Salas {
 		Room a =new Room(index);
 		System.out.println(a.getId());
 		this.salas.add(a);
-		a.run();
+		a.start();
 	}
 	
 	public Room getRoomNome(String nome) {

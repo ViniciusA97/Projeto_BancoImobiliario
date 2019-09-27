@@ -56,4 +56,8 @@ public class InstancesRoom {
 	public ComunicationFacade getComunication() {
 		return this.comunication;
 	}
+	
+	public void setComunication(ComunicationFacade c) {
+		this.comunication=c;
+	}
 }

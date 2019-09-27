@@ -12,8 +12,9 @@ public class Server {
 		System.out.println("Iniciando main servidor .... ");
 		
 		Salas salas = new Salas();
-		CmdServer cmdServer = new CmdServer(salas);
-		ComunicationFacadeServer comunication = ComunicationFacadeServer.getInstance();
+		ComunicationFacadeServer comunication = new ComunicationFacadeServer();
+		CmdServer cmdServer = new CmdServer(salas,comunication);
+		
 		HashMap<String, Object> map;
 		while(true) {
 			System.out.println("a");
