@@ -7,17 +7,27 @@ import Util.jogadores.Jogador;
 
 public class GeraString {
 
-	private static ArrayList<GeraString> instance = null;
+	private static ArrayList<GeraString> instance = new ArrayList<GeraString>();
 	private ArrayList<Terreno> construcoes = new ArrayList<Terreno>(40);
 	private FachadaTabuleiro fachadaT;
 	
 	private GeraString(int index) {
+		System.out.println("gera string :"+ index);
 		this.fachadaT= FachadaTabuleiro.getInstance(index);
 	}
 	
 	public static GeraString getInstance(int index) {
-		if(instance.get(index) == null) instance.set(index, new GeraString(index));
-		return instance.get(index);
+		try {
+			if(instance.get(index) == null) instance.set(index, new GeraString(index));
+			return instance.get(index);
+		}
+		catch (Exception e){
+			for (int i = 0; i<40; i++) {
+				instance.set(i, new GeraString(i));
+			}
+			
+		return	instance.set(index, new GeraString(index));
+		}
 	}
 	
 	public String geraInicioDaJogada(Jogador j) {//gera a string das opções do jogador de acordo com sua situação no jogo

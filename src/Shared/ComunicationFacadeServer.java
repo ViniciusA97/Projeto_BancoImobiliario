@@ -32,7 +32,9 @@ public class ComunicationFacadeServer {
 		
 		DatagramSocket socket;
 		try {
+			
 			socket = new DatagramSocket(4444);
+			System.out.println("out");
 			HashMap<String, Object> mapComunication = new HashMap<String, Object>();
 			byte[] reciveData = new byte[1024];
 			DatagramPacket packageRecive = new DatagramPacket(reciveData, reciveData.length);

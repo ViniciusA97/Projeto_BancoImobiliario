@@ -51,8 +51,17 @@ public class SorteReves implements Casa{
 	}
 
 	public static SorteReves getInstance(int index) {
-		if(instance.get(index)==null) instance.set(index,new SorteReves(index));
-		return  instance.get(index);
+		try {
+			if(instance.get(index) == null) instance.set(index, new SorteReves(index));
+			return instance.get(index);
+		}
+		catch (Exception e){
+			for (int i = 0; i<40; i++) {
+				instance.set(i, new SorteReves(i));
+			}
+			
+		return	instance.set(index, new SorteReves(index));
+		}
 	}
 	
 	public String getNome() {

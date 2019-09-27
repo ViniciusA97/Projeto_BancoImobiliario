@@ -18,6 +18,7 @@ public class Server {
 		while(true) {
 			System.out.println("a");
 			map = comunication.reciveMessage();
+			System.out.println(map.get("msg"));
 			cmdServer.cases(map);
 		}
 		

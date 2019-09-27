@@ -17,8 +17,16 @@ public class Prisao implements Casa {
 	}
 	
 	public static Prisao getInstance(int index) {
-		if(instance.get(index)==null) instance.set(index, new Prisao());
-		return instance.get(index);
+		try {
+			return instance.get(index);
+		}
+		catch (Exception e){
+			for (int i = 0; i<40; i++) {
+				instance.set(i, new Prisao());
+			}
+			
+		return	instance.get(index);
+		}
 	}
 
 	public void addPrisioneiro(Jogador j) {

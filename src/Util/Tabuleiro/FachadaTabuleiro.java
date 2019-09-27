@@ -2,6 +2,7 @@ package Util.Tabuleiro;
 
 import java.util.ArrayList;
 
+import Util.base.GeraString;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
@@ -15,14 +16,24 @@ public class FachadaTabuleiro {
 	private GerenciamentoDeTerreno gerenciamentoTerreno;
 	
 	private FachadaTabuleiro(int index){
+		System.out.println("gera string :"+ index);
 		this.prisao= Prisao.getInstance(index);
 		this.tabuleiro = Tabuleiro.getInstance(index);
 		this.gerenciamentoTerreno = GerenciamentoDeTerreno.getInstance(index);
 	}
 	
 	public static FachadaTabuleiro getInstance(int index) {
-		if(instance.get(index)==null) instance.set(index, new FachadaTabuleiro(index));
-		return instance.get(index);
+		try {
+			if(instance.get(index) == null) instance.set(index, new FachadaTabuleiro(index));
+			return instance.get(index);
+		}
+		catch (Exception e){
+			for (int i = 0; i<40; i++) {
+				instance.set(i, new FachadaTabuleiro(i));
+			}
+			
+		return	instance.set(index, new FachadaTabuleiro(index));
+		}
 	}
 
 	public void tentaSairPrisao(String aux, Jogadores j,Observer o) {

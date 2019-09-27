@@ -29,12 +29,13 @@ public class CmdServer implements Cmd {
 		InetAddress client = (InetAddress) map.get("address");
 		Jogador j;
 		Room r;
-		
-		switch (msg) {
+		System.out.println("mensagem: "+ msg);
+		switch (msg.trim()) {
 		
 		case "getInID":
 			
 			try {
+				System.out.println("entrou no get in id");
 				int id = (int) map.get("usual");
 				j= new Jogador(client);
 				r=this.sala.addJogadorInRoomID(id, j);	
@@ -44,6 +45,7 @@ public class CmdServer implements Cmd {
 			}
 			
 		case "getInName":
+			System.out.println("entrou get in name");
 			String nome= (String) map.get("usual");
 			j = new Jogador(client);
 			try {
@@ -54,7 +56,7 @@ public class CmdServer implements Cmd {
 			}
 		
 		case "createRoom":
-			
+			System.out.println("entrou create room");
 			if(cont>=40) {
 				
 				this.comunicationServer.sendMessage("Ja há mais salas que o permitido.", client);

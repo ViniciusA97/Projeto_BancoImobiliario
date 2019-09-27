@@ -1,6 +1,8 @@
 package Util.Tabuleiro;
 
 import java.util.ArrayList;
+
+import Util.base.GeraString;
 import Util.jogadores.Jogador;
 
 public class GerenciamentoDeTerreno {
@@ -19,8 +21,17 @@ public class GerenciamentoDeTerreno {
 	private GerenciamentoDeTerreno(){}
 	
 	public static GerenciamentoDeTerreno getInstance(int index) {
-		if(instance.get(index)==null) instance.set(index, new GerenciamentoDeTerreno());
-		return instance.get(index);
+		try {
+			if(instance.get(index) == null) instance.set(index, new GerenciamentoDeTerreno());
+			return instance.get(index);
+		}
+		catch (Exception e){
+			for (int i = 0; i<40; i++) {
+				instance.set(i, new GerenciamentoDeTerreno());
+			}
+			
+		return	instance.set(index, new GerenciamentoDeTerreno());
+		}
 	}
 	//verificaCor = verifica se proprietário tem todos os terrenos daquela cor
 	public boolean verificaAmarelo(Jogador j) {
