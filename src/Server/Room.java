@@ -32,7 +32,7 @@ public class Room extends Thread {
 		this.port = port;
 		this.jogadores = new Jogadores();
 		this.inGame = false;
-		this.comunication =  ComunicationFacade.getInstance(this.num , port);
+		this.comunication =  this.intances.getComunication();
 	
 		try {
 			this.socket = new DatagramSocket(port);

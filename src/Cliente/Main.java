@@ -1,8 +1,5 @@
 package Cliente;
 
-import java.io.*;
-import java.net.*;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {

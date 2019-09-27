@@ -69,7 +69,10 @@ public class CmdServer implements Cmd {
 				this.comunicationServer.sendMessage(""+cont, client);
 				
 			}
+	 default:
+		 System.out.println(msg);
 		}	
+	
 		return null;
 	}
 }

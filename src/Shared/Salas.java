@@ -10,14 +10,22 @@ public class Salas {
 
 	private ArrayList<Room> salas;
 
-	public Salas() {}
+	public Salas() {
+		this.salas = new ArrayList<Room>(40);
+	}
 	
 	public void addRoom(Room n) {
 		this.salas.add(n);
 	}
 	
 	public void addRoom(int index) {
-		this.salas.add(new Room(index));
+		if(salas.size()>39) {
+			System.out.println("ja deu");
+		}
+		Room a =new Room(index);
+		System.out.println(a.getId());
+		this.salas.add(a);
+		a.run();
 	}
 	
 	public Room getRoomNome(String nome) {

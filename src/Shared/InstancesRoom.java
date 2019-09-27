@@ -16,6 +16,7 @@ public class InstancesRoom {
 	private GeraString geraString;
 	private Prisao prisao;
 	public static InstancesRoom instance;
+	private ComunicationFacade comunication;
 	
 	public InstancesRoom(Room r) {
 		instance = this;
@@ -25,7 +26,7 @@ public class InstancesRoom {
 		this.gerencia = new GerenciamentoDeTerreno();
 		this.fachadaT = new FachadaTabuleiro();
 		this.tabuleiro = new Tabuleiro(this.gerencia, this.prisao);
-		
+		this.comunication = new ComunicationFacade(4444);
 	}
 	
 	public static InstancesRoom getInstance() {
@@ -50,5 +51,9 @@ public class InstancesRoom {
 	
 	public Room getRoom() {
 		return this.room;
+	}
+	
+	public ComunicationFacade getComunication() {
+		return this.comunication;
 	}
 }

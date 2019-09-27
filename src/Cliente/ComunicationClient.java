@@ -1,9 +1,7 @@
 package Cliente;
 
-import java.io.IOException;
 import java.net.*;
 import java.util.HashMap;
-import java.net.*;
 
 public class ComunicationClient {
 
@@ -11,15 +9,15 @@ public class ComunicationClient {
 	private int port;
 
 	public ComunicationClient() {
-
+		this.port= 4444;
 	}
 
 	public void sendMessage(String message) throws Exception {
 
-		InetAddress IPAddress = InetAddress.getByName("192.168.27.106");
+		this.IPAddress = InetAddress.getByName("192.168.27.115");
 		DatagramSocket socket = new DatagramSocket(4444);
 		byte[] a = message.getBytes();
-		DatagramPacket bbbb = new DatagramPacket(a, a.length, IPAddress, 4444);
+		DatagramPacket bbbb = new DatagramPacket(a, a.length, IPAddress, port);
 		socket.send(bbbb);
 		socket.close();
 	}
@@ -44,6 +42,7 @@ public class ComunicationClient {
 				map.put("msg", aux[0]);
 
 			}
+			socket.close();
 			return map;
 		} catch (Exception e1) {
 
@@ -72,7 +71,9 @@ public class ComunicationClient {
 				map.put("msg", aux[0]);
 
 			}
+			socket.close();
 			return map;
+			
 		} catch (Exception e1) {
 
 			e1.printStackTrace();
