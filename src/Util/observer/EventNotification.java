@@ -10,24 +10,19 @@ import Util.jogadores.Jogadores;
 
 public class EventNotification extends EventsNotification {
 
-	private static ArrayList<EventNotification> instance = new ArrayList<EventNotification>(40);
 	
-	private EventNotification() {
+	public EventNotification() {
 		
 	}
 
-	public static EventNotification getInstance(int id) {
-		if(instance.get(id)== null ) instance.set(id, new EventNotification());
-		return instance.get(id);
-	}
 	
 	@Override
-	public void lancaEventNotification(String msg, Jogadores j, DatagramSocket socket, ComunicationFacade comunication)
+	public void lancaEventNotification(String msg, Jogadores j, ComunicationFacade comunication)
 			throws IOException {
 		
 		ArrayList<Jogador> jogadores = j.getJogadores();
 		for(Jogador i: jogadores) {
-			comunication.sendMessage(msg, socket, i.getAddress());
+			comunication.sendMessage(msg, 9999, i.getAddress());
 		
 		}
 		

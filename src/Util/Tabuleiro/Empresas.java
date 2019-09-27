@@ -31,8 +31,8 @@ public class Empresas implements Casa,Comercial{
 			j.getJogadorDaVez().perdeDinehiro(preco);
 			this.proprietario = j.getJogadorDaVez();
 			j.getJogadorDaVez().addEmpresa(this);
-			o.fireEventNotification("Compra com Sucesso", EventNotification.getInstance(o.getId()), j);
-			o.fireEventNotification("Saldo atual do jogador "+j.getJogadorDaVez().getNome()+ " : "+j.getJogadorDaVez().getDinheiro(),EventNotification.getInstance(o.getId()), j);
+			o.fireEventNotification("Compra com Sucesso", new EventNotification(), j);
+			o.fireEventNotification("Saldo atual do jogador "+j.getJogadorDaVez().getNome()+ " : "+j.getJogadorDaVez().getDinheiro(),new EventNotification(), j);
 			System.out.println("Saldo atual: "+j.getJogadorDaVez().getDinheiro());}
 		else throw new SemSaldoException();
 	
@@ -66,23 +66,23 @@ public class Empresas implements Casa,Comercial{
 		int dadosSomados= Integer.parseInt(a[0])+Integer.parseInt(a[1]);
 		paga.perdeDinehiro(dadosSomados*multiplicador);
 		recebe.ganhaDinheiro(dadosSomados*multiplicador);
-		o.fireEventNotification("Jogador "+paga.getNome() +" caiu na empresa de "+recebe.getNome()+ " e pagou " +dadosSomados*multiplicador, EventNotification.getInstance(o.getId()), j);
-		o.fireEventNotification("Saldo atual do jogador "+recebe.getNome()+" é: "+ recebe.getDinheiro(), EventNotification.getInstance(o.getId()), j);
-		o.fireEventNotification("Saldo atual do jogador "+paga.getNome()+" é : "+paga.getDinheiro(), EventNotification.getInstance(o.getId()), j);
+		o.fireEventNotification("Jogador "+paga.getNome() +" caiu na empresa de "+recebe.getNome()+ " e pagou " +dadosSomados*multiplicador, new EventNotification(), j);
+		o.fireEventNotification("Saldo atual do jogador "+recebe.getNome()+" é: "+ recebe.getDinheiro(), new EventNotification(), j);
+		o.fireEventNotification("Saldo atual do jogador "+paga.getNome()+" é : "+paga.getDinheiro(), new EventNotification(), j);
 	}
 	
 	public void fazAcao(Comandos cmd, Jogadores j) {//faz ação referente a Empresas
 		Observer o = cmd.getObserver();
 		if(proprietario==null) {
 			if(j.getJogadorDaVez().getDinheiro()>=preco) {
-				o.fireEventNotification("O titulo do terreno está disponível por: $"+preco, EventNotification.getInstance(o.getId()), cmd.getJogadores());
-				o.fireEventNotification(j.getJogadorDaVez().getNome()+" você possui $"+j.getJogadorDaVez().getDinheiro(),EventNotification.getInstance(o.getId()), cmd.getJogadores());
+				o.fireEventNotification("O titulo do terreno está disponível por: $"+preco, new EventNotification(), cmd.getJogadores());
+				o.fireEventNotification(j.getJogadorDaVez().getNome()+" você possui $"+j.getJogadorDaVez().getDinheiro(),new EventNotification(), cmd.getJogadores());
 				boolean cond = true;
 				HashMap<String,Object> map;
 				ComunicationFacade comunication = o.getComunication();
 				try {
 					DatagramSocket socket = new DatagramSocket(comunication.getPort(o.getId()));
-					comunication.sendMessage("Deseja comprar? [Sim] [Nao]", socket, j.getJogadorDaVez().getAddress());
+					comunication.sendMessage("Deseja comprar? [Sim] [Nao]", 9999, j.getJogadorDaVez().getAddress());
 					while(cond) {
 						map =(HashMap<String, Object>) comunication.reciveMessage();
 						if(map.get("address").equals(j.getJogadorDaVez().getAddress())) {
@@ -90,6 +90,7 @@ public class Empresas implements Casa,Comercial{
 							if(aux.equals("sim")||aux.equals("s")||aux.equals("Sim")) {
 			    				compra(j,o);
 			    				cond=false;
+			    				socket.close();
 							}
 						}
 					}

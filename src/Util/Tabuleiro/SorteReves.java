@@ -66,7 +66,7 @@ public class SorteReves implements Casa{
 			geraEfeito(j.getJogadorDaVez(), cmd, j);
 		} catch (SemSaldoException e) {
 			Observer o = cmd.getObserver();
-			o.fireEventNotification(e.getMessage(), EventNotification.getInstance(o.getId()), j);
+			o.fireEventNotification(e.getMessage(),new EventNotification(), j);
 		}
 		
 	}

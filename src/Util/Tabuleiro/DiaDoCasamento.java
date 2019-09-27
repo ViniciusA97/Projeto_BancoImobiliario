@@ -14,13 +14,13 @@ public class DiaDoCasamento implements Casa{
 	
 	public void fazAcao(Comandos cmd, Jogadores j) {
 		Observer o = cmd.getObserver();
-		o.fireEventNotification(toString(), EventNotification.getInstance(o.getId()), cmd.getJogadores());
+		o.fireEventNotification(toString(), new EventNotification(), cmd.getJogadores());
 		for(Jogador i :j.getJogadores()) {
 			if(!i.equals(j.getJogadorDaVez())) {
 				try {
 					i.perdeDinehiro(50);
 				} catch (SemSaldoException e) {
-					o.fireEventNotification(e.getMessage(), EventNotification.getInstance(o.getId()), cmd.getJogadores());
+					o.fireEventNotification(e.getMessage(), new EventNotification(), cmd.getJogadores());
 				}
 				j.getJogadorDaVez().ganhaDinheiro(50);
 			}

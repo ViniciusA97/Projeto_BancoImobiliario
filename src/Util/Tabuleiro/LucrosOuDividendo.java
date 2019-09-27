@@ -18,8 +18,8 @@ public class LucrosOuDividendo implements Casa{
 	public void fazAcao(Comandos cmd, Jogadores j) {
 		Observer o = cmd.getObserver();
 		j.getJogadorDaVez().ganhaDinheiro(200);
-		o.fireEventNotification("Jogador "+ j.getJogadorDaVez().getNome()+ " Ganhou 200.", EventNotification.getInstance(o.getId()), j);
-		o.fireEventNotification("Saldo Atual: "+j.getJogadorDaVez().getDinheiro(),EventNotification.getInstance(o.getId()), j);
+		o.fireEventNotification("Jogador "+ j.getJogadorDaVez().getNome()+ " Ganhou 200.", new EventNotification(), j);
+		o.fireEventNotification("Saldo Atual: "+j.getJogadorDaVez().getDinheiro(),new EventNotification(), j);
 		
 	}
 

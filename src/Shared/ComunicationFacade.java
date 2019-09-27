@@ -56,8 +56,8 @@ public class ComunicationFacade {
         socket.close();
         return mapComunication;
     }
-    public void sendMessage(String message , DatagramSocket socket, InetAddress  adress) throws IOException{
-
+    public void sendMessage(String message ,int port, InetAddress  adress) throws IOException{
+    	DatagramSocket socket =new  DatagramSocket(port) ;
         byte[] bytes = message.getBytes();  
       	DatagramPacket pacote = new DatagramPacket(bytes, bytes.length, adress, this.PORT);
       	socket.send(pacote);        

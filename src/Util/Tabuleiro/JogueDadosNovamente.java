@@ -12,7 +12,7 @@ public class JogueDadosNovamente implements Casa{
 
 	public void fazAcao(Comandos cmd, Jogadores j) {
 		Observer o = cmd.getObserver();
-		o.fireEventNotification("Jogador "+ j.getJogadorDaVez().getNome()+" tirou a carta 'Jogue os dados novamente'.", EventNotification.getInstance(o.getId()), j);
+		o.fireEventNotification("Jogador "+ j.getJogadorDaVez().getNome()+" tirou a carta 'Jogue os dados novamente'.", new EventNotification(), j);
 		cmd.comandoJogar();
 	}
 	

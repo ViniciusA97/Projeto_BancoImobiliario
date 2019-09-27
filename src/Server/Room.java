@@ -86,7 +86,7 @@ public class Room extends Thread {
 		try {
 			this.jogadores.cadastraJogador(j);
 		} catch (JogadorJaExisteException e) {
-			this.comunication.sendMessage(e.getMessage(), socket, j.getAddress());
+			this.comunication.sendMessage(e.getMessage(), this.port, j.getAddress());
 		}
 		;
 	}

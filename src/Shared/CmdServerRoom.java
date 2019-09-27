@@ -45,14 +45,14 @@ public class CmdServerRoom implements Cmd {
 				this.room.addPlayer(newPlayer);
 			} catch (IOException e) {
 				try {
-					this.comunication.sendMessage(e.getMessage(), socket, newPlayer.getAddress());
+					this.comunication.sendMessage(e.getMessage(), this.room.getPort(), newPlayer.getAddress());
 				} catch (IOException e1) {
 					System.out.println(e.getMessage());
 				}
 				System.out.println(e.getMessage());
 			}
 			this.observer.fireEventNotification("Jogador " + this.room.getPlayer(client).getNome() + " entrou no jogo",
-					new EventoNotificationGetIn(), this.room.getJogadores());
+					new EventNotification(), this.room.getJogadores());
 			;
 
 			break;
@@ -64,11 +64,11 @@ public class CmdServerRoom implements Cmd {
 				this.observer.fireEventNotification(
 						"Jogador " + this.room.getPlayer(client).getNome() + " mudou a cor para "
 								+ this.room.getPlayer(client).getCor(),
-						new EventNotificationChanges(), this.room.getJogadores());
+						new EventNotification(), this.room.getJogadores());
 			} else {
 
 				try {
-					this.comunication.sendMessage("Ja existe jogador usando essa cor", socket, client);
+					this.comunication.sendMessage("Ja existe jogador usando essa cor", this.room.getPort(), client);
 				} catch (IOException e) {
 					System.out.println(e.getMessage());
 				}
@@ -84,27 +84,27 @@ public class CmdServerRoom implements Cmd {
 				this.room.getPlayer(client).setName((String) map.get("usual"));
 				this.observer.fireEventNotification(
 						"Jogador " + nomeAntigo + " mudou o nome para " + this.room.getPlayer(client).getNome(),
-						new EventNotificationChanges(), this.room.getJogadores());
+						new EventNotification(), this.room.getJogadores());
 
 			} else {
 
 				try {
-					this.comunication.sendMessage("Algum jogador ja possui esse nome.", socket, client);
+					this.comunication.sendMessage("Algum jogador ja possui esse nome.", this.room.getPort(), client);
 				} catch (IOException e) {
 					System.out.println(e.getMessage());
 				}
 			}
-
+			break;
 		case "startGame":
 
 			if (this.room.getPlayer(client).getAdm()) {
 				this.room.setStatusGame(true);
-				this.observer.fireEventNotification("O jogo irá começar.", new EventNotificationStartGame(),
+				this.observer.fireEventNotification("O jogo irá começar.", new EventNotification(),
 						this.room.getJogadores());
 			} else {
 				try {
 					this.comunication.sendMessage("Apenas Jogadores intitulados como adms podem iniciar o jogo. ",
-							socket, client);
+							this.room.getPort(), client);
 				} catch (IOException e) {
 					System.out.println(e.getMessage() + " Start Game cmd Server room");
 				}
@@ -116,12 +116,12 @@ public class CmdServerRoom implements Cmd {
 			if (this.room.getPlayer(client).getAdm()) {
 				String name = (String) map.get("usual");
 				this.room.setName(name);
-				this.observer.fireEventNotification("O nome da sala foi mudado para " + name,
-						new EventNotificationStartGame(), this.room.getJogadores());
+				this.observer.fireEventNotification("O nome da sala foi mudado para " + name, new EventNotification(),
+						this.room.getJogadores());
 			} else {
 				try {
 					this.comunication.sendMessage("Apenas Jogadores intitulados como adms podem iniciar o jogo. ",
-							socket, client);
+							this.room.getPort(), client);
 				} catch (IOException e) {
 					System.out.println(e.getMessage() + " Não trocado o nome da sala");
 				}
@@ -138,14 +138,14 @@ public class CmdServerRoom implements Cmd {
 				}
 			}
 
-			this.observer.fireEventNotification("1", EventNotification.getInstance(this.observer.getId()), jogadores);
-
+			this.observer.fireEventNotification("1", new EventNotification(), jogadores);
+			break;
 		case "getOutGame":
 			this.room.delPlayer(client);
 			Jogador jogador = this.room.getPlayer(client);
 			this.observer.fireEventNotification("Jogador " + jogador.getNome() + " saiu do jogo.",
-					EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
-
+					new EventNotification(), this.room.getJogadores());
+			break;
 		case "jogar":
 
 			jogadores = this.room.getJogadores();
@@ -154,9 +154,9 @@ public class CmdServerRoom implements Cmd {
 				this.comandos.comandoJogar();
 
 			} else {
-				this.observer.fireEventNotification("Não é sua vez",
-						EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
+				this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
 			}
+			break;
 
 		case "status":
 
@@ -165,10 +165,9 @@ public class CmdServerRoom implements Cmd {
 				this.comandos.comandoStatus();
 
 			} else {
-				this.observer.fireEventNotification("Não é sua vez",
-						EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
+				this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
 			}
-
+			break;
 		case "vender":
 
 			jogadores = this.room.getJogadores();
@@ -176,10 +175,9 @@ public class CmdServerRoom implements Cmd {
 				this.comandos.comandoVender();
 
 			} else {
-				this.observer.fireEventNotification("Não é sua vez",
-						EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
+				this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
 			}
-
+			break;
 		case "carta":
 
 			jogadores = this.room.getJogadores();
@@ -189,11 +187,11 @@ public class CmdServerRoom implements Cmd {
 					this.comandos.comandoCarta();
 
 				} else {
-					this.observer.fireEventNotification("Não é sua vez",
-							EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
+					this.observer.fireEventNotification("Não é sua vez", new EventNotification(),
+							this.room.getJogadores());
 				}
 			}
-
+			break;
 		case "pagar":
 
 			jogadores = this.room.getJogadores();
@@ -203,11 +201,11 @@ public class CmdServerRoom implements Cmd {
 					this.comandos.comandoPagar();
 
 				} else {
-					this.observer.fireEventNotification("Não é sua vez",
-							EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
+					this.observer.fireEventNotification("Não é sua vez", new EventNotification(),
+							this.room.getJogadores());
 				}
 			}
-
+			break;
 		case "biuld":
 
 			jogadores = this.room.getJogadores();
@@ -215,15 +213,21 @@ public class CmdServerRoom implements Cmd {
 				this.comandos.comandoConstruir();
 
 			} else {
-				this.observer.fireEventNotification("Não é sua vez",
-						EventNotification.getInstance(this.observer.getId()), this.room.getJogadores());
+				this.observer.fireEventNotification("Não é sua vez", new EventNotification(), this.room.getJogadores());
 			}
 			// biuld e lançar observer
-
+			break;
 		case "/h":
-
+			break;
 		case "chat":
-
+			break;
+		default:
+			try {
+				this.comunication.sendMessage("Comando invalido para sala.", this.room.getPort(), client);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage()+" default ROom");
+			}
 		}
 
 		return "";

@@ -15,7 +15,7 @@ public class CmdServer implements Cmd {
 
 	public CmdServer(Salas sala, ComunicationFacadeServer s) {
 
-		this.comunicationServer=s ;
+		this.comunicationServer = s;
 		this.sala = sala;
 		this.cont = 0;
 	}
@@ -42,7 +42,7 @@ public class CmdServer implements Cmd {
 			} catch (Exception e) {
 				this.comunicationServer.sendMessage(e.getMessage(), client);
 			}
-
+			break;
 		case "getInName":
 			System.out.println("entrou get in name");
 			String nome = (String) map.get("usual");
@@ -53,7 +53,7 @@ public class CmdServer implements Cmd {
 			} catch (IOException e) {
 				this.comunicationServer.sendMessage(e.getMessage(), client);
 			}
-
+			break;
 		case "createRoom":
 			System.out.println("entrou create room");
 			if (cont >= 40) {
@@ -68,6 +68,9 @@ public class CmdServer implements Cmd {
 				this.comunicationServer.sendMessage("" + cont, client);
 				System.out.println("saiu");
 			}
+			break;
+		default:
+			this.comunicationServer.sendMessage("Comando não aceito.", client);
 
 		}
 		System.out.println(msg);

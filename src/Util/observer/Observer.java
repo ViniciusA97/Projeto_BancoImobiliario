@@ -24,7 +24,7 @@ public class Observer {
 	public void fireEventoMonopolio(Events eventoMonopolio,  Jogadores j) throws IOException {
 		DatagramSocket socket = new DatagramSocket(9999);
 		for(Jogador i: j.getJogadores()) {
-			comunication.sendMessage(eventoMonopolio.getStringEvento(j),socket, i.getAddress());
+			comunication.sendMessage(eventoMonopolio.getStringEvento(j),9999, i.getAddress());
 		}	
 		socket.close();
 	}
@@ -32,7 +32,7 @@ public class Observer {
 	public void fireEventoPreMonopolio(Events eventoPreMonopolio, Jogadores j) throws IOException {
 		DatagramSocket socket = new DatagramSocket(9999);
 		for(Jogador i: j.getJogadores()) {
-			comunication.sendMessage(eventoPreMonopolio.getStringEvento(j), socket, i.getAddress());
+			comunication.sendMessage(eventoPreMonopolio.getStringEvento(j), 9999, i.getAddress());
 		}
 		socket.close();
 	}
@@ -40,7 +40,7 @@ public class Observer {
 	public void fireEventoPreHotel(Events eventoPreHotel, Jogadores j) throws IOException {
 		DatagramSocket socket = new DatagramSocket(9999);
 		for(Jogador i: j.getJogadores()) {
-			comunication.sendMessage(eventoPreHotel.getStringEvento(j), socket, i.getAddress());
+			comunication.sendMessage(eventoPreHotel.getStringEvento(j), 9999, i.getAddress());
 		}
 		socket.close();
 	}
@@ -49,7 +49,7 @@ public class Observer {
 		
 		try {
 			DatagramSocket socket = new DatagramSocket(9999);
-			event.lancaEventNotification(msg,j, socket, comunication);
+			event.lancaEventNotification(msg,j, comunication);
 			socket.close();
 		} catch (IOException e) {
 			System.out.println(e.getLocalizedMessage()+" -- Event get In");

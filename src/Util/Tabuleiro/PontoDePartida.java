@@ -19,7 +19,7 @@ public class PontoDePartida implements Casa {
 	@Override
 	public void fazAcao(Comandos cmd, Jogadores j) {
 		Observer o = cmd.getObserver();
-		o.fireEventNotification(getNome(), EventNotification.getInstance(o.getId()), j);
+		o.fireEventNotification(getNome(), new EventNotification(), j);
 		
 	}
 	

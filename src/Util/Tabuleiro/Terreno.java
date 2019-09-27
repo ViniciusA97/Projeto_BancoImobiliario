@@ -81,13 +81,13 @@ public abstract class Terreno implements Comercial, Casa {
 		paga.perdeDinehiro(this.aluguel);
 		recebe.ganhaDinheiro(this.aluguel);
 		o.fireEventNotification("Jogador " + paga.getNome() + " caiu no terreno do jogador " + recebe.getNome()
-				+ " e irá pagar o aluguel.", EventNotification.getInstance(o.getId()), j);
+				+ " e irá pagar o aluguel.", new EventNotification(), j);
 		o.fireEventNotification("Pagamento de " + aluguel + " efetuado com Sucesso",
-				EventNotification.getInstance(o.getId()), j);
+				new EventNotification(), j);
 		o.fireEventNotification("Saldo atual do jogador " + recebe.getNome() + " é: " + recebe.getDinheiro(),
-				EventNotification.getInstance(o.getId()), j);
+				new EventNotification(), j);
 		o.fireEventNotification("Saldo atual do jogador " + paga.getNome() + " é : " + paga.getDinheiro(),
-				EventNotification.getInstance(o.getId()), j);
+				new EventNotification(), j);
 
 	}
 
@@ -117,9 +117,9 @@ public abstract class Terreno implements Comercial, Casa {
 			j.getJogadorDaVez().perdeDinehiro(preco);
 			this.proprietario = j.getJogadorDaVez();
 			j.getJogadorDaVez().addTerreno(this);
-			o.fireEventNotification("Compra feita com Sucesso!", EventNotification.getInstance(o.getId()), j);
+			o.fireEventNotification("Compra feita com Sucesso!", new EventNotification(), j);
 			o.fireEventNotification("Saldo atual: " + j.getJogadorDaVez().getDinheiro(),
-					EventNotification.getInstance(o.getId()), j);
+					new EventNotification(), j);
 		} else
 			throw new SemSaldoException();
 
@@ -144,17 +144,17 @@ public abstract class Terreno implements Comercial, Casa {
 
 				o.fireEventNotification(
 						"O titulo do terreno está disponível por: $" + preco + " do tipo " + this.getCor(),
-						EventNotification.getInstance(o.getId()), j);
+						new EventNotification(), j);
 				o.fireEventNotification(
 						j.getJogadorDaVez().getNome() + " você possui $" + j.getJogadorDaVez().getDinheiro(),
-						EventNotification.getInstance(o.getId()), j);
+						new EventNotification(), j);
 				boolean cond = true;
 				HashMap<String, Object> map;
 				ComunicationFacade comunication = o.getComunication();
 
 				try {
 					DatagramSocket socket = new DatagramSocket(comunication.getPort(o.getId()));
-					comunication.sendMessage("Deseja comprar? [Sim] [Nao]", socket, j.getJogadorDaVez().getAddress());
+					comunication.sendMessage("Deseja comprar? [Sim] [Nao]", 9999, j.getJogadorDaVez().getAddress());
 					while (cond) {
 						map = (HashMap<String, Object>) comunication.reciveMessage();
 						if (map.get("address").equals(j.getJogadorDaVez().getAddress())) {
@@ -162,12 +162,13 @@ public abstract class Terreno implements Comercial, Casa {
 							if (aux.equals("sim") || aux.equals("s") || aux.equals("Sim")) {
 								compra(j, o);
 								cond = false;
+								socket.close();
 							}
 						}
 					}
 
 				} catch (IOException | SemSaldoException e1) {
-					o.fireEventNotification(e1.getMessage(), EventNotification.getInstance(o.getId()), j);
+					o.fireEventNotification(e1.getMessage(), new EventNotification(), j);
 				}
 				try {
 					compra(j, o);
@@ -177,7 +178,7 @@ public abstract class Terreno implements Comercial, Casa {
 						mediadorObserver.confereDoisTipoMonopolio(j);
 					}
 				} catch (SemSaldoException e) {
-					o.fireEventNotification(e.getMessage(), EventNotification.getInstance(o.getId()), j);
+					o.fireEventNotification(e.getMessage(), new EventNotification(), j);
 				}
 			}
 
@@ -185,7 +186,7 @@ public abstract class Terreno implements Comercial, Casa {
 			try {
 				pagaAluguel(proprietario, j.getJogadorDaVez(), o, j);
 			} catch (SemSaldoException e) {
-				o.fireEventNotification(e.getMessage(), EventNotification.getInstance(o.getId()), j);
+				o.fireEventNotification(e.getMessage(), new EventNotification(), j);
 			}
 		}
 	}

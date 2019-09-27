@@ -23,7 +23,7 @@ public class Salas {
 			System.out.println("ja deu");
 		}
 		Room a =new Room(index);
-		System.out.println(a.getId());
+		System.out.println("teste");
 		this.salas.add(a);
 		a.start();
 	}
