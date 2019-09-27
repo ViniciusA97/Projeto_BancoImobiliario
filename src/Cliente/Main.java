@@ -20,7 +20,6 @@ public class Main {
 		
 		while(true) {
 			String msg = in.nextLine();
-			System.out.println("b");
 			comunication.sendMessage(msg);
 		}
 	}

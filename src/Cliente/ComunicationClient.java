@@ -52,6 +52,36 @@ public class ComunicationClient {
 		System.out.println("aaaaa");
 		return null;
 	}
+	
+	public HashMap<String, Object> RessiveMessageEspecial() {
+		DatagramSocket socket;
+		try {
+			socket = new DatagramSocket(9999);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			byte[] reciveData = new byte[1024];
+			DatagramPacket packageRecive = new DatagramPacket(reciveData, reciveData.length);
+			socket.receive(packageRecive);
+			System.out.println("k");
+			String sentence = new String(packageRecive.getData(), 0, packageRecive.getLength());
+			map.put("address", packageRecive.getAddress());
+			map.put("msg", sentence);
+			if (sentence.contains("/")) {
+
+				String[] aux = sentence.split("/");
+				map.put("usual", aux[1]);
+				map.put("msg", aux[0]);
+
+			}
+			return map;
+		} catch (Exception e1) {
+
+			e1.printStackTrace();
+		}
+		System.out.println("aaaaa");
+		return null;
+	}
+	
+	
 
 	public void changePort(int p) {
 		this.port = p;

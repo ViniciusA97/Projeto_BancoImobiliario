@@ -9,12 +9,10 @@ import Util.jogadores.*;
 public class Observer {
 	
 	private ComunicationFacade comunication;
-	private DatagramSocket socket;
 	private int id;
 	
-	public Observer(ComunicationFacade c, DatagramSocket s, int index) {
+	public Observer(ComunicationFacade c, int index) {
 		this.comunication = c;
-		this.socket = s;
 		this.id = index;
 	}
 	
@@ -24,29 +22,39 @@ public class Observer {
 	
 	
 	public void fireEventoMonopolio(Events eventoMonopolio,  Jogadores j) throws IOException {
+		DatagramSocket socket = new DatagramSocket(9999);
 		for(Jogador i: j.getJogadores()) {
-			comunication.sendMessage(eventoMonopolio.getStringEvento(j),this.socket, i.getAddress());
+			comunication.sendMessage(eventoMonopolio.getStringEvento(j),socket, i.getAddress());
 		}	
+		socket.close();
 	}
 	
 	public void fireEventoPreMonopolio(Events eventoPreMonopolio, Jogadores j) throws IOException {
+		DatagramSocket socket = new DatagramSocket(9999);
 		for(Jogador i: j.getJogadores()) {
-			comunication.sendMessage(eventoPreMonopolio.getStringEvento(j), this.socket, i.getAddress());
+			comunication.sendMessage(eventoPreMonopolio.getStringEvento(j), socket, i.getAddress());
 		}
+		socket.close();
 	}
 	
 	public void fireEventoPreHotel(Events eventoPreHotel, Jogadores j) throws IOException {
+		DatagramSocket socket = new DatagramSocket(9999);
 		for(Jogador i: j.getJogadores()) {
-			comunication.sendMessage(eventoPreHotel.getStringEvento(j), this.socket, i.getAddress());
+			comunication.sendMessage(eventoPreHotel.getStringEvento(j), socket, i.getAddress());
 		}
+		socket.close();
 	}
 	
 	public void fireEventNotification(String msg,EventsNotification event , Jogadores j) {
+		
 		try {
-			event.lancaEventNotification(msg,j, this.socket, comunication);
+			DatagramSocket socket = new DatagramSocket(9999);
+			event.lancaEventNotification(msg,j, socket, comunication);
+			socket.close();
 		} catch (IOException e) {
 			System.out.println(e.getLocalizedMessage()+" -- Event get In");
 		}
+		
 	}
 	
 	public ComunicationFacade getComunication() {

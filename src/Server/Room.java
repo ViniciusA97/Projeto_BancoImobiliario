@@ -35,7 +35,7 @@ public class Room extends Thread {
 	
 		try {
 			this.socket = new DatagramSocket(port);
-			this.observer = new Observer(this.comunication, this.socket,port);
+			this.observer = new Observer(this.comunication,port);
 			this.cmd= new CmdServerRoom(this, this.socket , this.observer , this.comunication);
 			
 		}catch(Exception e) {
