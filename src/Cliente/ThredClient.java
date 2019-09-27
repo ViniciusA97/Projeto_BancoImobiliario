@@ -15,22 +15,12 @@ public class ThredClient extends Thread {
 		// TODO Auto-generated method stub
 
 		HashMap<String, Object> map;
-
+		CmdClient a = new CmdClient(comunication);
 		while (true) {
 			map = this.comunication.RessiveMessageEspecial();
 			System.out.println(map.get("msg"));
 			String sentence = (String) map.get("msg");
-			if (sentence.contains("/")) {
-				String usual = (String) map.get("usual");
-				int porta = Integer.parseInt(usual);
-				this.comunication.changePort(porta);
-				if (porta == 4444 || porta == 9999) {
-					System.out.println("Conectado com o servidor inicial. //hs Para comandos. ");
-				} else {
-
-					System.out.println("" + "conectado com a sala de jogo. //hr Para comandos.");
-				}
-			}
+			System.out.println(sentence);
 		}
 	}
 

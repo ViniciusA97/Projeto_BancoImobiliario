@@ -26,7 +26,7 @@ public class ComunicationClient {
 		System.out.println("ressiveMsg client");
 		DatagramSocket socket;
 		try {
-			socket = new DatagramSocket(4444);
+			socket = new DatagramSocket(port);
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			byte[] reciveData = new byte[1024];
 			DatagramPacket packageRecive = new DatagramPacket(reciveData, reciveData.length);
@@ -86,7 +86,7 @@ public class ComunicationClient {
 
 	public void changePort(int p) {
 		this.port = p;
-
+		System.out.println(port);
 	}
 
 	public void resetPort() {

@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - CmdClient",
+            "request": "launch",
+            "mainClass": "Cliente.CmdClient",
+            "projectName": "ProjetoBI"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Main",
             "request": "launch",
             "mainClass": "Cliente.Main",
