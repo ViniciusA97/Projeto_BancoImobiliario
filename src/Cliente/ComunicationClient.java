@@ -7,44 +7,34 @@ import java.net.*;
 
 public class ComunicationClient {
 
-	private DatagramSocket socket;
-	private InetAddress ip;
+	private InetAddress IPAddress;
 	private int port;
 
-	public ComunicationClient(String ipef) {
-		try {
-			InetAddress ip = InetAddress.getByName("hostname");
-			this.socket = new DatagramSocket();
-			this.port = 4444;
-								
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+	public ComunicationClient() {
+
 	}
 
-	public void sendMessage(String message) {
+	public void sendMessage(String message) throws Exception {
 
-		byte[] bytes = message.getBytes();
-		DatagramPacket pacote = new DatagramPacket(bytes, bytes.length, ip, this.port);
-
-		try {
-			socket.send(pacote);
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-
+		InetAddress IPAddress = InetAddress.getByName("192.168.27.105");
+		DatagramSocket socket = new DatagramSocket(4444);
+		byte[] a = message.getBytes();
+		DatagramPacket bbbb = new DatagramPacket(a, a.length, IPAddress, 4444);
+		socket.send(bbbb);
+		socket.close();
 	}
 
 	public HashMap<String, Object> RessiveMessage() {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		byte[] reciveData = new byte[1024];
-		DatagramPacket packageRecive = new DatagramPacket(reciveData, reciveData.length);
-		
-		while(true) {
-					try {
-		
+		System.out.println("ressiveMsg client");
+		DatagramSocket socket;
+		try {
+			socket = new DatagramSocket(4444);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			byte[] reciveData = new byte[1024];
+			DatagramPacket packageRecive = new DatagramPacket(reciveData, reciveData.length);
 			socket.receive(packageRecive);
-			String sentence = new String(packageRecive.getData(), 0 , packageRecive.getLength());
+			System.out.println("k");
+			String sentence = new String(packageRecive.getData(), 0, packageRecive.getLength());
 			map.put("address", packageRecive.getAddress());
 			map.put("msg", sentence);
 			if (sentence.contains("/")) {
@@ -54,14 +44,14 @@ public class ComunicationClient {
 				map.put("msg", aux[0]);
 
 			}
-		} catch (IOException e) {
-			System.out.println(e.getLocalizedMessage());
-		}
-		return map;
+			return map;
+		} catch (Exception e1) {
 
+			e1.printStackTrace();
+		}
+		System.out.println("aaaaa");
+		return null;
 	}
-		}
-
 
 	public void changePort(int p) {
 		this.port = p;

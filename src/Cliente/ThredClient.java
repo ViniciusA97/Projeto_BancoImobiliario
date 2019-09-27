@@ -6,8 +6,9 @@ public class ThredClient implements Runnable {
 
 	private ComunicationClient comunication;
 
-	public ThredClient(ComunicationClient c) {
-		this.comunication=c;
+	public ThredClient() {
+		this.comunication=new ComunicationClient();
+		System.out.println("d");
 	}
 	@Override
 	public void run() {

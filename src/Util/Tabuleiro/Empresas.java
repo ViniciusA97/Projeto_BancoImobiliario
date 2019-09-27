@@ -81,7 +81,7 @@ public class Empresas implements Casa,Comercial{
 				HashMap<String,Object> map;
 				ComunicationFacade comunication = o.getComunication();
 				try {
-					DatagramSocket socket = new DatagramSocket();
+					DatagramSocket socket = new DatagramSocket(comunication.getPort(o.getId()));
 					comunication.sendMessage("Deseja comprar? [Sim] [Nao]", socket, j.getJogadorDaVez().getAddress());
 					while(cond) {
 						map =(HashMap<String, Object>) comunication.reciveMessage();

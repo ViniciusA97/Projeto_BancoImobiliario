@@ -14,16 +14,11 @@ import Util.jogadores.Jogadores;
 
 public class ComunicationFacade {
 
-	private DatagramSocket socket;
     private final int PORT;
     private static ArrayList<ComunicationFacade> instances = new ArrayList<ComunicationFacade>(40);
     
     private  ComunicationFacade(int port){
-    	try {
-			this.socket= new DatagramSocket(port);
-		} catch (SocketException e) {
-			System.out.println(e.getMessage());
-		}
+    
     	this.PORT = port;
     	
     } 
@@ -51,13 +46,17 @@ public class ComunicationFacade {
 
     public Map<String, Object> reciveMessage() throws IOException {
        
+    	DatagramSocket socket = new DatagramSocket(PORT);
     	Map<String, Object> mapComunication = new HashMap<String, Object>();
         byte[] reciveData = new byte[1024];
+        
         DatagramPacket packageRecive = new DatagramPacket(reciveData, reciveData.length);
         socket.receive(packageRecive);
 		String sentence = new String( packageRecive.getData());
-        mapComunication.put("address",packageRecive.getAddress() );
+        
+		mapComunication.put("address",packageRecive.getAddress() );
         mapComunication.put("msg",sentence);
+       
         if(sentence.contains("/")) {
         	
         	String [] aux = sentence.split("/");
@@ -65,6 +64,7 @@ public class ComunicationFacade {
         	mapComunication.put("msg", aux[0]);
         	
         }
+        socket.close();
         return mapComunication;
     }
     public void sendMessage(String message , DatagramSocket socket, InetAddress  adress) throws IOException{
@@ -72,12 +72,12 @@ public class ComunicationFacade {
         byte[] bytes = message.getBytes();  
       	DatagramPacket pacote = new DatagramPacket(bytes, bytes.length, adress, this.PORT);
       	socket.send(pacote);        
-        
+        socket.close();
         
     }
     
-    public DatagramSocket getSocket(int index) {
-    	return instances.get(index).socket;
+    public int getPort(int index) {
+    	return instances.get(index).PORT;
     }
   
 

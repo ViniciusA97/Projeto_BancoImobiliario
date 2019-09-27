@@ -2,26 +2,26 @@ package Cliente;
 
 import java.io.*;
 import java.net.*;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 
-		System.out.println("Qual o endereço do servidor?");
 		Scanner in = new Scanner(System.in);
-		String ip = in.nextLine();
+		
 
-		ComunicationClient comunication = new ComunicationClient(ip);
-		ThredClient a = new ThredClient(comunication);
-		a.run();
+		ComunicationClient comunication = new ComunicationClient();
+		ThredClient a = new ThredClient();
+		System.out.println("c");
+		//a.run();
+		
 		
 		while(true) {
-			
-			String msg = "createRoom";
-			System.out.println(msg);
+			String msg = in.nextLine();
+			System.out.println("b");
 			comunication.sendMessage(msg);
-			
 		}
 	}
 

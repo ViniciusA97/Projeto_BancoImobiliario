@@ -16,7 +16,7 @@ public class Server {
 		ComunicationFacadeServer comunication = ComunicationFacadeServer.getInstance();
 			
 		while(true) {
-				
+			System.out.println("a");
 			comunication.reciveMessage();
 			
 		}
