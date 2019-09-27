@@ -16,7 +16,7 @@ public class ComunicationClient {
 
 	public void sendMessage(String message) throws Exception {
 
-		InetAddress IPAddress = InetAddress.getByName("192.168.27.105");
+		InetAddress IPAddress = InetAddress.getByName("192.168.27.106");
 		DatagramSocket socket = new DatagramSocket(4444);
 		byte[] a = message.getBytes();
 		DatagramPacket bbbb = new DatagramPacket(a, a.length, IPAddress, 4444);

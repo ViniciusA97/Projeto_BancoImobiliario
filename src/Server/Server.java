@@ -14,11 +14,11 @@ public class Server {
 		Salas salas = new Salas();
 		CmdServer cmdServer = new CmdServer(salas);
 		ComunicationFacadeServer comunication = ComunicationFacadeServer.getInstance();
-			
+		HashMap<String, Object> map;
 		while(true) {
 			System.out.println("a");
-			comunication.reciveMessage();
-			
+			map = comunication.reciveMessage();
+			cmdServer.cases(map);
 		}
 		
 		
