@@ -38,9 +38,9 @@ public class CmdServer implements Cmd {
 				int id = (int) map.get("usual");
 				j = new Jogador(client);
 				r = this.sala.addJogadorInRoomID(id, j);
-				this.comunicationServer.sendMessage("" + r.getPort(), client);
+				this.comunicationServer.sendMessage("ok/" + r.getPort(), client);
 			} catch (Exception e) {
-				this.comunicationServer.sendMessage(e.getMessage(), client);
+				this.comunicationServer.sendMessage("fail", client);
 			}
 			break;
 		case "getInName":
@@ -49,28 +49,28 @@ public class CmdServer implements Cmd {
 			j = new Jogador(client);
 			try {
 				r = this.sala.addJogadorInRoomName(nome, j);
-				this.comunicationServer.sendMessage("" + r.getPort(), client);
+				this.comunicationServer.sendMessage("ok/" + r.getPort(), client);
 			} catch (IOException e) {
-				this.comunicationServer.sendMessage(e.getMessage(), client);
+				this.comunicationServer.sendMessage("fail", client);
 			}
 			break;
 		case "createRoom":
 			System.out.println("entrou create room");
 			if (cont >= 40) {
 
-				this.comunicationServer.sendMessage("Ja há mais salas que o permitido.", client);
+				this.comunicationServer.sendMessage("Ja hï¿½ mais salas que o permitido.", client);
 
 			} else {
 
 				this.sala.addRoom(cont);
 				this.cont++;
 				System.out.println("vai entrarr");
-				this.comunicationServer.sendMessage("" + cont, client);
+				this.comunicationServer.sendMessage("ok/" + cont, client)
 				System.out.println("saiu");
 			}
 			break;
 		default:
-			this.comunicationServer.sendMessage("Comando não aceito.", client);
+			this.comunicationServer.sendMessage("fail", client);
 
 		}
 		System.out.println(msg);

@@ -9,8 +9,8 @@ public class Main {
 
 		Scanner in = new Scanner(System.in);
 		
-
 		ComunicationClient comunication = new ComunicationClient();
+		CmdClient client = new CmdClient(comunication);
 		ThredClient a = new ThredClient();
 		System.out.println("c");
 		a.start();
@@ -22,6 +22,7 @@ public class Main {
 			comunication.sendMessage(msg);
 			map = comunication.RessiveMessage();
 			System.out.println(map.get("msg"));
+			client.cases(map);
 		}
 	}
 

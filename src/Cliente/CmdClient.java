@@ -8,12 +8,12 @@ public class CmdClient implements Cmd {
 
     private ComunicationClient comunication;
 
-    public void comunication(ComunicationClient c) {
+    public CmdClient(ComunicationClient c) {
         this.comunication = c;
     }
 
     public String cases(HashMap<String, Object> map) {
-        String msg = map.get("msg").toString();
+        String msg = (String) map.get("msg");
         InetAddress client = (InetAddress) map.get("address");
 
         switch (msg.trim()) {
