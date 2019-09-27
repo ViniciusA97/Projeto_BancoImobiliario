@@ -17,8 +17,8 @@ public class Server {
 			
 		while(true) {
 				
-			HashMap<String, Object> map =comunication.reciveMessage();
-			cmdServer.cases(map);
+			comunication.reciveMessage();
+			
 		}
 		
 		

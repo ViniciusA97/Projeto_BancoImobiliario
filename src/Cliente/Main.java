@@ -18,7 +18,8 @@ public class Main {
 		
 		while(true) {
 			
-			String msg = in.nextLine();
+			String msg = "createRoom";
+			System.out.println(msg);
 			comunication.sendMessage(msg);
 			
 		}

@@ -13,10 +13,10 @@ public class ComunicationClient {
 
 	public ComunicationClient(String ipef) {
 		try {
-			InetAddress ip = InetAddress.getByName(ipef);
-			this.socket = new DatagramSocket(1111);
+			InetAddress ip = InetAddress.getByName("hostname");
+			this.socket = new DatagramSocket();
 			this.port = 4444;
-
+								
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -39,9 +39,12 @@ public class ComunicationClient {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		byte[] reciveData = new byte[1024];
 		DatagramPacket packageRecive = new DatagramPacket(reciveData, reciveData.length);
-		try {
+		
+		while(true) {
+					try {
+		
 			socket.receive(packageRecive);
-			String sentence = new String(packageRecive.getData());
+			String sentence = new String(packageRecive.getData(), 0 , packageRecive.getLength());
 			map.put("address", packageRecive.getAddress());
 			map.put("msg", sentence);
 			if (sentence.contains("/")) {
@@ -57,6 +60,8 @@ public class ComunicationClient {
 		return map;
 
 	}
+		}
+
 
 	public void changePort(int p) {
 		this.port = p;

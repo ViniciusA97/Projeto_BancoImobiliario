@@ -9,13 +9,12 @@ import java.util.HashMap;
 
 public class ComunicationFacadeServer {
 
-	private final static int PORT=4444;
 	private DatagramSocket socket;
 	private static ComunicationFacadeServer instance;
 	
 	private ComunicationFacadeServer() {
 		try {
-			this.socket = new DatagramSocket(PORT);
+			this.socket = new DatagramSocket(4444);
 		} catch (SocketException e) {
 			System.out.println(e.getMessage());
 		}
@@ -24,7 +23,7 @@ public class ComunicationFacadeServer {
 	 public void sendMessage(String message , InetAddress ip){
 
 	        byte[] bytes = message.getBytes();  
-	        DatagramPacket pacote = new DatagramPacket(bytes, bytes.length, ip, PORT);
+	        DatagramPacket pacote = new DatagramPacket(bytes, bytes.length, ip, 4444);
 	        try {
 				socket.send(pacote);
 			} catch (IOException e) {
@@ -37,7 +36,9 @@ public class ComunicationFacadeServer {
 		 HashMap<String, Object> mapComunication = new HashMap<String, Object>();
 	     byte[] reciveData = new byte[1024];
 	     DatagramPacket packageRecive = new DatagramPacket(reciveData, reciveData.length);
-	     try {
+	     
+	     while(true) {
+	    	   try {
 			socket.receive(packageRecive);
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
@@ -54,6 +55,8 @@ public class ComunicationFacadeServer {
 	      }
 	      return mapComunication;
 	 }
+	     }
+	   
 	 
 	 public static ComunicationFacadeServer getInstance() {
 		 if(instance == null)instance = new ComunicationFacadeServer();

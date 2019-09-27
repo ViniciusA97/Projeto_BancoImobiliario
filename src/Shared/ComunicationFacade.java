@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,11 @@ public class ComunicationFacade {
     private static ArrayList<ComunicationFacade> instances = new ArrayList<ComunicationFacade>(40);
     
     private  ComunicationFacade(int port){
-    	
+    	try {
+			this.socket= new DatagramSocket(port);
+		} catch (SocketException e) {
+			System.out.println(e.getMessage());
+		}
     	this.PORT = port;
     	
     } 
