@@ -8,8 +8,8 @@ public class VaParaPrisaoSR implements Casa{
 	
 	private Prisao prisao;
 	
-	public VaParaPrisaoSR(int index) {
-		this.prisao = Prisao.getInstance(index);
+	public VaParaPrisaoSR(Prisao prisao) {
+		this.prisao = prisao;
 	}
 	
 	public void geraEfeito(Jogador j) {

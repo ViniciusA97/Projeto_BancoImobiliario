@@ -27,7 +27,7 @@ public class CmdServerRoom implements Cmd{
 		this.socket = s;
 		this.observer = observer;
 		this.comandos = new Comandos(this.observer,this.room.getNum(),this.socket,this.room.getJogadores(), c);
-		this.fachadaT = FachadaTabuleiro.getInstance(this.room.getNum());
+		this.fachadaT = new FachadaTabuleiro();
 		
 	}
 

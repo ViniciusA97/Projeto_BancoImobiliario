@@ -1,8 +1,6 @@
 package Util.Tabuleiro;
 
 import java.util.ArrayList;
-
-import Util.base.GeraString;
 import Util.jogadores.Jogador;
 
 public class GerenciamentoDeTerreno {
@@ -18,7 +16,7 @@ public class GerenciamentoDeTerreno {
 	private ArrayList<TerrenoVermelho> ListVermelho = new  ArrayList<TerrenoVermelho>();
 	
 	
-	private GerenciamentoDeTerreno(){}
+	public GerenciamentoDeTerreno(){}
 	
 	public static GerenciamentoDeTerreno getInstance(int index) {
 		try {

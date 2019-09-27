@@ -4,9 +4,9 @@ import Util.jogadores.Jogador;
 
 public  class TerrenoVerde extends Terreno implements Casa,Comercial {
 
-	public TerrenoVerde(int index,String nome, int preco, int aluguel, int aluguel1Casa, int aluguel2Casas, int aluguel3Casas,
+	public TerrenoVerde(GerenciamentoDeTerreno gerencia,String nome, int preco, int aluguel, int aluguel1Casa, int aluguel2Casas, int aluguel3Casas,
 			int aluguel4Casas, int aluguelHotel, int hipoteca, int precoCasa) {
-		super(index,nome, preco, aluguel, aluguel1Casa, aluguel2Casas, aluguel3Casas, aluguel4Casas, aluguelHotel, hipoteca,
+		super(gerencia,nome, preco, aluguel, aluguel1Casa, aluguel2Casas, aluguel3Casas, aluguel4Casas, aluguelHotel, hipoteca,
 				precoCasa);
 		// TODO Auto-generated constructor stub
 	}

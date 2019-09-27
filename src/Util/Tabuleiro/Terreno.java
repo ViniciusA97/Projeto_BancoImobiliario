@@ -28,9 +28,9 @@ public abstract class Terreno implements Comercial, Casa {
 	private Jogador proprietario;
 	protected GerenciamentoDeTerreno gerenciador;
 
-	public Terreno(int index, String nome, int preco, int aluguel, int aluguel1Casa, int aluguel2Casas,
+	public Terreno(GerenciamentoDeTerreno gerencia, String nome, int preco, int aluguel, int aluguel1Casa, int aluguel2Casas,
 			int aluguel3Casas, int aluguel4Casas, int aluguelHotel, int hipoteca, int precoCasa) {
-		this.gerenciador = GerenciamentoDeTerreno.getInstance(index);
+		this.gerenciador = gerencia;
 		this.nome = nome;
 		this.preco = preco;
 		this.aluguel = aluguel;
@@ -43,7 +43,6 @@ public abstract class Terreno implements Comercial, Casa {
 		this.hipoteca = hipoteca;
 		this.precoCasa = precoCasa;
 		this.proprietario = null;
-		this.gerenciador = GerenciamentoDeTerreno.getInstance(index);
 	}
 
 	public void compraCasa(Jogador j) throws SemSaldoException {// adiciona uma casa ao terreno

@@ -10,23 +10,9 @@ import Util.observer.Observer;
 public class Prisao implements Casa {
 
 	private ArrayList<Jogador> presos;
-	private static ArrayList<Prisao> instance = new ArrayList<Prisao>(40);
 	
-	private Prisao() {
-		presos=new ArrayList<Jogador>();
-	}
-	
-	public static Prisao getInstance(int index) {
-		try {
-			return instance.get(index);
-		}
-		catch (Exception e){
-			for (int i = 0; i<40; i++) {
-				instance.set(i, new Prisao());
-			}
-			
-		return	instance.get(index);
-		}
+	public Prisao() {
+		 this.presos = new ArrayList<Jogador>();
 	}
 
 	public void addPrisioneiro(Jogador j) {

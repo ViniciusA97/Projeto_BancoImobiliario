@@ -1,7 +1,5 @@
 package Util.Tabuleiro;
 
-import java.util.ArrayList;
-
 import Util.base.Comandos;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
@@ -13,16 +11,15 @@ public class SorteReves implements Casa{
 	
 	private FilaCartas cartas;
 	Casa cartaPrin= new PasseLivrePrisao();
-	private static ArrayList<SorteReves> instance = new ArrayList<SorteReves>(40);
 	
-	private SorteReves(int index) {
+	public SorteReves(Prisao prisao) {
 		this.cartas = new FilaCartas();
 		cartas.enfileirar(new CartasGenericas("Sua empresa foi multada por poluir demais", 200, 0));
 		cartas.enfileirar(new DiaDoCasamento());
 		cartas.enfileirar(new CartasGenericas("Reformou sua casa", 50, 0));
 		cartas.enfileirar(new CartasGenericas("Seu livro será publicado", 0, 50));
 		cartas.enfileirar(new PasseLivrePrisao());
-		cartas.enfileirar(new VaParaPrisaoSR(index));
+		cartas.enfileirar(new VaParaPrisaoSR(prisao));
 		cartas.enfileirar(new VaAteOInicio());
 		cartas.enfileirar(new CartasGenericas("Suas ações na bolsa de valores estão em alta", 0, 100));
 		cartas.enfileirar(new CartasGenericas("Curso de MBA", 20, 0));
@@ -48,20 +45,6 @@ public class SorteReves implements Casa{
 		cartas.enfileirar(new CartasGenericas("Um navio afundou com suas mercadorias", 40, 0));
 		cartas.enfileirar(new CartasGenericas("Produção de leite das suas fazendas foi insuficiente", 60, 0));
 		cartas.enfileirar(new CartasGenericas("Ficou em primeiro lugar no torneio de golf", 0, 100));
-	}
-
-	public static SorteReves getInstance(int index) {
-		try {
-			if(instance.get(index) == null) instance.set(index, new SorteReves(index));
-			return instance.get(index);
-		}
-		catch (Exception e){
-			for (int i = 0; i<40; i++) {
-				instance.set(i, new SorteReves(i));
-			}
-			
-		return	instance.set(index, new SorteReves(index));
-		}
 	}
 	
 	public String getNome() {

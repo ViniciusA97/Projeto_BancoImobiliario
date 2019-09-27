@@ -2,7 +2,6 @@ package Util.Tabuleiro;
 
 import java.util.ArrayList;
 
-import Util.base.GeraString;
 import Util.jogadores.Jogador;
 import Util.jogadores.Jogadores;
 import Util.jogadores.SemSaldoException;
@@ -10,30 +9,15 @@ import Util.observer.Observer;
 
 public class FachadaTabuleiro {
 
-	private static ArrayList<FachadaTabuleiro> instance = new ArrayList<FachadaTabuleiro>(40);
 	private Prisao prisao;
 	private Tabuleiro tabuleiro;
 	private GerenciamentoDeTerreno gerenciamentoTerreno;
 	
-	private FachadaTabuleiro(int index){
-		System.out.println("gera string :"+ index);
-		this.prisao= Prisao.getInstance(index);
-		this.tabuleiro = Tabuleiro.getInstance(index);
-		this.gerenciamentoTerreno = GerenciamentoDeTerreno.getInstance(index);
-	}
-	
-	public static FachadaTabuleiro getInstance(int index) {
-		try {
-			if(instance.get(index) == null) instance.set(index, new FachadaTabuleiro(index));
-			return instance.get(index);
-		}
-		catch (Exception e){
-			for (int i = 0; i<40; i++) {
-				instance.set(i, new FachadaTabuleiro(i));
-			}
-			
-		return	instance.set(index, new FachadaTabuleiro(index));
-		}
+	public FachadaTabuleiro(){
+		this.prisao= new Prisao();
+		this.gerenciamentoTerreno = new GerenciamentoDeTerreno();
+		this.tabuleiro = new Tabuleiro(this.gerenciamentoTerreno, prisao);
+		
 	}
 
 	public void tentaSairPrisao(String aux, Jogadores j,Observer o) {

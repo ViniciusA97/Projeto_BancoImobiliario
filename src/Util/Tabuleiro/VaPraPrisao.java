@@ -7,8 +7,8 @@ public class VaPraPrisao implements Casa {
 
 	private Prisao prisao;
 
-	public VaPraPrisao(int index) {
-		this.prisao = Prisao.getInstance(index);
+	public VaPraPrisao(Prisao prisao) {
+		this.prisao = prisao;
 	}
 	
 	public String getNome() {

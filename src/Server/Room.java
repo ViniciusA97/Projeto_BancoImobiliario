@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import Shared.CmdServerRoom;
 import Shared.ComunicationFacade;
+import Shared.InstancesRoom;
 import Util.base.GeraString;
 import Util.jogadores.Jogador;
 import Util.jogadores.JogadorJaExisteException;
@@ -21,14 +22,14 @@ public class Room extends Thread {
 	private boolean inGame;
 	private Observer observer;
 	private Jogadores jogadores;
-	private GeraString geraString;
 	private int port;
 	private int num;
+	private InstancesRoom intances;
 	
 	public Room(int port){
+		this.intances = new InstancesRoom(this);
 		this.num = port;
 		this.port = port;
-		this.geraString = GeraString.getInstance(num);
 		this.jogadores = new Jogadores();
 		this.inGame = false;
 		this.comunication =  ComunicationFacade.getInstance(this.num , port);
@@ -48,6 +49,7 @@ public class Room extends Thread {
 		
 		boolean condiction = true;
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		GeraString geraString = this.intances.getGeraString();
 		
 		while(condiction) {
 			
@@ -134,6 +136,10 @@ public class Room extends Thread {
 	
 	public int getNum() {
 		return this.num;
+	}
+	
+	public InstancesRoom getInstances() {
+		return this.intances;
 	}
 	
 	public int getPort() {return this.port;}
